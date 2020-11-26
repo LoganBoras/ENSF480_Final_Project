@@ -4,11 +4,11 @@ Group 3, November 2020
 
 package TRA.Presentation;
 
-public abstract class Screen {
+import javax.swing.*;
+
+public abstract class Screen extends JPanel implements Observer {
 	
-	//public ArrayList<Subject>;
+	abstract public void update() ;
 	
-	abstract public void updateScreen() ;
-	
-	abstract public int displayScreen();
+	abstract public int buildScreen();
 }

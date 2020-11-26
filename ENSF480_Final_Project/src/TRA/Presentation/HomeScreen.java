@@ -1,5 +1,7 @@
 package TRA.Presentation;
 
+import TRA.Control.HomeController;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -10,44 +12,48 @@ import javax.swing.*;
 
 public class HomeScreen extends Screen{
 
+	HomeController homeController;
+
 	JFrame frame; 
 	private JButton loginBut = new JButton("Login");
 	private JButton orderBut = new JButton("Create Order");
 	private JButton cancelBut = new JButton("Cancel");
 	int selection = -1;
+
+
+	/**
+	 * Ensure default constructor is never called
+	 */
+	private HomeScreen() {
+	}
 	
-	HomeScreen(){
+	public HomeScreen(HomeController homeController) {
+		this.homeController = homeController;
+		this.buildScreen();
+		this.update();
 	}
 	
 	@Override
-	public void updateScreen() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public int displayScreen() {
-		// TODO Auto-generated method stub
-		frame = new JFrame("Home Page");
-		frame.setLayout(new BorderLayout());
-		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,Toolkit.getDefaultToolkit().getScreenSize().height/6);
-		frame.setLocationRelativeTo(null);
-		
+	public int buildScreen() {
+
+		this.setLayout(new BorderLayout());
+		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,Toolkit.getDefaultToolkit().getScreenSize().height/6);
+
 		JPanel buttons = new JPanel(new FlowLayout());
 		buttons.add(loginBut);
 		buttons.add(orderBut);
 		buttons.add(cancelBut);
 		
-		frame.add("North", new JLabel("HOME PAGE :^)", SwingConstants.CENTER));
-		frame.add("South", buttons);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		this.add("North", new JLabel("HOME PAGE :^)", SwingConstants.CENTER));
+		this.add("South", buttons);
 		
 		return controlButtons();
-		
-		
-		
-		
 	}
 	
 	private int controlButtons() {
@@ -68,7 +74,7 @@ public class HomeScreen extends Screen{
 				// TODO Auto-generated method stub
 					setSelection(2);
 					System.out.println("Order Button Pressed, selection returned is : " + getSelection());
-					frame.dispose();
+					homeController.orderButtonAction();
 					
 			}});
 		
@@ -77,7 +83,7 @@ public class HomeScreen extends Screen{
 	
 	public static void main(String args []) {
 		HomeScreen Screen = new HomeScreen();
-		int pog = Screen.displayScreen();
+		int pog = Screen.buildScreen();
 		System.out.println("Returned value from screen : " + pog);
 		
 	}
