@@ -1,3 +1,5 @@
 
-.idea/
-/.idea/
+.idea\
+ENSF480_Final_Project/.*
+ENSF480_Final_Project/bin
+
