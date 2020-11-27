@@ -15,6 +15,13 @@ public class Ticket {
         this.ticketID = ticketID;
     }
 
+    public void udpateTicket(Movie m, Theatre t, Seat s, double c) {
+        movie = m;
+        theatre = t;
+        seat = s;
+        cost = c;
+    }
+
     public Movie getMovie() {
         return movie;
     }

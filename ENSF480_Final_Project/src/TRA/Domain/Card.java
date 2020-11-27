@@ -11,6 +11,12 @@ public class Card {
         this.csv = csv;
     }
 
+    public void updateCardInformation(int cardNumber, String expiryDate, int csv) {
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.csv = csv;
+    }
+
     public int getCardNumber() {
         return cardNumber;
     }

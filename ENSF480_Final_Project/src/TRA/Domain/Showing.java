@@ -4,13 +4,13 @@ public class Showing {
     private int showtime;
     private Movie movie;
     private Theatre theatre;
-    //private SeatMap seatMap;
+    private SeatMap seatMap;
 
-    public Showing(int showtime, Movie movie, Theatre theatre) {
+    public Showing(int showtime, Movie movie, Theatre theatre, SeatMap seatMap) {
         this.showtime = showtime;
         this.movie = movie;
         this.theatre = theatre;
-        //this.seatMap = seatMap;
+        this.seatMap = seatMap;
     }
 
     public int getShowtime() {
@@ -37,11 +37,11 @@ public class Showing {
         this.theatre = theatre;
     }
 
-    /*public SeatMap getSeatMap() {
+    public SeatMap getSeatMap() {
         return seatMap;
     }
 
     public void setSeatMap(SeatMap seatMap) {
         this.seatMap = seatMap;
-    }*/
+    }
 }

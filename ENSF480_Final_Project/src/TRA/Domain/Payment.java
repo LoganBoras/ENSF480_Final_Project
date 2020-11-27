@@ -13,6 +13,20 @@ public class Payment {
         this.paymentID = paymentID;
     }
 
+    public boolean verifyPayment() {
+        // TODO: add functionality when financialInstitute is complete
+        return true;
+    }
+
+    public void receivePaymentRequest(Card card, double cost) {
+        this.card = card;
+        this.cost = cost;
+    }
+
+    public Payment sendPaymentRequest() {
+        return this;
+    }
+
     public Card getCard() {
         return card;
     }
