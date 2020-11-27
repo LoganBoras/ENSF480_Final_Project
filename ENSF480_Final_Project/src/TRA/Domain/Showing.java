@@ -1,13 +1,15 @@
 package TRA.Domain;
 
 public class Showing {
+	private int showingID;
     private int showtime;
     private Movie movie;
     private Theatre theatre;
     private SeatMap seatMap;
 
-    public Showing(int showtime, Movie movie, Theatre theatre, SeatMap seatMap) {
-        this.showtime = showtime;
+    public Showing(int showingID, int showtime, Movie movie, Theatre theatre, SeatMap seatMap) {
+        this.setShowingID(showingID);
+    	this.showtime = showtime;
         this.movie = movie;
         this.theatre = theatre;
         this.seatMap = seatMap;
@@ -44,4 +46,12 @@ public class Showing {
     public void setSeatMap(SeatMap seatMap) {
         this.seatMap = seatMap;
     }
+
+	public int getShowingID() {
+		return showingID;
+	}
+
+	public void setShowingID(int showingID) {
+		this.showingID = showingID;
+	}
 }

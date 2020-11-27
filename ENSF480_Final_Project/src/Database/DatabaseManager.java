@@ -128,7 +128,7 @@ public static void initialize(String[] args) {
 			 
 			  Statement statement = connection.createStatement();
 			 
-			  ResultSet results = statement.executeQuery("SELECT * FROM Movie");
+			  ResultSet results = statement.executeQuery("SELECT * FROM Showing");
 			 
 			  // For each row of the result set ...
 			  String data;
@@ -137,14 +137,18 @@ public static void initialize(String[] args) {
 			 
 			 
 			  // Get the data from the current row using the column name - column data are in the VARCHAR format
-			  String showingID = results.getString(0);
+			  int showingID = results.getInt(0);
 			  String movieTitle = results.getString(1);
 			  String theatreName = results.getString(2);
-			  String seatMapID = results.getString(3);
+			  int seatMapID = results.getInt(3);
 			  int showTime = results.getInt(3);
-			 
-			  showingResults.add(new Showing(showTime, new Movie(seatMapID, seatMapID, showTime, seatMapID), 
-					  new Theatre(theatreName), new SeatMap(showTime, showTime, showTime)));
+			  ResultSet theMovie = statement.executeQuery("SELECT * FROM Movie WHERE movieTitle = " + movieTitle);
+			  String dateReleased = theMovie.getString(1);
+			  int movieLength = theMovie.getInt(2);
+			  String genre = theMovie.getString(3);
+			  
+			  showingResults.add(new Showing(showingID, showTime, new Movie(movieTitle, dateReleased, movieLength, genre), 
+					  new Theatre(theatreName), new SeatMap(getSeats(seatMapID), seatMapID, showTime, showTime, showTime)));
 			 
 			 
 			}
@@ -154,6 +158,7 @@ public static void initialize(String[] args) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static ArrayList<Seat> getSeats() {
@@ -240,8 +245,8 @@ public static void initialize(String[] args) {
 			  int reservedSeatCount = results.getInt(1);
 			  int numberOfRows = results.getInt(2);
 			  int numberOfAvailableSeats = results.getInt(3);
-
-			  seatMapResults.add(new SeatMap(null, reservedSeatCount, numberOfRows, numberOfAvailableSeats));
+			  
+			  seatMapResults.add(new SeatMap(getSeats(seatMapID), seatMapID, reservedSeatCount, numberOfRows, numberOfAvailableSeats));
 			 
 			 
 			}
@@ -251,6 +256,7 @@ public static void initialize(String[] args) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static Movie getMovie(String movieTitle) {
@@ -296,11 +302,23 @@ public static void initialize(String[] args) {
 			 
 			  ResultSet results = statement.executeQuery("SELECT * FROM Showing WHERE showingID = "+showingID);
 
-			  return new Showing(results.getString(0), results.getString(1), results.getString(2), results.getString(3), results.getString(4));	
+			  String movieTitle = results.getString(1);
+			  String theatreName = results.getString(2);
+			  int seatMapID = results.getInt(3);
+			  int showTime = results.getInt(3);
+			  ResultSet theMovie = statement.executeQuery("SELECT * FROM Movie WHERE movieTitle = " + movieTitle);
+			  String dateReleased = theMovie.getString(1);
+			  int movieLength = theMovie.getInt(2);
+			  String genre = theMovie.getString(3);
+			  
+			  return new Showing(Integer.parseInt(showingID), showTime, new Movie(movieTitle, dateReleased, movieLength, genre), 
+					  new Theatre(theatreName), new SeatMap(getSeats(seatMapID), seatMapID, showTime, showTime, showTime));
+			 
 			    } catch (SQLException e) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static Seat getSeat(String seatMapID, String seatNumber) {
@@ -329,13 +347,14 @@ public static void initialize(String[] args) {
 			 
 			  ResultSet results = statement.executeQuery("SELECT * FROM Movie WHERE seatMapID = "+seatMapID);
 			 
-			  return new SeatMap(results.getString(0),results.getString(1),results.getString(2),results.getString(3));
+			  return new SeatMap(getSeats(results.getInt(0)),results.getInt(0),results.getInt(1),results.getInt(2),results.getInt(3));
 
 	
 			    } catch (SQLException e) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static void insertMovie(Movie theMovie) {
@@ -382,11 +401,11 @@ public static void initialize(String[] args) {
 		 	}
 	 }
 	 
-	 public static void insertSeat(Seat theSeat) {
+	 public static void insertSeat(SeatMap theMap, Seat theSeat) {
 		 try {
 			 
 				 	Statement statement = connection.createStatement();	 
-				  	statement.executeUpdate("INSERT INTO Seat " + "VALUES ('"+theSeat.getSeatMap().getSeatMapID()+"', '"+theSeat.getSeatNumber()+"', "
+				  	statement.executeUpdate("INSERT INTO Seat " + "VALUES ('"+theMap.getSeatMapID()+"', '"+theSeat.getSeatNumber()+"', "
 				 	+theSeat.isVacant()+")");
 				  	return;	
 				  	
@@ -401,7 +420,7 @@ public static void initialize(String[] args) {
 		 try {
 			 
 				 	Statement statement = connection.createStatement();	 
-				  	statement.executeUpdate("INSERT INTO SeatMap " + "VALUES ('"+theMap.getID()+"', '"+theMap.getReservedSeatCount()+"', '"
+				  	statement.executeUpdate("INSERT INTO SeatMap " + "VALUES ('"+theMap.getSeatMapID()+"', '"+theMap.getReservedSeatCount()+"', '"
 				 	+theMap.getNumberOfRows()+"', '"+theMap.getNumberOfAvailableSeats()+"')");
 				  	return;	
 				  	
