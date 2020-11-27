@@ -13,44 +13,44 @@ public class DatabaseManager {
 		
 public static void initialize(String[] args) {
 	
-
-try {
-
-// Load the MySQL JDBC driver
-
-String driverName = "com.mysql.jdbc.Driver";
-
-Class.forName(driverName);
-
-
-// Create a connection to the database
-
-String serverName = "localhost";
-
-String schema = "test";
-
-String url = "jdbc:mysql://" + serverName +  "/" + schema;
-
-String username = "username";
-
-String password = "password";
-
-connection = DriverManager.getConnection(url, username, password);
-
- 
-
-System.out.println("Successfully Connected to the database!");
-
- 
-  } catch (ClassNotFoundException e) {
-
-System.out.println("Could not find the database driver " + e.getMessage());
-  } catch (SQLException e) {
-
-System.out.println("Could not connect to the database " + e.getMessage());
-  }
-
-}
+	
+	try {
+	
+	// Load the MySQL JDBC driver
+	
+	String driverName = "com.mysql.jdbc.Driver";
+	
+	Class.forName(driverName);
+	
+	
+	// Create a connection to the database
+	
+	String serverName = "localhost";
+	
+	String schema = "test";
+	
+	String url = "jdbc:mysql://" + serverName +  "/" + schema;
+	
+	String username = "username";
+	
+	String password = "password";
+	
+	connection = DriverManager.getConnection(url, username, password);
+	
+	 
+	
+	System.out.println("Successfully Connected to the database!");
+	
+	 
+	  } catch (ClassNotFoundException e) {
+	
+	System.out.println("Could not find the database driver " + e.getMessage());
+	  } catch (SQLException e) {
+	
+	System.out.println("Could not connect to the database " + e.getMessage());
+	  }
+	
+	}
 	 
 	 public static ArrayList<Movie> getMovies() {
 		 try {
@@ -295,5 +295,82 @@ System.out.println("Could not connect to the database " + e.getMessage());
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
 	 }
+	 
+	 public static void insertMovie(Movie theMovie) {
+		 try {
+			 
+				 	Statement statement = connection.createStatement();	 
+				  	statement.executeUpdate("INSERT INTO Movie " + "VALUES ('"+theMovie.title+"', '"+theMovie.dateReleased+"', '"+theMovie.movieLength+"', '"+theMovie.genre+"')");
+				  	return;	
+				  	
+			    } catch (SQLException e) {
+			 
+			    	System.out.println("Could not retrieve data from the database " + e.getMessage());
+			    
+			    }
+	 }
+	 
+	 public static void insertTheatre(Theatre theTheatre) {
+		 try {
+			 
+				  Statement statement = connection.createStatement();
+				  statement.executeUpdate("INSERT INTO Theatre " + "VALUES ('"+theTheatre.name+"')");
+				  return;
+				  
+			  } catch (SQLException e) {
+			 
+				  System.out.println("Could not retrieve data from the database " + e.getMessage());
+			  
+			  }
+	 }
+	 
+	 public static void insertShowing(Showing theShowing) {
+		 try {
+			 
+			 	Statement statement = connection.createStatement();
+			 	statement.executeUpdate("INSERT INTO Showing " + "VALUES ('"+theShowing.ID+"', '"+theShowing.getMovie().getTitle()+"', '"
+			 	+theShowing.getTheatre().getName()+"', '"+theShowing.getSeatMap().getID()+"', '"+theShowing.getShowTime()+"')");
+			 	return;
+			  
+		 	} catch (SQLException e) {
+			 
+		 		System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 	
+		 	}
+	 }
+	 
+	 public static void insertSeat(Seat theSeat) {
+		 try {
+			 
+				 	Statement statement = connection.createStatement();	 
+				  	statement.executeUpdate("INSERT INTO Seat " + "VALUES ('"+theSeat.getSeatMap().getID()+"', '"+theSeat.getSeatNumber()+"', '"
+				 	+theSeat.getVacancy()+"')");
+				  	return;	
+				  	
+			    } catch (SQLException e) {
+			 
+			    	System.out.println("Could not retrieve data from the database " + e.getMessage());
+			    
+			    }
+	 }
+	 
+	 public static void insertSeatMap(SeatMap theMap) {
+		 try {
+			 
+				 	Statement statement = connection.createStatement();	 
+				  	statement.executeUpdate("INSERT INTO SeatMap " + "VALUES ('"+theMap.getID()+"', '"+theMap.getReservedSeatCount()+"', '"
+				 	+theMap.getNumRows()+"', '"+theMap.getAvailableSeatNum()+"')");
+				  	return;	
+				  	
+			    } catch (SQLException e) {
+			 
+			    	System.out.println("Could not retrieve data from the database " + e.getMessage());
+			    
+			    }
+	 }
 	
 }
+	
+
+
+
