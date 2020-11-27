@@ -402,7 +402,7 @@ public static void initialize(String[] args) {
 			 
 				 	Statement statement = connection.createStatement();	 
 				  	statement.executeUpdate("INSERT INTO SeatMap " + "VALUES ('"+theMap.getID()+"', '"+theMap.getReservedSeatCount()+"', '"
-				 	+theMap.getNumRows()+"', '"+theMap.getAvailableSeatNum()+"')");
+				 	+theMap.getNumberOfRows()+"', '"+theMap.getNumberOfAvailableSeats()+"')");
 				  	return;	
 				  	
 			    } catch (SQLException e) {
