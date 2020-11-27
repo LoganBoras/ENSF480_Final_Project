@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import TRA.Domain.Movie;
+import TRA.Domain.Seat;
+import TRA.Domain.Showing;
+import TRA.Domain.Theatre;
+
 public class DatabaseManager {
 	  static Connection connection=null;
 		
@@ -31,9 +36,9 @@ public static void initialize(String[] args) {
 	
 	String url = "jdbc:mysql://" + serverName +  "/" + schema;
 	
-	String username = "username";
+	String username = "root";
 	
-	String password = "password";
+	String password = "ENSF480TRA";
 	
 	connection = DriverManager.getConnection(url, username, password);
 	
@@ -62,15 +67,14 @@ public static void initialize(String[] args) {
 			  ResultSet results = statement.executeQuery("SELECT * FROM Movie");
 			 
 			  // For each row of the result set ...
-			  String data;
-			  ArrayList<Movie> movieResults = new ArrayList<Movie>;
+			  ArrayList<Movie> movieResults = new ArrayList<Movie>();
 			  while (results.next()) {
 			 
 			 
 			  // Get the data from the current row using the column name - column data are in the VARCHAR format
 			  String movieTitle = results.getString(0);
 			  String dateReleased = results.getString(1);
-			  String movieLength = results.getString(2);
+			  int movieLength = results.getInt(2);
 			  String genre = results.getString(3);
 			 
 			  movieResults.add(new Movie(movieTitle, dateReleased, movieLength, genre));
@@ -82,6 +86,7 @@ public static void initialize(String[] args) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static ArrayList<Theatre> getTheatres() {
@@ -94,8 +99,7 @@ public static void initialize(String[] args) {
 			  ResultSet results = statement.executeQuery("SELECT * FROM Theatre");
 			 
 			  // For each row of the result set ...
-			  String data;
-			  ArrayList<Theatre> theatreResults = new ArrayList<Theatre>;
+			  ArrayList<Theatre> theatreResults = new ArrayList<Theatre>();
 			  while (results.next()) {
 			 
 			 
@@ -113,6 +117,7 @@ public static void initialize(String[] args) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static ArrayList<Showing> getShowings() {
@@ -126,7 +131,7 @@ public static void initialize(String[] args) {
 			 
 			  // For each row of the result set ...
 			  String data;
-			  ArrayList<Showing> showingResults = new ArrayList<Showing>;
+			  ArrayList<Showing> showingResults = new ArrayList<Showing>();
 			  while (results.next()) {
 			 
 			 
@@ -160,16 +165,15 @@ public static void initialize(String[] args) {
 			 
 			  // For each row of the result set ...
 			  String data;
-			  ArrayList<Seat> seatResults = new ArrayList<Seat>;
+			  ArrayList<Seat> seatResults = new ArrayList<Seat>();
 			  while (results.next()) {
 			 
 			 
 			  // Get the data from the current row using the column name - column data are in the VARCHAR format
-			  String seatMapID = results.getString(0);
-			  String seatNumber = results.getString(1);
-			  String vacant = results.getString(2);
+			  Boolean vacant = results.getBoolean(0);
+			  int seatNumber = results.getInt(1);
 			 
-			  seatResults.add(new Seat(seatMapID, seatNumber, vacant));
+			  seatResults.add(new Seat(vacant, seatNumber));
 			 
 			 
 			}
@@ -192,7 +196,7 @@ public static void initialize(String[] args) {
 			 
 			  // For each row of the result set ...
 			  String data;
-			  ArrayList<seatMap> seatMapResults = new ArrayList<seatMap>;
+			  ArrayList<seatMap> seatMapResults = new ArrayList<seatMap>();
 			  while (results.next()) {
 			 
 			 
@@ -223,11 +227,12 @@ public static void initialize(String[] args) {
 			 
 			  ResultSet results = statement.executeQuery("SELECT * FROM Showing WHERE movieTitle = " + movieTitle);
 
-			  return new Movie(results.getString(0), results.getString(1), results.getString(2), results.getString(3));	
+			  return new Movie(results.getString(0), results.getString(1), results.getInt(2), results.getString(3));	
 			    } catch (SQLException e) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static Theatre getTheatre(String theatreName) {
@@ -242,8 +247,9 @@ public static void initialize(String[] args) {
 			  return new Theatre(results.getString(0));	
 			    } catch (SQLException e) {
 			 
-			  System.out.println("Could not retrieve data from the database " + e.getMessage());
+			    	System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static Showing getShowing(String showingID) {
@@ -271,11 +277,12 @@ public static void initialize(String[] args) {
 			 
 			  ResultSet results = statement.executeQuery("SELECT * FROM Seat WHERE seatMapID = "+seatMapID+" AND seatNumber = "+seatNumber);
 			 
-			  return new Seat(results.getString(0), results.getString(1), results.getString(2));	
+			  return new Seat(results.getBoolean(0), results.getInt(1));	
 			    } catch (SQLException e) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
 	 }
 	 
 	 public static SeatMap getSeatMap(String seatMapID) {
@@ -300,7 +307,8 @@ public static void initialize(String[] args) {
 		 try {
 			 
 				 	Statement statement = connection.createStatement();	 
-				  	statement.executeUpdate("INSERT INTO Movie " + "VALUES ('"+theMovie.title+"', '"+theMovie.dateReleased+"', '"+theMovie.movieLength+"', '"+theMovie.genre+"')");
+				  	statement.executeUpdate("INSERT INTO Movie " + "VALUES ('"+theMovie.getMovieTitle()+"', '"+theMovie.getDateReleased()+"', "
+				 	+theMovie.getMovieLength()+", '"+theMovie.getGenre()+"')");
 				  	return;	
 				  	
 			    } catch (SQLException e) {
@@ -314,7 +322,7 @@ public static void initialize(String[] args) {
 		 try {
 			 
 				  Statement statement = connection.createStatement();
-				  statement.executeUpdate("INSERT INTO Theatre " + "VALUES ('"+theTheatre.name+"')");
+				  statement.executeUpdate("INSERT INTO Theatre " + "VALUES ('"+theTheatre.getTheatreName()+"')");
 				  return;
 				  
 			  } catch (SQLException e) {
@@ -328,8 +336,8 @@ public static void initialize(String[] args) {
 		 try {
 			 
 			 	Statement statement = connection.createStatement();
-			 	statement.executeUpdate("INSERT INTO Showing " + "VALUES ('"+theShowing.ID+"', '"+theShowing.getMovie().getTitle()+"', '"
-			 	+theShowing.getTheatre().getName()+"', '"+theShowing.getSeatMap().getID()+"', '"+theShowing.getShowTime()+"')");
+			 	statement.executeUpdate("INSERT INTO Showing " + "VALUES ("+theShowing.getShowingID()+", '"+theShowing.getMovie().getMovieTitle()+"', '"
+			 	+theShowing.getTheatre().getTheatreName()+"', "+theShowing.getSeatMap().getSeatMapID()+", "+theShowing.getShowtime()+")");
 			 	return;
 			  
 		 	} catch (SQLException e) {
@@ -343,8 +351,8 @@ public static void initialize(String[] args) {
 		 try {
 			 
 				 	Statement statement = connection.createStatement();	 
-				  	statement.executeUpdate("INSERT INTO Seat " + "VALUES ('"+theSeat.getSeatMap().getID()+"', '"+theSeat.getSeatNumber()+"', '"
-				 	+theSeat.getVacancy()+"')");
+				  	statement.executeUpdate("INSERT INTO Seat " + "VALUES ('"+theSeat.getSeatMap().getSeatMapID()+"', '"+theSeat.getSeatNumber()+"', "
+				 	+theSeat.isVacant()+")");
 				  	return;	
 				  	
 			    } catch (SQLException e) {
