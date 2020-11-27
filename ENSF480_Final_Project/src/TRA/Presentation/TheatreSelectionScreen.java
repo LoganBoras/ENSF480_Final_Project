@@ -60,7 +60,7 @@ public class TheatreSelectionScreen extends OrderSelectionScreen{
 		frame.getContentPane().removeAll();
 		
 		subject.setID(4);
-		
+		subject.addData(theatreSelection);
 		frame.repaint();
 	}
 

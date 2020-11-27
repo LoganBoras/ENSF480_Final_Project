@@ -23,6 +23,7 @@ public class HomeScreen extends Screen{
 
 	
 	public HomeScreen(JFrame frame, Subject subject){
+		
 		this.subject = subject;
 		this.frame = frame;
 		this.screenID = 2;
@@ -36,7 +37,7 @@ public class HomeScreen extends Screen{
 		frame.repaint();
 		subject.setID(screenID);
 		
-		System.out.println("did we change the same subject or a copy..." + subject.getID());
+		//System.out.println("did we change the same subject or a copy..." + subject.getID());
 	}
 
 	@Override
@@ -57,6 +58,7 @@ public class HomeScreen extends Screen{
 		frame.add("South", buttons);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
 		controlButtons();
 		System.out.println("selection is now : " + screenID);
 		

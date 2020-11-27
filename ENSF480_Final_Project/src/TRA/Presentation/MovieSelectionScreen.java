@@ -58,7 +58,7 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 		frame.getContentPane().removeAll();
 		
 		subject.setID(3);
-		
+		subject.addData(movieSelection);
 		frame.repaint();
 	} 
 
@@ -83,6 +83,7 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 		frame.add("Center", panel);
 		
 		frame.setVisible(true);
+		frame.revalidate();
 		frame.repaint();
 		
 		controlButtons();

@@ -11,83 +11,109 @@ import TRA.Presentation.*;
 
 public class OrderSelectionController extends Subject{
 	
+	private OrderSelectionController itself;
 	private JFrame frame;
 	
-	private String data;	//
+	private ArrayList<String> data;	//1st index: chosen movie, 2nd index: chosen theatre, 3rd index: chosen showtime, 4th index: chosen seat.
+	private ArrayList<Movie> movies;
+	private ArrayList<Theatre> theatres;
+	private ArrayList<Showing> showTimes;
 	
 	
-	
-	public OrderSelectionController() {
-		frame = new JFrame("Main Window");
-		setID(1);
+	public OrderSelectionController(JFrame frame, Subject subject) {
+		this.frame = frame;
+		setID(2);	//ID for OrderSelection Frame;
+		data = new ArrayList<String>();
 	}
 	
-	public static void main(String args []) {
+	public void runOrderSelection(){
 		
-		OrderSelectionController test = new OrderSelectionController();
+		runMovieSelection();
+		System.out.println("MovieSelection Exited");
 		
+		runTheatreSelection();
+		System.out.println("TheatreSelection Exited.");
+		
+		runShowTimeSelection();
+		System.out.println("ShowTimeSelection Exited");
+		
+		runSeatSelection();
+		System.out.println("SeatSelection Exited");
+		
+		System.out.println("USER SELECTED THE FOLLOWING: ");
+		for(int j = 0; j < data.size(); j++) {
+			System.out.println(data.get(j));
+		}
+		
+	}
+	
+	private void runMovieSelection() {
 		int prevID;
-		
-		Screen Screen = new HomeScreen(test.frame, test);
-		
-		//HomeScreen Screen = new HomeScreen(test.frame, test);
-		Screen.displayScreen();
-		
-		//while(Screen.ArrayList<E>ion() == -1) {}
-		
-		while(test.getID() == 1) {System.out.println("waiting for homepage");}
-		
-		
-		prevID = Screen.screenID;
-		
-		System.out.println("Homepage exited.");
-		
-		ArrayList<Movie> movies = new ArrayList<Movie>();
+		movies = new ArrayList<Movie>();
 		movies.add(new Movie("title1", "1",1,"genre1"));
 		movies.add(new Movie("title2", "1",1,"genre1"));
 		movies.add(new Movie("title3", "1",1,"genre1"));
-		
-		Screen selectMovie = new MovieSelectionScreen(test.frame, test, movies);
-		
-		Screen = new MovieSelectionScreen(test.frame, test, movies);
+		Screen Screen = new MovieSelectionScreen(frame, itself, movies);
 		Screen.displayScreen();
-		//System.out.println("Returned value from screen : " + Screen.getSelection());
 		
-		while(test.getID() == prevID) {
-			System.out.println("waiting for MovieSelection to finish...");
-		}
-		
-		System.out.println("MovieSelection Exited. ");
-		prevID = test.getID();
-		
-		ArrayList<Theatre> theatres = new ArrayList<Theatre>();
+		prevID = getID();
+		int i = 0;
+		while(getID() == prevID) {
+			if(i == 0) 
+				System.out.println("waiting for MovieSelectionScreen to finish...");
+			i++;
+			}
+	}
+	
+	private void runTheatreSelection() {
+		int prevID = getID();
+		int i = 0;
+		theatres = new ArrayList<Theatre>();
 		theatres.add(new Theatre("theatre1"));
 		theatres.add(new Theatre("theatre2"));
 		theatres.add(new Theatre("theatre3"));
 		
-		Screen = new TheatreSelectionScreen(test.frame, test, theatres);
+		Screen Screen = new TheatreSelectionScreen(frame, itself, theatres);
 		Screen.displayScreen();
 		
-		while(test.getID() == prevID) {
-			System.out.println("waiting for TheatreSelection to finish...");
+		while(getID() == prevID) {
+			if(i == 0)
+				System.out.println("waiting for TheatreSelectionScreen to finish...");
+			i++;
 		}
-		
-		System.out.println("TheatreSelection Exited.");
-		
+	}
+	
+	private void runShowTimeSelection() {
+		int prevID = getID();
+		int i = 0;
 		ArrayList<Showing> showTimes = new ArrayList<Showing>();
 		showTimes.add(new Showing(12, movies.get(1), theatres.get(1)));
 		showTimes.add(new Showing(13, movies.get(1), theatres.get(1)));
 		showTimes.add(new Showing(14, movies.get(1), theatres.get(1)));
 		
-		Screen = new ShowTimeSelectionScreen(test.frame, test, showTimes);
+		Screen Screen = new ShowTimeSelectionScreen(frame, itself, showTimes);
 		Screen.displayScreen();
 		
-		
+		while(getID() == prevID) {
+			if(i == 0)
+				System.out.println("waiting for ShowTimeSelectionScreen to finish...");
+			i++;
+		}
 	}
 
-	@Override
-	public void setData(String data) {
+	private void runSeatSelection() {
 		// TODO Auto-generated method stub
-		this.data = data;
+		
+	}
+	
+	
+	@Override
+	public void addData(String data) {
+		// TODO Auto-generated method stub
+		this.data.add(data);
+	}
+	
+	public void setItself(OrderSelectionController itself ) {
+		this.itself = itself;
 	}
 }

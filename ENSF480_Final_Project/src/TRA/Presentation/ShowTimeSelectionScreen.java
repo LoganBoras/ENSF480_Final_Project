@@ -56,7 +56,7 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 		frame.getContentPane().removeAll();
 		
 		subject.setID(5);
-		
+		subject.addData(showingSelection);
 		frame.repaint();
 	}
 

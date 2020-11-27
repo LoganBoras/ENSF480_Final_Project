@@ -1,18 +1,23 @@
 package TRA.Control;
 
+import java.util.ArrayList;
+
 public abstract class Subject {
 	
-	private int viewID; //ID of current GUI
+	
+	private int frameID; //ID of current GUI
 	
 	public void setID(int i) {
-		this.viewID = i;
+		this.frameID = i;
 	}
 	
 	public int getID() {
-		return this.viewID;
+		return this.frameID;
 	}
+
+	abstract public void addData(String data);
 	
-	public abstract void setData(String data);
+	
 	
 	
 }
