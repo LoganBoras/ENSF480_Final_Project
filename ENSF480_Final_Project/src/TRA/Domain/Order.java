@@ -1,6 +1,6 @@
 package TRA.Domain;
 
-public class Order {
+public abstract class Order {
     private double totalPrice;
     private Payment payment;
     private int orderID;
