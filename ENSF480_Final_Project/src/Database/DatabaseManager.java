@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import TRA.Domain.Movie;
 import TRA.Domain.Seat;
+import TRA.Domain.SeatMap;
 import TRA.Domain.Showing;
 import TRA.Domain.Theatre;
 
@@ -140,9 +141,10 @@ public static void initialize(String[] args) {
 			  String movieTitle = results.getString(1);
 			  String theatreName = results.getString(2);
 			  String seatMapID = results.getString(3);
-			  String showTime = results.getString(3);
+			  int showTime = results.getInt(3);
 			 
-			  showingResults.add(new Showing(showingID, movieTitle, theatreName, seatMapID, showTime));
+			  showingResults.add(new Showing(showTime, new Movie(seatMapID, seatMapID, showTime, seatMapID), 
+					  new Theatre(theatreName), new SeatMap(showTime, showTime, showTime)));
 			 
 			 
 			}
@@ -183,6 +185,39 @@ public static void initialize(String[] args) {
 			 
 			  System.out.println("Could not retrieve data from the database " + e.getMessage());
 			    }
+		return null;
+	 }
+	 
+	 public static ArrayList<Seat> getSeats(int seatMapID) {
+		 try {
+			 
+			  // Get a result set containing all data from test_table
+			 
+			  Statement statement = connection.createStatement();
+			 
+			  ResultSet results = statement.executeQuery("SELECT * FROM Movie");
+			 
+			  // For each row of the result set ...
+			  String data;
+			  ArrayList<Seat> seatResults = new ArrayList<Seat>();
+			  while (results.next()) {
+			 
+			 
+			  // Get the data from the current row using the column name - column data are in the VARCHAR format
+			  Boolean vacant = results.getBoolean(0);
+			  int seatNumber = results.getInt(1);
+			 
+			  seatResults.add(new Seat(vacant, seatNumber));
+			 
+			 
+			}
+				 return seatResults;
+	
+			    } catch (SQLException e) {
+			 
+			  System.out.println("Could not retrieve data from the database " + e.getMessage());
+			    }
+		return null;
 	 }
 	 
 	 public static ArrayList<SeatMap> getSeatMaps() {
@@ -196,17 +231,17 @@ public static void initialize(String[] args) {
 			 
 			  // For each row of the result set ...
 			  String data;
-			  ArrayList<seatMap> seatMapResults = new ArrayList<seatMap>();
+			  ArrayList<SeatMap> seatMapResults = new ArrayList<SeatMap>();
 			  while (results.next()) {
 			 
 			 
 			  // Get the data from the current row using the column name - column data are in the VARCHAR format
-			  String seatMapID = results.getString(0);
-			  String reservedSeatCount = results.getString(1);
-			  String numberOfRows = results.getString(2);
-			  String numberOfAvailableSeats = results.getString(3);
-			 
-			  seatMapResults.add(new seatMap(seatMapID, reservedSeatCount, numberOfRows, numberOfAvailableSeats));
+			  int seatMapID = results.getInt(0);
+			  int reservedSeatCount = results.getInt(1);
+			  int numberOfRows = results.getInt(2);
+			  int numberOfAvailableSeats = results.getInt(3);
+
+			  seatMapResults.add(new SeatMap(null, reservedSeatCount, numberOfRows, numberOfAvailableSeats));
 			 
 			 
 			}
