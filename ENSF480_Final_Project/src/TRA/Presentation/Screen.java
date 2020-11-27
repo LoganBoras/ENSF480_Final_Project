@@ -4,11 +4,17 @@ Group 3, November 2020
 
 package TRA.Presentation;
 
-import javax.swing.*;
 
-public abstract class Screen extends JPanel implements Observer {
+import TRA.Control.Subject;
+
+public abstract class Screen {
+	
+	public Subject subject;
+	public int screenID;
 	
 	abstract public void update() ;
 	
-	abstract public int buildScreen();
+
+	abstract public void buildScreen();
+	
 }

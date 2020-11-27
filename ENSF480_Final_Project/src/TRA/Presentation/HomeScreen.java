@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import TRA.Control.Subject;
+
 public class HomeScreen extends Screen{
 
 	HomeController homeController;
@@ -18,40 +20,45 @@ public class HomeScreen extends Screen{
 	private JButton loginBut = new JButton("Login");
 	private JButton orderBut = new JButton("Create Order");
 	private JButton cancelBut = new JButton("Cancel");
-	int selection = -1;
 
-
-	/**
-	 * Ensure default constructor is never called
-	 */
-	private HomeScreen() {
-	}
 	
-	public HomeScreen(HomeController homeController) {
-		this.homeController = homeController;
-		this.buildScreen();
-		this.update();
+	public HomeScreen(JFrame frame, Subject subject){
+		this.subject = subject;
+		this.frame = frame;
+		this.screenID = 2;
 	}
 	
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+
+		frame.getContentPane().removeAll();
+		frame.repaint();
+		subject.setID(screenID);
 		
+		System.out.println("did we change the same subject or a copy..." + subject.getID());
 	}
 
 	@Override
-	public int buildScreen() {
-
-		this.setLayout(new BorderLayout());
-		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,Toolkit.getDefaultToolkit().getScreenSize().height/6);
-
+	public void buildScreen() {
+		// TODO Auto-generated method stub
+		//frame = new JFrame("Home Page");
+		frame.setLayout(new BorderLayout());
+		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,Toolkit.getDefaultToolkit().getScreenSize().height/6);
+		frame.setLocationRelativeTo(null);
+		
 		JPanel buttons = new JPanel(new FlowLayout());
 		buttons.add(loginBut);
 		buttons.add(orderBut);
 		buttons.add(cancelBut);
 		
-		this.add("North", new JLabel("HOME PAGE :^)", SwingConstants.CENTER));
-		this.add("South", buttons);
+
+		frame.add("North", new JLabel("HOME PAGE :^)", SwingConstants.CENTER));
+		frame.add("South", buttons);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		controlButtons();
+		System.out.println("selection is now : " + screenID);
 		
 		return controlButtons();
 	}
@@ -71,10 +78,11 @@ public class HomeScreen extends Screen{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-					setSelection(2);
-					System.out.println("Order Button Pressed, selection returned is : " + getSelection());
-					homeController.orderButtonAction();
+				// TODO Auto-generated method stug
+
+
+					updateScreen();
+
 					
 			}});
 		
@@ -120,13 +128,6 @@ public class HomeScreen extends Screen{
 		this.cancelBut = cancelBut;
 	}
 
-	public int getSelection() {
-		return selection;
-	}
-
-	public void setSelection(int selection) {
-		this.selection = selection;
-	}
 	
 	
 	
