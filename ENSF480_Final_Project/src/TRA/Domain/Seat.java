@@ -9,6 +9,10 @@ public class Seat {
         this.seatNumber = seatNumber;
     }
 
+    public void updateSeatVacancy(boolean v) {
+        vacant = v;
+    }
+
     public boolean isVacant() {
         return vacant;
     }
