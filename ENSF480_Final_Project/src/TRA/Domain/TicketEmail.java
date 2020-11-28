@@ -11,7 +11,7 @@ public class TicketEmail extends Email {
     private final ArrayList<Ticket> tickets;
 
     public TicketEmail(String toAddress, ArrayList<Ticket> tickets) {
-        super(toAddress);
+        super(toAddress, "Your tickets");
         this.tickets = tickets;
     }
 

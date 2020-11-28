@@ -37,12 +37,19 @@ public class SendEmailController extends Controller {
         Movie movie = new Movie("Cats", "yesterday", 17, "horror");
         Theatre theatre = new Theatre("Silver City");
         Seat seat = new Seat(true, 72);
-        ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+        ArrayList<Ticket> tickets = new ArrayList<>();
         tickets.add(new Ticket(movie, theatre, seat, 9000.72, 82));
         tickets.add(new Ticket(movie, theatre, seat, 9000.72, 85));
         TicketEmailStrategy ticketEmailStrategy = new TicketEmailStrategy("roland@email.com", tickets);
         SendEmailController sendEmailController = new SendEmailController((ticketEmailStrategy));
         sendEmailController.doAction();
 
+        Receipt receipt = new Receipt();
+        ReceiptEmailStrategy receiptEmailStrategy = new ReceiptEmailStrategy("roland@email.com", receipt);
+        sendEmailController = new SendEmailController(receiptEmailStrategy);
+        sendEmailController.doAction();
+
+        sendEmailController = new SendEmailController(new MovieAnnouncementEmailStrategy("roland@email.com"));
+        sendEmailController.doAction();
     }
 }
