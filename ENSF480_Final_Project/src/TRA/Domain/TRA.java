@@ -4,10 +4,16 @@ import Database.DatabaseManager;
 
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+
 public class TRA {
 
     private DatabaseManager databaseManager;
     private User user;
+
+    public TRA() {
+        //TODO implement default constructor
+    }
 
     public TRA(DatabaseManager db, User u) {
         databaseManager = db;
@@ -50,5 +56,11 @@ public class TRA {
 
     public ArrayList<SeatMap> sendAllSeatMaps() {
         return databaseManager.getSeatMaps();
+    }
+
+    public static ArrayList<Movie> upcomingMoviesList() {
+        ArrayList<Movie> movieList = new ArrayList<>();
+        movieList.add(new Movie("Cats", "yesterday", 17, "horror"));
+        return movieList;
     }
 }

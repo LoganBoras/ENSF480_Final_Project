@@ -44,4 +44,12 @@ public class Movie {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+    @Override
+    public String toString() {
+        return "Title: " + movieTitle + '\n' +
+                "\tRelease Date: " + dateReleased + '\n' +
+                "\tLength: " + movieLength + " minutes\n" +
+                "\tGenre: " + genre + "\n\n";
+    }
 }

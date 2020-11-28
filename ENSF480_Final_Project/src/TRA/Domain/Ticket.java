@@ -61,4 +61,13 @@ public class Ticket {
     public void setTicketID(int ticketID) {
         this.ticketID = ticketID;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket:\n" +
+                "\tMovie: " + movie.getMovieTitle() + "\n" +
+                "\tTheatre: " + theatre.getTheatreName() + "\n" +
+                "\tSeat: " + seat.getSeatNumber() + "\n" +
+                "\tTicket ID: " + ticketID;
+    }
 }
