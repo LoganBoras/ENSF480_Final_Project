@@ -20,6 +20,11 @@ public class TRA {
         user = u;
     }
 
+    public TRA() {
+        databaseManager = new DatabaseManager();
+        databaseManager.initialize(null);
+    }
+
     public ArrayList<Movie> sendMovieList() {
         return databaseManager.getMovies();
     }
@@ -28,16 +33,34 @@ public class TRA {
         return databaseManager.getTheatres();
     }
 
-    //TODO - this function should be actually implemented so it returns every
-    //movie in the database - right now it is just a dummy function
-    /**
-     * Returns array list containing upcoming movies
-     * @return ArrayList<Movie> - upcoming movies
-     */
+    public ArrayList<Showing> sendAllShowings() {
+        return databaseManager.getShowings();
+    }
+
+    public ArrayList<Showing> getShowings(Movie m, Theatre t) {
+        return databaseManager.getShowingList(m, t);
+    }
+
+    public SeatMap getSeatMap(Showing s) {
+        return databaseManager.getSeatMap(s.getSeatMap().getSeatMapID());
+    }
+
+    public void updateSeatVacancy(Seat s, boolean vacant) {
+        s.setVacant(vacant);
+        databaseManager.updateSeatStatus(s.getSeatNumber(), s.getSeatMapID(), vacant);
+    }
+
+    public ArrayList<Seat> sendSeatList() {
+        return databaseManager.getSeats();
+    }
+
+    public ArrayList<SeatMap> sendAllSeatMaps() {
+        return databaseManager.getSeatMaps();
+    }
+
     public static ArrayList<Movie> upcomingMoviesList() {
         ArrayList<Movie> movieList = new ArrayList<>();
         movieList.add(new Movie("Cats", "yesterday", 17, "horror"));
         return movieList;
     }
-
 }
