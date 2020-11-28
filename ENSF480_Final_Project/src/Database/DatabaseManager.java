@@ -1,11 +1,6 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 import TRA.Domain.*;
@@ -216,7 +211,7 @@ public static void initialize(String[] args) {
 				Boolean vacant = results.getBoolean(0);
 				int seatNumber = results.getInt(1);
 
-				seatResults.add(new Seat(vacant, seatNumber));
+				seatResults.add(new Seat(seatMapID, seatNumber, vacant));
 
 
 			}
@@ -476,7 +471,7 @@ public static void initialize(String[] args) {
 			st.setString(1, theShowing.getMovie().getMovieTitle());
 			st.setString(2, theShowing.getTheatre().getTheatreName());
 			st.setInt(3, theShowing.getSeatMap().getSeatMapID());
-			st.setInt(4, theShowing.getShowtime());
+			st.setString(4, theShowing.getShowtime());
 			st.setInt(5, theShowing.getShowingID());
 			st.executeUpdate();
 			return;
