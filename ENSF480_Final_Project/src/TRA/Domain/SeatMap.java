@@ -8,12 +8,14 @@ public class SeatMap {
     private int reservedSeatCount;
     private int numberOfRows;
     private int numberOfAvailableSeats;
+    private int seatMapID;
 
-    public SeatMap(ArrayList<Seat> seats, int reservedSeatCount, int numberOfRows, int numberOfAvailableSeats) {
-        this.seats = seats;
+    public SeatMap(int seatMapID, int reservedSeatCount, int numberOfRows, int numberOfAvailableSeats, ArrayList<Seat> seats) {
+        this.seatMapID = seatMapID;
         this.reservedSeatCount = reservedSeatCount;
         this.numberOfRows = numberOfRows;
         this.numberOfAvailableSeats = numberOfAvailableSeats;
+        this.seats = seats;
     }
 
     public void updateSeatStatus(Seat updateSeat) {
@@ -42,5 +44,13 @@ public class SeatMap {
 
     public int getNumberOfAvailableSeats() {
         return numberOfAvailableSeats;
+    }
+
+    public int getSeatMapID() {
+        return seatMapID;
+    }
+
+    public void setSeatMapID(int seatMapID) {
+        this.seatMapID = seatMapID;
     }
 }

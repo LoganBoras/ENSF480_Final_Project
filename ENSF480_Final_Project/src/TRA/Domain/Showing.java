@@ -1,23 +1,27 @@
 package TRA.Domain;
 
+import java.util.ArrayList;
+
 public class Showing {
-    private int showtime;
+    private String showtime;
     private Movie movie;
     private Theatre theatre;
     private SeatMap seatMap;
+    private int showingID;
 
-    public Showing(int showtime, Movie movie, Theatre theatre, SeatMap seatMap) {
-        this.showtime = showtime;
+    public Showing(int showingID, Movie movie, Theatre theatre, SeatMap seatMap, String st) {
+        this.showingID = showingID;
+        this.showtime = st;
         this.movie = movie;
         this.theatre = theatre;
         this.seatMap = seatMap;
     }
 
-    public int getShowtime() {
+    public String getShowtime() {
         return showtime;
     }
 
-    public void setShowtime(int showtime) {
+    public void setShowtime(String showtime) {
         this.showtime = showtime;
     }
 
@@ -43,5 +47,13 @@ public class Showing {
 
     public void setSeatMap(SeatMap seatMap) {
         this.seatMap = seatMap;
+    }
+
+    public int getShowingID() {
+        return showingID;
+    }
+
+    public void setShowingID(int showingID) {
+        this.showingID = showingID;
     }
 }

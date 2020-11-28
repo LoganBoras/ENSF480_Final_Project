@@ -3,14 +3,12 @@ package TRA.Domain;
 public class Seat {
     private boolean vacant;
     private int seatNumber;
+    private int seatMapID;
 
-    public Seat(boolean vacant, int seatNumber) {
+    public Seat(int seatMapID, int seatNumber, boolean vacant) {
         this.vacant = vacant;
         this.seatNumber = seatNumber;
-    }
-
-    public void updateSeatVacancy(boolean v) {
-        vacant = v;
+        this.seatMapID = seatMapID;
     }
 
     public boolean isVacant() {
@@ -27,5 +25,13 @@ public class Seat {
 
     public void setSeatNumber(int seatNumber) {
         this.seatNumber = seatNumber;
+    }
+
+    public int getSeatMapID() {
+        return seatMapID;
+    }
+
+    public void setSeatMapID(int seatMapID) {
+        this.seatMapID = seatMapID;
     }
 }
