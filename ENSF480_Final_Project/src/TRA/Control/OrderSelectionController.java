@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import TRA.Domain.Movie;
+import TRA.Domain.SeatMap;
 import TRA.Domain.Showing;
 import TRA.Domain.Theatre;
 import TRA.Presentation.*;
@@ -18,7 +19,7 @@ public class OrderSelectionController extends Subject{
 	private ArrayList<Movie> movies;
 	private ArrayList<Theatre> theatres;
 	private ArrayList<Showing> showTimes;
-	
+	private SeatMap seats;
 	
 	public OrderSelectionController(JFrame frame, Subject subject) {
 		this.frame = frame;
@@ -44,6 +45,8 @@ public class OrderSelectionController extends Subject{
 		for(int j = 0; j < data.size(); j++) {
 			System.out.println(data.get(j));
 		}
+		
+		return;
 		
 	}
 	
@@ -103,7 +106,18 @@ public class OrderSelectionController extends Subject{
 
 	private void runSeatSelection() {
 		// TODO Auto-generated method stub
+		int prevID = getID();
+		int i = 0;
+		seats = new SeatMap();
 		
+		Screen Screen = new SeatSelectionScreen(frame, itself, seats);
+		Screen.displayScreen();
+		
+		while(getID() == prevID) {
+			if(i == 0)
+				System.out.println("waiting for SeatSelectionScreen to finish...");
+			i++;
+		}
 	}
 	
 	

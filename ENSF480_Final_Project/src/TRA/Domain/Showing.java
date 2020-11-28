@@ -9,6 +9,7 @@ public class Showing {
     private SeatMap seatMap;
     private int showingID;
 
+
     public Showing(int showingID, Movie movie, Theatre theatre, SeatMap seatMap, String st) {
         this.showingID = showingID;
         this.showtime = st;

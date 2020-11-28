@@ -1,9 +1,10 @@
 package TRA.Domain;
 
 public class Seat {
-    private boolean vacant;
-    private int seatNumber;
-    private int seatMapID;
+
+    private boolean vacant;	//will be true if the seat is open
+    private int seatNumber;	//represents the number of the seat
+
 
     public Seat(int seatMapID, int seatNumber, boolean vacant) {
         this.vacant = vacant;

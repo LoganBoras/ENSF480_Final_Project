@@ -21,21 +21,24 @@ public class HomeController extends Subject{
 
 	public void runHome() {
 		
-		int prevID = getID();
+		
 		while(true) {
+			int prevID = getID();
 			Screen Screen = new HomeScreen(frame, itself);
 			Screen.displayScreen();
 			System.out.println("This is the ID: " + getID());
-			
+			int i = 0;
 			while(getID() == prevID) {
-				System.out.println("Waiting for button press on HomeScreen...");
+				if(i == 0)
+					System.out.println("Waiting for button press on HomeScreen...");
+				i++;
 			}
 			System.out.println("We have exited the while loop!!11!!!");
 			switch (getID()) {
 				case 2:
 					System.out.println("User Selected Order");
 					doOrderSelection();
-					return;
+					break;
 				case 3:
 					System.out.println("User Selected ");
 					doOrderSelection();
