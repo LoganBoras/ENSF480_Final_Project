@@ -23,6 +23,7 @@ public class HomeController extends Subject{
 		
 		
 		while(true) {
+			setID(1);
 			int prevID = getID();
 			Screen Screen = new HomeScreen(frame, itself);
 			Screen.displayScreen();
