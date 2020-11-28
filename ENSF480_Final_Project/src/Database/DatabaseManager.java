@@ -2,6 +2,7 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -422,6 +423,93 @@ public static void initialize(String[] args) {
 				 	Statement statement = connection.createStatement();	 
 				  	statement.executeUpdate("INSERT INTO SeatMap " + "VALUES ('"+theMap.getSeatMapID()+"', '"+theMap.getReservedSeatCount()+"', '"
 				 	+theMap.getNumberOfRows()+"', '"+theMap.getNumberOfAvailableSeats()+"')");
+				  	return;	
+				  	
+			    } catch (SQLException e) {
+			 
+			    	System.out.println("Could not retrieve data from the database " + e.getMessage());
+			    
+			    }
+	 }
+	 
+	 public static void updateMovie(Movie theMovie) {
+		 try {
+			 
+				 	PreparedStatement st = connection.prepareStatement("UPDATE Movie SET dateReleased = ?, movieLength = ?, genre = ?, WHERE movieTitle = ?");
+				    st.setString(1, theMovie.getDateReleased());
+				    st.setInt(2, theMovie.getMovieLength());
+				    st.setString(3, theMovie.getGenre());
+				    st.setString(4, theMovie.getMovieTitle());
+				    st.executeUpdate(); 
+				  	return;	
+				  	
+			    } catch (SQLException e) {
+			 
+			    	System.out.println("Could not retrieve data from the database " + e.getMessage());
+			    
+			    }
+	 }
+	 
+	 public static void updateTheatre(Theatre theTheatre) {
+		 try {
+			 
+			 	PreparedStatement st = connection.prepareStatement("UPDATE Theatre SET TheatreName = ?, WHERE theatreName = ?");
+			    st.setString(1,theTheatre.getTheatreName());
+			    st.setString(2, theTheatre.getTheatreName());
+			    st.executeUpdate(); 
+			  	return;	
+				  
+			  } catch (SQLException e) {
+			 
+				  System.out.println("Could not retrieve data from the database " + e.getMessage());
+			  
+			  }
+	 }
+	 
+	 public static void updateShowing(Showing theShowing) {
+		 try {
+			 
+			 	PreparedStatement st = connection.prepareStatement("UPDATE Showing SET movieTitle = ?, theatreName = ?, seatMapID = ?, showTime = ?, WHERE showingID = ?");
+			    st.setString(1, theShowing.getMovie().getMovieTitle());
+			    st.setString(2, theShowing.getTheatre().getTheatreName());
+			    st.setInt(3, theShowing.getSeatMap().getSeatMapID());
+			    st.setInt(4, theShowing.getShowtime());
+			    st.setInt(5, theShowing.getShowingID());
+			    st.executeUpdate(); 
+			  	return;	
+			  
+		 	} catch (SQLException e) {
+			 
+		 		System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 	
+		 	}
+	 }
+	 
+	 public static void updateSeat(SeatMap theMap, Seat theSeat) {
+		 try {
+			 
+			 		PreparedStatement st = connection.prepareStatement("UPDATE Seat SET seatNumber = ?, vacant = ?, WHERE seatMapID = ?");
+				    st.setInt(1, theSeat.getSeatNumber());
+				    st.setBoolean(2, theSeat.isVacant());
+				    st.setInt(3, theMap.getSeatMapID());
+				    st.executeUpdate(); 
+				  	return;	
+				  	
+			    } catch (SQLException e) {
+			 
+			    	System.out.println("Could not retrieve data from the database " + e.getMessage());
+			    
+			    }
+	 }
+	 
+	 public static void updateSeatMap(SeatMap theMap) {
+		 try {
+			 		PreparedStatement st = connection.prepareStatement("UPDATE SeatMap SET reservedSeatCount = ?, NumberOfRows = ?, numberOfAvailableSeats = ?, WHERE seatMapID = ?");
+				    st.setInt(1, theMap.getReservedSeatCount());
+				    st.setInt(2, theMap.getNumberOfRows());
+				    st.setInt(3, theMap.getNumberOfAvailableSeats());
+				    st.setInt(4, theMap.getSeatMapID());
+				    st.executeUpdate(); 
 				  	return;	
 				  	
 			    } catch (SQLException e) {
