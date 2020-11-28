@@ -11,10 +11,6 @@ public class TRA {
     private DatabaseManager databaseManager;
     private User user;
 
-    public TRA() {
-        //TODO implement default constructor
-    }
-
     public TRA(DatabaseManager db, User u) {
         databaseManager = db;
         user = u;
