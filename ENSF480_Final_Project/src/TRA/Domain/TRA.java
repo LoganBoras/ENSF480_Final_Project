@@ -11,6 +11,8 @@ public class TRA {
 
     private DatabaseManager databaseManager;
     private User user;
+    private RegisteredUser registeredUser;
+    private RegularUser regularUser;
 
     public TRA(DatabaseManager db, User u) {
         databaseManager = db;
@@ -20,6 +22,7 @@ public class TRA {
     public TRA() {
         databaseManager = new DatabaseManager();
         databaseManager.initialize(null);
+        registeredUser = new RegisteredUser();
     }
 
     public ArrayList<Movie> sendMovieList() {
@@ -60,5 +63,17 @@ public class TRA {
         ArrayList<Movie> movieList = new ArrayList<>();
         movieList.add(new Movie("Cats", "yesterday", 17, "horror"));
         return movieList;
+    }
+
+    public void registerUser(int cardNumber, String expiryDate, int csv, String emailAddress, String firstName, String lastName, String password) {
+        boolean validEmail = databaseManager.checkEmailAvailability(emailAddress);
+        if(validEmail) {
+            registeredUser.register(-1, cardNumber, expiryDate, csv, emailAddress, firstName, lastName, password);
+            int accountID = databaseManager.registerUser(registeredUser);
+            registeredUser.getUserAccount().setAccountID(accountID);
+        }
+        else {
+            System.out.println("Another user has registered with that email. Please try again.");
+        }
     }
 }

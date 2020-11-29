@@ -566,4 +566,46 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
+
+	 public int registerUser(RegisteredUser u) {
+		 try {
+		 	 int id = 0;
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT MAX(accountID) FROM user");
+
+			 if(results.next()) {
+			 	id = results.getInt(1) + 1;
+			 }
+
+			 statement.executeUpdate("INSERT INTO user " + "VALUES ('" + id + "', '" + u.getUserAccount().getEmailAddress() +"', '"+ u.getUserAccount().getFirstName() +"', '"
+					 + u.getUserAccount().getLastName() +"', '"+ u.getUserAccount().getPassword() +"', '"+ u.getUserAccount().getCard().getCardNumber() +"', '"+ u.getUserAccount().getCard().getExpiryDate() +"', '"+ u.getUserAccount().getCard().getCsv() +"')");
+			 return id;
+
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not register user " + e.getMessage());
+
+		 }
+		 return -1;
+	 }
+
+	 public boolean checkEmailAvailability(String email) {
+		 try {
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT email FROM user WHERE user.email = '" + email + "'");
+
+			 if (results.next()) {
+				 System.out.println("if " + results.getString("email"));
+				 return false;
+			 }
+
+			 return true;
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 }
+		 return false;
+	 }
 }

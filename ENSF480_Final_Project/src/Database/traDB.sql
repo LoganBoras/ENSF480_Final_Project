@@ -42,6 +42,51 @@ INSERT INTO `movie` VALUES ('Ghost Cat','2003',92,'Mystery, Thriller'),('Incepti
 UNLOCK TABLES;
 
 --
+-- Table structure for table `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order` (
+  `orderID` int NOT NULL,
+  `accountID` int DEFAULT NULL,
+  PRIMARY KEY (`orderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_ticket_list`
+--
+
+DROP TABLE IF EXISTS `order_ticket_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_ticket_list` (
+  `orderID` int DEFAULT NULL,
+  `ticketID` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_ticket_list`
+--
+
+LOCK TABLES `order_ticket_list` WRITE;
+/*!40000 ALTER TABLE `order_ticket_list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_ticket_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `seat`
 --
 
@@ -140,6 +185,60 @@ LOCK TABLES `theatre` WRITE;
 INSERT INTO `theatre` VALUES ('Cineplex Odeon Crowfoot Crossing'),('Scotiabank Theatre Chinook'),('SilverCity CrossIron Mills Cinemas');
 /*!40000 ALTER TABLE `theatre` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `ticket`
+--
+
+DROP TABLE IF EXISTS `ticket`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ticket` (
+  `ticketID` int NOT NULL,
+  `showingID` int DEFAULT NULL,
+  `seatNumber` int DEFAULT NULL,
+  `cost` double DEFAULT NULL,
+  PRIMARY KEY (`ticketID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ticket`
+--
+
+LOCK TABLES `ticket` WRITE;
+/*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `accountID` int NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `cardNumber` int DEFAULT NULL,
+  `expiryDate` varchar(255) DEFAULT NULL,
+  `csv` int DEFAULT NULL,
+  PRIMARY KEY (`accountID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -150,4 +249,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-26 17:24:12
+-- Dump completed on 2020-11-28 21:50:19
