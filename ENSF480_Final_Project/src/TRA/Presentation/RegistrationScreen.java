@@ -102,6 +102,8 @@ public class RegistrationScreen extends Screen{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
 					frame.dispose();
 					
 			}});
@@ -120,6 +122,7 @@ public class RegistrationScreen extends Screen{
 					String csv = csvBox.getText();
 					
 					if(email.isEmpty()||regController.checkEmail(email)==false) {
+					if(email.isEmpty()) {
 						emailLabel.setOpaque( true );
 						emailLabel.setBackground(Color.RED);
 						correct = false;
@@ -156,6 +159,9 @@ public class RegistrationScreen extends Screen{
 					}
 					
 					if(cardNum.isEmpty()||isNumeric(cardNum)==false) {
+					}
+					
+					if(cardNum.isEmpty()) {
 						cardLabel.setOpaque( true );
 						cardLabel.setBackground(Color.RED);
 						correct = false;
@@ -174,12 +180,16 @@ public class RegistrationScreen extends Screen{
 					}
 					
 					if(csv.isEmpty()||isNumeric(csv)==false) {
+					}
+					
+					if(csv.isEmpty()) {
 						csvLabel.setOpaque( true );
 						csvLabel.setBackground(Color.RED);
 						correct = false;
 					}else {
 						csvLabel.setOpaque( false );
 						csvLabel.setBackground(Color.GRAY);
+
 					}
 					
 					if(correct) {
@@ -188,6 +198,7 @@ public class RegistrationScreen extends Screen{
 						update();
 					}
 			}
+		}
 
 			private boolean isNumeric(String numString) {
 				try {
@@ -273,4 +284,5 @@ public class RegistrationScreen extends Screen{
 	}
 
 	
+
 }

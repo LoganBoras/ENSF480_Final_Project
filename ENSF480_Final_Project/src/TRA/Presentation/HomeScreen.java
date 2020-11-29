@@ -120,12 +120,12 @@ public class HomeScreen extends Screen{
 					updateToReg();
 			}});
 		
+
 		getLoginBut().addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stug
-					
 					updateToLog();
 			}});
 
