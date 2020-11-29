@@ -7,4 +7,8 @@ public abstract class OrderSelectionScreen extends Screen{
 	public JList list;
 	
 	abstract public void createSelection();
+	
+	public JList getList() {
+		return list;
+	}
 }

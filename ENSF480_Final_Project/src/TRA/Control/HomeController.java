@@ -19,14 +19,14 @@ public class HomeController extends Subject{
 		setID(1);
 	}
 
-	public void runHome() {
+	public void doAction() {
 		
 		
 		while(true) {
 			setID(1);
 			int prevID = getID();
 			Screen Screen = new HomeScreen(frame, itself);
-			Screen.displayScreen();
+			Screen.buildScreen();
 			System.out.println("This is the ID: " + getID());
 			int i = 0;
 			while(getID() == prevID) {
@@ -54,7 +54,7 @@ public class HomeController extends Subject{
 		
 	}
 
-	private void doAction() {
+	private void doOrderSelection() {
 		// TODO Auto-generated method stub
 		orderSelectionController = new OrderSelectionController(frame, itself);
 		orderSelectionController.setItself(orderSelectionController);

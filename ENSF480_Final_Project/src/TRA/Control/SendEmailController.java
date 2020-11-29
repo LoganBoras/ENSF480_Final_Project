@@ -52,4 +52,10 @@ public class SendEmailController extends Controller {
         sendEmailController = new SendEmailController(new MovieAnnouncementEmailStrategy("roland@email.com"));
         sendEmailController.doAction();
     }
+
+	@Override
+	public void addData(String data) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -62,10 +62,10 @@ public class HomeScreen extends Screen{
 		controlButtons();
 		System.out.println("selection is now : " + screenID);
 		
-		return controlButtons();
+		controlButtons();
 	}
 	
-	private int controlButtons() {
+	private void controlButtons() {
 		
 		getCancelBut().addActionListener(new ActionListener() {
 			
@@ -82,21 +82,17 @@ public class HomeScreen extends Screen{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stug
 
-
-					updateScreen();
-
-					
+					update();
 			}});
 		
-		return selection;
 	}
 	
-	public static void main(String args []) {
-		HomeScreen Screen = new HomeScreen();
-		int pog = Screen.buildScreen();
-		System.out.println("Returned value from screen : " + pog);
-		
-	}
+//	public static void main(String args []) {
+//		HomeScreen Screen = new HomeScreen();
+//		int pog = Screen.buildScreen();
+//		System.out.println("Returned value from screen : " + pog);
+//		
+//	}
 
 	public JFrame getFrame() {
 		return frame;

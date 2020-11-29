@@ -8,6 +8,7 @@ public class SeatMap {
 	    private int reservedSeatCount;
 	    private int numberOfRows;
 	    private int numberOfAvailableSeats;
+	    private int seatMapID;
 
 	    public SeatMap() {
 	    	seats = new ArrayList<Seat>();
@@ -15,21 +16,22 @@ public class SeatMap {
 	    	this.numberOfAvailableSeats = 7*5;
 	    	this.numberOfRows = 5;
 	    	this.numberOfAvailableSeats = 7*5;
-	    	
+	    	this.seatMapID = 2;
 	    	for(int i = 0; i<numberOfAvailableSeats; i++)
 	    		if(i%2 == 0)
-	    			seats.add(new Seat(true, i));
+	    			seats.add(new Seat(seatMapID, i, true));
 	    		else
-	    			seats.add(new Seat(false, i));
+	    			seats.add(new Seat(seatMapID, i, false));
 	    	
 	    }
 	    
-//	    public SeatMap(ArrayList<Seat> seats, int reservedSeatCount, int numberOfRows, int numberOfAvailableSeats) {
-//	        this.seats = seats;
-//	        this.reservedSeatCount = reservedSeatCount;
-//	        this.numberOfRows = numberOfRows;
-//	        this.numberOfAvailableSeats = numberOfAvailableSeats;
-//	    }
+	    public SeatMap(int seatMapID, int reservedSeatCount, int numberOfRows, int numberOfAvailableSeats, ArrayList<Seat> seats) {
+	        this.seats = seats;
+	        this.reservedSeatCount = reservedSeatCount;
+	        this.numberOfRows = numberOfRows;
+	        this.numberOfAvailableSeats = numberOfAvailableSeats;
+	        this.seatMapID = seatMapID;
+	    }
 
 //	    public void updateSeatStatus(Seat updateSeat) {
 //	        seats.get(updateSeat.getSeatNumber() - 1).setVacant(!updateSeat.isVacant());
@@ -58,5 +60,15 @@ public class SeatMap {
 	    public int getNumberOfAvailableSeats() {
 	        return numberOfAvailableSeats;
 	    }
+
+		public int getSeatMapID() {
+			return seatMapID;
+		}
+
+		public void setSeatMapID(int seatMapID) {
+			this.seatMapID = seatMapID;
+		}
+	    
+	    
 
 }

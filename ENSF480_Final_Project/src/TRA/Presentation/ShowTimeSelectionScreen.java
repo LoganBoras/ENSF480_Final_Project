@@ -51,7 +51,7 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 	}
 
 	@Override
-	public void updateScreen() {
+	public void update() {
 		// TODO Auto-generated method stub
 		frame.getContentPane().removeAll();
 		
@@ -61,7 +61,7 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 	}
 
 	@Override
-	public void displayScreen() {
+	public void buildScreen() {
 		// TODO Auto-generated method stub
 		System.out.println("We're in ShowTime Selection");
 		frame.setLayout(new BorderLayout());
@@ -122,7 +122,7 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 						JOptionPane.showMessageDialog(new JFrame(), "You have not selected a show time yet!");
 					}
 					else {
-						updateScreen();
+						update();
 					}
 			}});
 	}

@@ -1,6 +1,7 @@
 package TRA.Presentation;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -50,7 +51,7 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 	}
 
 	@Override
-	public void updateScreen() {
+	public void update() {
 		// TODO Auto-generated method stub
 		//BorderLayout layout = (BorderLayout)frame.getLayout();
 		//frame.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
@@ -63,7 +64,7 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 	} 
 
 	@Override
-	public void displayScreen() {
+	public void buildScreen() {
 		// TODO Auto-generated method stub
 		System.out.println("We're in Movie Selection");
 		frame.setLayout(new BorderLayout());
@@ -125,10 +126,11 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 						JOptionPane.showMessageDialog(new JFrame(), "You have not selected a movie yet!");
 					}
 					else {
-						updateScreen();
+						update();
 					}
 			}});
 	}
+
 
 	public ArrayList<Movie> getMovies() {
 		return movies;

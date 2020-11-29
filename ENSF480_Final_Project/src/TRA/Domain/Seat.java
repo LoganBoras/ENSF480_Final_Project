@@ -4,6 +4,7 @@ public class Seat {
 
     private boolean vacant;	//will be true if the seat is open
     private int seatNumber;	//represents the number of the seat
+	private int seatMapID;
 
 
     public Seat(int seatMapID, int seatNumber, boolean vacant) {

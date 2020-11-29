@@ -57,7 +57,7 @@ public class OrderSelectionController extends Subject{
 		movies.add(new Movie("title2", "1",1,"genre1"));
 		movies.add(new Movie("title3", "1",1,"genre1"));
 		Screen Screen = new MovieSelectionScreen(frame, itself, movies);
-		Screen.displayScreen();
+		Screen.buildScreen();
 		
 		prevID = getID();
 		int i = 0;
@@ -77,7 +77,7 @@ public class OrderSelectionController extends Subject{
 		theatres.add(new Theatre("theatre3"));
 		
 		Screen Screen = new TheatreSelectionScreen(frame, itself, theatres);
-		Screen.displayScreen();
+		Screen.buildScreen();
 		
 		while(getID() == prevID) {
 			if(i == 0)
@@ -90,12 +90,12 @@ public class OrderSelectionController extends Subject{
 		int prevID = getID();
 		int i = 0;
 		ArrayList<Showing> showTimes = new ArrayList<Showing>();
-		showTimes.add(new Showing(12, movies.get(1), theatres.get(1)));
-		showTimes.add(new Showing(13, movies.get(1), theatres.get(1)));
-		showTimes.add(new Showing(14, movies.get(1), theatres.get(1)));
+		showTimes.add(new Showing(12, movies.get(1), theatres.get(1), new SeatMap(), "12"));
+		showTimes.add(new Showing(13, movies.get(1), theatres.get(1), new SeatMap(), "12"));
+		showTimes.add(new Showing(14, movies.get(1), theatres.get(1), new SeatMap(), "12"));
 		
 		Screen Screen = new ShowTimeSelectionScreen(frame, itself, showTimes);
-		Screen.displayScreen();
+		Screen.buildScreen();
 		
 		while(getID() == prevID) {
 			if(i == 0)
@@ -111,7 +111,7 @@ public class OrderSelectionController extends Subject{
 		seats = new SeatMap();
 		
 		Screen Screen = new SeatSelectionScreen(frame, itself, seats);
-		Screen.displayScreen();
+		Screen.buildScreen();
 		
 		while(getID() == prevID) {
 			if(i == 0)
