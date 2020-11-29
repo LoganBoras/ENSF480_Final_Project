@@ -2,36 +2,49 @@ package TRA.Domain;
 
 public abstract class Order {
     private double totalPrice;
-    private Payment payment;
-    private int orderID;
+    private final int orderID;
+    private static int nextOrderID = 0;
 
-    public Order(double totalPrice, Payment payment, int orderID) {
-        this.totalPrice = totalPrice;
-        this.payment = payment;
-        this.orderID = orderID;
+    private int orderStatus;
+    private static final int ORDER_STATUS_PENDING = 0;
+    private static final int ORDER_STATUS_APPROVED = 1;
+    private static final int ORDER_STATUS_REJECTED = 2;
+
+    public Order() {
+        this.orderID = nextOrderID++;
+        this.orderStatus = ORDER_STATUS_PENDING;
     }
 
     public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    protected void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
     }
 
     public int getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public int getOrderStatus() {
+        return orderStatus;
     }
+
+    /**
+     * Sets order status to approved
+     */
+    public void approve() {
+        this.orderStatus = Order.ORDER_STATUS_APPROVED;
+    }
+
+    /**
+     * Sets order status to rejected
+     */
+    public void reject() {
+        this.orderStatus = Order.ORDER_STATUS_REJECTED;
+    }
+
+    abstract public Receipt makeReceipt();
+
 }

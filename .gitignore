@@ -1,9 +1,8 @@
 
 .idea\
-ENSF480_Final_Project/.*
+ENSF480_Final_Project/email/*.txt
 ENSF480_Final_Project/bin
 .classpath
 .project
 
 lib\
-email\email*
