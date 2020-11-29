@@ -18,7 +18,7 @@ public class ReceiptEmail extends Email {
         String message = "";
         message = message.concat(this.makeHeader());
         message = message.concat("Message:\n\n");
-        message = message.concat("Thank you for your " + receipt.orderTypeToString()
+        message = message.concat("Thank you for your " + receipt.receiptTypeToString()
                                     + " order!\n\nHere is your receipt:\n\n");
         message = message.concat(receipt.toString());
         return message;

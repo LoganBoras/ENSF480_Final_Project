@@ -4,18 +4,68 @@
 
 package TRA.Domain;
 
+import java.util.ArrayList;
+
 public class Receipt {
 
-    //TODO fully implement - should return type of order in the form "ticket" or
-    //"cancellation" - it should be lowercase so it can be inserted into sentences
-    //like "Thank you for your [ordertype] order
-    /**
-     * Returns type of order as String
-     * @return type of order
-     */
-    public String orderTypeToString() {
-        return "ticket";
+    private final int receiptType;
+    public static final int TYPE_CANCELLATION = 0;
+    public static final int TYPE_TICKET = 1;
+    public static final int TYPE_FEE = 2;
+
+    private final double amount;
+
+    // Summary of contents of order that this receipt is for
+    private final String summaryMessage;
+
+    public Receipt(TicketOrder ticketOrder) {
+        this.receiptType = TYPE_TICKET;
+        this.amount = ticketOrder.getTotalPrice();
+        this.summaryMessage = buildTicketOrderMessage(ticketOrder);
     }
 
-    //TODO - implement toString function for receipts
+    /**
+     * Creates an order summary message based on a ticket order
+     * @param ticketOrder
+     * @return order summary message
+     */
+    private static String buildTicketOrderMessage(TicketOrder ticketOrder) {
+        String message = "";
+        message = message.concat("\t\tTicket ID:\t\tPrice:\n");
+        //Add IDs and prices of tickets from order
+        ArrayList<Ticket> tickets = ticketOrder.getTicketListCopy();
+        for (Ticket ticket : tickets) {
+            message = message.concat("\t\t" + ticket.getTicketID() + "\t\t\t$" + ticket.getCost() + "\n");
+        }
+        return message;
+    }
+
+    /**
+     * Returns type of order as String that can be inserted into a sentence. The
+     * string is all lower case
+     * @return type of order
+     */
+    public String receiptTypeToString() {
+        String type = "";
+        switch(this.receiptType) {
+            case TYPE_CANCELLATION:
+                type =  "cancellation";
+                break;
+            case TYPE_TICKET:
+                type =  "ticket";
+                break;
+            case TYPE_FEE:
+                type = "fee payment";
+                break;
+        }
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return "Receipt:\n" +
+                "\tReceipt type: " + this.receiptTypeToString() + "\n" +
+                "\tAmount: $" + amount + "\n" +
+                "\tSummary:\n" + summaryMessage;
+    }
 }

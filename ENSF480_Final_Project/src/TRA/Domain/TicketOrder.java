@@ -3,26 +3,25 @@ package TRA.Domain;
 import java.util.ArrayList;
 
 public class TicketOrder extends Order {
-    private ArrayList<Ticket> ticketList;
 
-    public TicketOrder(ArrayList<Ticket> ticketList, double totalPrice, Payment payment, int orderID) {
-        super(totalPrice, payment, orderID);
-        this.ticketList = ticketList;
+    private final ArrayList<Ticket> ticketList;
+
+    public TicketOrder(ArrayList<Ticket> ticketList) {
+        //Set order cost which is summation of cost of each ticket
+        double ticketCost = 0;
+        for (Ticket ticket : ticketList) {
+            ticketCost += ticket.getCost();
+        }
+        this.setTotalPrice(ticketCost);
+        this.ticketList = (ArrayList<Ticket>) ticketList.clone();
     }
 
-    public void addTicket(Ticket ticket) {
-        ticketList.add(ticket);
+    public ArrayList<Ticket> getTicketListCopy() {
+        return (ArrayList<Ticket>) ticketList.clone();
     }
 
-    public void updateOrder(ArrayList<Ticket> tickets) {
-        ticketList = tickets;
-    }
-
-    public ArrayList<Ticket> getTicketList() {
-        return ticketList;
-    }
-
-    public void setTicketList(ArrayList<Ticket> ticketList) {
-        this.ticketList = ticketList;
+    @Override
+    public Receipt makeReceipt() {
+        return null;
     }
 }

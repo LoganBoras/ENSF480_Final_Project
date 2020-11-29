@@ -4,27 +4,20 @@ public class Payment {
     private Card card;
     private double cost;
     private Order order;
-    private int paymentID;
+    private final int paymentID;
+    private static int nextPaymentID;
 
-    public Payment(Card card, double cost, Order order, int paymentID) {
+    public static final int PAYMENT_STATUS_PENDING = 0;
+    public static final int PAYMENT_STATUS_ACCEPTED = 1;
+    public static final int PAYMENT_STATUS_REJECTED = 2;
+    private int status; //accepted, rejected or pending
+
+    public Payment(Card card, Order order) {
         this.card = card;
-        this.cost = cost;
+        this.cost = order.getTotalPrice();
         this.order = order;
-        this.paymentID = paymentID;
-    }
-
-    public boolean verifyPayment() {
-        // TODO: add functionality when financialInstitute is complete
-        return true;
-    }
-
-    public void receivePaymentRequest(Card card, double cost) {
-        this.card = card;
-        this.cost = cost;
-    }
-
-    public Payment sendPaymentRequest() {
-        return this;
+        this.paymentID = nextPaymentID++;
+        this.status = PAYMENT_STATUS_PENDING;
     }
 
     public Card getCard() {
@@ -55,7 +48,19 @@ public class Payment {
         return paymentID;
     }
 
-    public void setPaymentID(int paymentID) {
-        this.paymentID = paymentID;
+    public boolean isPending() {
+        return this.status == PAYMENT_STATUS_PENDING;
+    }
+
+    public boolean isAccepted() {
+        return this.status == PAYMENT_STATUS_ACCEPTED;
+    }
+
+    public boolean isRejected() {
+        return this.status == PAYMENT_STATUS_REJECTED;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
