@@ -35,7 +35,7 @@ public class TRAController {
 		// TODO Auto-generated method stub
 		homeController = new HomeController(frame);
 		homeController.setItself(homeController);
-		homeController.runHome();
+		homeController.doAction();
 		
 	}
 
