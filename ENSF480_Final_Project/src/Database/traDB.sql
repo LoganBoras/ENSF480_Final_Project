@@ -16,6 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `list_orders`
+--
+
+DROP TABLE IF EXISTS `list_orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `list_orders` (
+  `orderID` int NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`orderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `list_orders`
+--
+
+LOCK TABLES `list_orders` WRITE;
+/*!40000 ALTER TABLE `list_orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `list_orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `movie`
 --
 
@@ -39,29 +62,6 @@ LOCK TABLES `movie` WRITE;
 /*!40000 ALTER TABLE `movie` DISABLE KEYS */;
 INSERT INTO `movie` VALUES ('Ghost Cat','2003',92,'Mystery, Thriller'),('Inception','July 16, 2010',148,'Thriller, Sci Fi, Action'),('Interstellar','November 7, 2014',165,'Adventure, Drama, Sci Fi'),('Knives Out','November 27, 2019',130,'Mystery, Thriller, Drama'),('The Cat That Came Back','2003',92,'Mystery, Thriller');
 /*!40000 ALTER TABLE `movie` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `order`
---
-
-DROP TABLE IF EXISTS `order`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
-  `orderID` int NOT NULL,
-  `accountID` int DEFAULT NULL,
-  PRIMARY KEY (`orderID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `order`
---
-
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -159,7 +159,7 @@ CREATE TABLE `showing` (
 
 LOCK TABLES `showing` WRITE;
 /*!40000 ALTER TABLE `showing` DISABLE KEYS */;
-INSERT INTO `showing` VALUES (1,'Ghost Cat','Cineplex Odeon Crowfoot Crossing',1,'2020-11-30 10:00 AM'),(2,'Inception','Cineplex Odeon Crowfoot Crossing',2,'2020-11-30 10:30 AM'),(3,'Interstellar','Cineplex Odeon Crowfoot Crossing',4,'2020-11-30 10:00 AM'),(4,'The Cat That Came Back','Scotiabank Theatre Chinook',1,'2020-11-30 10:00 AM'),(5,'Knives Out','Scotiabank Theatre Chinook',2,'2020-11-30 11:00 AM'),(7,'Inception','Scotiabank Theatre Chinook',3,'2020-11-30 10:30 AM'),(8,'Interstellar','Scotiabank Theatre Chinook',4,'2020-11-30 11:00 AM'),(9,'Ghost Cat','Scotiabank Theatre Chinook',5,'2020-11-30 10:30 AM'),(10,'Interstellar','SilverCity CrossIron Mills Cinemas',1,'2020-11-30 10:00 AM'),(11,'Inception','SilverCity CrossIron Mills Cinemas',2,'2020-11-30 10:00 AM'),(12,'Knives Out','SilverCity CrossIron Mills Cinemas',3,'2020-11-30 10:30 AM'),(13,'The Cat That Came Back','SilverCity CrossIron Mills Cinemas',4,'2020-11-30 11:00 AM'),(14,'The Cat That Came Back','Cineplex Odeon Crowfoot Crossing',1,'2020-11-30 1:00 PM'),(15,'Inception','Cineplex Odeon Crowfoot Crossing',2,'2020-11-30 1:30 PM'),(16,'Interstellar','Cineplex Odeon Crowfoot Crossing',4,'2020-11-30 1:00 PM'),(17,'The Cat That Came Back','Scotiabank Theatre Chinook',1,'2020-11-30 1:00 PM'),(18,'Knives Out','Scotiabank Theatre Chinook',2,'2020-11-30 1:30 PM'),(19,'Inception','Scotiabank Theatre Chinook',3,'2020-11-30 2:00 PM'),(20,'InterStellar','Scotiabank Theatre Chinook',4,'2020-11-30 1:30 PM'),(21,'Ghost Cat','Scotiabank Theatre Chinook',5,'2020-11-30 2:30 PM'),(22,'Interstellar','SilverCity CrossIron Mills Cinemas',1,'2020-11-30 1:00 PM'),(23,'Inception','SilverCity CrossIron Mills Cinemas',2,'2020-11-30 1:30 PM'),(24,'Ghost Cat','SilverCity CrossIron Mills Cinemas',3,'2020-11-30 2:00 PM'),(25,'The Cat That Came Back','SilverCity CrossIron Mills Cinemas',4,'2020-11-30 1:00 PM');
+INSERT INTO `showing` VALUES (1,'Ghost Cat','Cineplex Odeon Crowfoot Crossing',1,'2020-11-30 10:00 AM'),(2,'Inception','Cineplex Odeon Crowfoot Crossing',2,'2020-11-30 10:30 AM'),(3,'Interstellar','Cineplex Odeon Crowfoot Crossing',4,'2020-11-30 10:00 AM'),(4,'The Cat That Came Back','Scotiabank Theatre Chinook',1,'2020-11-30 10:00 AM'),(5,'Knives Out','Scotiabank Theatre Chinook',2,'2020-11-30 11:00 AM'),(7,'Inception','Scotiabank Theatre Chinook',3,'2020-11-30 10:30 AM'),(8,'Interstellar','Scotiabank Theatre Chinook',4,'2020-11-30 11:00 AM'),(9,'Ghost Cat','Scotiabank Theatre Chinook',5,'2020-11-30 10:30 AM'),(10,'Interstellar','SilverCity CrossIron Mills Cinemas',1,'2020-11-30 10:00 AM'),(11,'Inception','SilverCity CrossIron Mills Cinemas',2,'2020-11-30 10:00 AM'),(12,'Knives Out','SilverCity CrossIron Mills Cinemas',3,'2020-11-30 10:30 AM'),(13,'The Cat That Came Back','SilverCity CrossIron Mills Cinemas',4,'2020-11-30 11:00 AM'),(14,'The Cat That Came Back','Cineplex Odeon Crowfoot Crossing',1,'2020-11-30 1:00 PM'),(15,'Knives Out','Cineplex Odeon Crowfoot Crossing',2,'2020-11-30 1:30 PM'),(16,'Interstellar','Cineplex Odeon Crowfoot Crossing',4,'2020-11-30 1:00 PM'),(17,'The Cat That Came Back','Scotiabank Theatre Chinook',1,'2020-11-30 1:00 PM'),(18,'Knives Out','Scotiabank Theatre Chinook',2,'2020-11-30 1:30 PM'),(19,'Inception','Scotiabank Theatre Chinook',3,'2020-11-30 2:00 PM'),(20,'InterStellar','Scotiabank Theatre Chinook',4,'2020-11-30 1:30 PM'),(21,'Ghost Cat','Scotiabank Theatre Chinook',5,'2020-11-30 2:30 PM'),(22,'Interstellar','SilverCity CrossIron Mills Cinemas',1,'2020-11-30 1:00 PM'),(23,'Inception','SilverCity CrossIron Mills Cinemas',2,'2020-11-30 1:30 PM'),(24,'Ghost Cat','SilverCity CrossIron Mills Cinemas',3,'2020-11-30 2:00 PM'),(25,'The Cat That Came Back','SilverCity CrossIron Mills Cinemas',4,'2020-11-30 1:00 PM');
 /*!40000 ALTER TABLE `showing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +224,7 @@ CREATE TABLE `user` (
   `firstName` varchar(255) DEFAULT NULL,
   `lastName` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `cardNumber` int DEFAULT NULL,
+  `cardNumber` bigint DEFAULT NULL,
   `expiryDate` varchar(255) DEFAULT NULL,
   `csv` int DEFAULT NULL,
   PRIMARY KEY (`accountID`)
@@ -237,6 +237,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'email1@gmail.com','Jayden','Bischoff','password1',1111111111111111,'02/22',111),(2,'email2@gmail.com','Roland','Booth','password2',2222222222222222,'03/22',222),(3,'email3@gmail.com','Nurullo','Boboev','password3',3333333333333333,'01/22',333),(4,'email4@gmail.com','Logan','Boras','password4',4444444444444444,'10/22',444);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -249,4 +250,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-28 21:50:19
+-- Dump completed on 2020-11-29 14:57:42
