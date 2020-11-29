@@ -359,11 +359,12 @@ public static void initialize(String[] args) {
 			  ResultSet results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = " + seatMapID);
 			  ArrayList<Seat> seats = new ArrayList<>();
 			  while (results.next()) {
-				 seats.add(new Seat(results.getInt(1), results.getInt(2), results.getBoolean(3)));
+				 seats.add(new Seat(results.getInt(2), results.getInt(1), results.getBoolean(3)));
 			  }
 
-			  results = statement.executeQuery("SELECT * FROM seatmap WHERE seatMapID = "+seatMapID);
-			 
+			  results = statement.executeQuery("SELECT * FROM seatmap WHERE seatMapID = " + seatMapID);
+			  results.next();
+
 			  return new SeatMap(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4), seats);
 
 	
@@ -486,10 +487,10 @@ public static void initialize(String[] args) {
 	public static void updateSeat(SeatMap theMap, Seat theSeat) {
 		try {
 
-			PreparedStatement st = connection.prepareStatement("UPDATE Seat SET seatNumber = ?, vacant = ?, WHERE seatMapID = ?");
-			st.setInt(1, theSeat.getSeatNumber());
-			st.setBoolean(2, theSeat.isVacant());
-			st.setInt(3, theMap.getSeatMapID());
+			PreparedStatement st = connection.prepareStatement("UPDATE seat SET seat.vacant = ? WHERE seat.seatMapID = ? AND seat.seatNumber = ?");
+			st.setInt(3, theSeat.getSeatNumber());
+			st.setBoolean(1, theSeat.isVacant());
+			st.setInt(2, theMap.getSeatMapID());
 			st.executeUpdate();
 			return;
 
@@ -519,8 +520,9 @@ public static void initialize(String[] args) {
 
 	 public void updateSeatStatus(int seatNumber, int seatMapID, boolean vacant) {
 	     try {
+	     	System.out.println("number = " + seatNumber + " map id = " + seatMapID);
 			 Statement statement = connection.createStatement();
-			 statement.executeUpdate("UPDATE seatmap " + " SET vacant = " + vacant + "WHERE seatMapID = " + seatMapID + " AND seatNumber = " + seatNumber);
+			 statement.executeUpdate("UPDATE seat " + " SET vacant = " + vacant + "WHERE seat.seatMapID = '" + seatMapID + "' AND seat.seatNumber = '" + seatNumber + "'");
 		 } catch (SQLException e) {
 	     	System.out.println("Could not update seat status " + e.getMessage());
 		 }

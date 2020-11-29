@@ -1,6 +1,7 @@
 package TRA.Domain;
 
 import Database.DatabaseManager;
+import TRA.Presentation.HomeScreen;
 
 import java.util.ArrayList;
 
@@ -41,18 +42,19 @@ public class TRA {
         return databaseManager.getSeatMap(s.getSeatMap().getSeatMapID());
     }
 
-    public void updateSeatVacancy(Seat s, boolean vacant) {
+    public void updateSeatVacancy(SeatMap sm, Seat s, boolean vacant) {
         s.setVacant(vacant);
-        databaseManager.updateSeatStatus(s.getSeatNumber(), s.getSeatMapID(), vacant);
+        //databaseManager.updateSeatStatus(s.getSeatNumber(), s.getSeatMapID(), vacant);
+        databaseManager.updateSeat(sm, s);
     }
 
-    public ArrayList<Seat> sendSeatList() {
+    /*public ArrayList<Seat> sendSeatList() {
         return databaseManager.getSeats();
     }
 
     public ArrayList<SeatMap> sendAllSeatMaps() {
         return databaseManager.getSeatMaps();
-    }
+    }*/
 
     public static ArrayList<Movie> upcomingMoviesList() {
         ArrayList<Movie> movieList = new ArrayList<>();
