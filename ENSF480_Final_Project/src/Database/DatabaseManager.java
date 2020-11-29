@@ -349,14 +349,18 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
-	 public static SeatMap getSeatMap(int seatMapID) {
+	 public static SeatMap getSeatMap(String m, String t, String st) {
 		 try {
-			 
 			  // Get a result set containing all data from test_table
 			 
 			  Statement statement = connection.createStatement();
-			 
-			  ResultSet results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = " + seatMapID);
+
+			  ResultSet results = statement.executeQuery("SELECT * FROM showing WHERE showing.movieTitle = '" + m + "' AND showing.theatreName = '" + t + "' AND showing.showtime = '" + st + "'");
+
+			  results.next();
+			  int seatMapID = results.getInt(4);
+
+			  results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = " + seatMapID);
 			  ArrayList<Seat> seats = new ArrayList<>();
 			  while (results.next()) {
 				 seats.add(new Seat(results.getInt(2), results.getInt(1), results.getBoolean(3)));
@@ -528,14 +532,21 @@ public static void initialize(String[] args) {
 		 }
 	 }
 
-	 public ArrayList<Showing> getShowingList(Movie m, Theatre t) {
+	 public ArrayList<Showing> getShowingList(String m, String t) {
 		 try {
 			 ArrayList<Integer> id = new ArrayList<>();
 			 ArrayList<Integer> seatMapID = new ArrayList<>();
 			 ArrayList<String> showtime = new ArrayList<>();
+			 Movie movie;
+			 Theatre theatre = new Theatre(t);
 
 			 Statement statement = connection.createStatement();
-			 ResultSet results = statement.executeQuery("SELECT * FROM showing WHERE showing.movieTitle = '" + m.getMovieTitle() + "'" + " AND showing.theatreName = '" + t.getTheatreName() + "'");
+			 ResultSet results = statement.executeQuery("SELECT * FROM movie WHERE movie.movieTitle = '" + m + "'");
+
+			 results.next();
+			 movie = new Movie(results.getString(1), results.getString(2), results.getInt(3), results.getString(4));
+
+			 results = statement.executeQuery("SELECT * FROM showing WHERE showing.movieTitle = '" + m + "'" + " AND showing.theatreName = '" + t + "'");
 
 			 ArrayList<Showing> showings = new ArrayList<>();
 			 while(results.next()) {
@@ -555,7 +566,7 @@ public static void initialize(String[] args) {
 				 r.next();
 				 SeatMap s = new SeatMap(r.getInt(1), r.getInt(2), r.getInt(3), r.getInt(4), seats);
 
-				 showings.add(new Showing(id.get(i), m, t, s, showtime.get(i)));
+				 showings.add(new Showing(id.get(i), movie, theatre, s, showtime.get(i)));
 			 }
 
 
