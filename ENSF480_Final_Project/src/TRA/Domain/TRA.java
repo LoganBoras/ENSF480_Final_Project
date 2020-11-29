@@ -76,4 +76,14 @@ public class TRA {
             System.out.println("Another user has registered with that email. Please try again.");
         }
     }
+
+    public void loginUser(String email, String password) {
+        boolean validLogin = databaseManager.validateLogin(email, password);
+        if(validLogin) {
+            registeredUser = databaseManager.getUser(email, password);
+        }
+        else {
+            System.out.println("Invalid login. Please try again.");
+        }
+    }
 }
