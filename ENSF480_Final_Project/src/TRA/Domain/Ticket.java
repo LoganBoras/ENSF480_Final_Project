@@ -6,8 +6,9 @@ public class Ticket {
     private Seat seat;
     private double cost;
     private int ticketID;
+    private String showtime;
 
-    public Ticket(Movie movie, Theatre theatre, Seat seat, double cost, int ticketID) {
+    public Ticket(Movie movie, Theatre theatre, Seat seat, double cost, int ticketID, String showtime) {
         this.movie = movie;
         this.theatre = theatre;
         this.seat = seat;
@@ -60,6 +61,14 @@ public class Ticket {
 
     public void setTicketID(int ticketID) {
         this.ticketID = ticketID;
+    }
+
+    public String getShowtime() {
+        return showtime;
+    }
+
+    public void setShowtime(String showtime) {
+        this.showtime = showtime;
     }
 
     @Override

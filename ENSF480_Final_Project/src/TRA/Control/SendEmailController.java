@@ -38,8 +38,8 @@ public class SendEmailController extends Controller {
         Theatre theatre = new Theatre("Silver City");
         Seat seat = new Seat(17, 72, true);
         ArrayList<Ticket> tickets = new ArrayList<>();
-        tickets.add(new Ticket(movie, theatre, seat, 9000.72, 82));
-        tickets.add(new Ticket(movie, theatre, seat, 9000.72, 85));
+        tickets.add(new Ticket(movie, theatre, seat, 9000.72, 82, "2020-11-30 10:00 AM"));
+        tickets.add(new Ticket(movie, theatre, seat, 9000.72, 85, "2020-11-30 10:00 AM"));
         TicketEmailStrategy ticketEmailStrategy = new TicketEmailStrategy("roland@email.com", tickets);
         SendEmailController sendEmailController = new SendEmailController((ticketEmailStrategy));
         sendEmailController.doAction();

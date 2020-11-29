@@ -642,4 +642,43 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
+
+	 public void createOrder(ArrayList<Ticket> tickets, String email) {
+		 try {
+			 int ticketID = 0;
+			 int orderID = 0;
+			 int showingID = 0;
+
+			 Statement statement = connection.createStatement();
+
+			 ResultSet results = statement.executeQuery("SELECT MAX(orderID) FROM list_orders");
+
+			 if(results.next()) {
+				 orderID = results.getInt(1) + 1;
+			 }
+
+			 results = statement.executeQuery("SELECT MAX(ticketID) FROM ticket");
+
+			 if(results.next()) {
+				 ticketID = results.getInt(1) + 1;
+			 }
+
+			 for(int i = 0; i < tickets.size(); i++) {
+				 results = statement.executeQuery("SELECT showingID FROM showing WHERE showing.movieTitle = '" + tickets.get(i).getMovie().getMovieTitle() + "'" + " AND showing.theatreName = '" + tickets.get(i).getTheatre().getTheatreName() + "'" + " AND showing.showtime = '" + tickets.get(i).getShowtime() + "'");
+
+				 if(results.next()) {
+					 showingID = results.getInt(1);
+				 }
+				 statement.executeUpdate("INSERT INTO ticket " + "VALUES ('" + ticketID + "', '" + showingID +"', '"+ tickets.get(i).getSeat().getSeatNumber() +"', '"
+						 + tickets.get(i).getCost() +"')");
+				 statement.executeUpdate("INSERT INTO order_ticket_list " + "VALUES ('" + orderID + "', '" + ticketID +"')");
+			 }
+			 statement.executeUpdate("INSERT INTO list_orders " + "VALUES ('" + orderID + "', '" + email +"')");
+
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not create order " + e.getMessage());
+
+		 }
+	 }
 }

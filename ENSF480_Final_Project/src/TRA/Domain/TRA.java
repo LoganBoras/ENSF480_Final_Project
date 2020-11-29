@@ -86,4 +86,8 @@ public class TRA {
             System.out.println("Invalid login. Please try again.");
         }
     }
+
+    public void createTicketOrder(ArrayList<Ticket> tickets, String email) {
+        databaseManager.createOrder(tickets, email);
+    }
 }
