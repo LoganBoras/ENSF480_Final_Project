@@ -566,4 +566,80 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
+
+	 public int registerUser(RegisteredUser u) {
+		 try {
+		 	 int id = 0;
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT MAX(accountID) FROM user");
+
+			 if(results.next()) {
+			 	id = results.getInt(1) + 1;
+			 }
+
+			 statement.executeUpdate("INSERT INTO user " + "VALUES ('" + id + "', '" + u.getUserAccount().getEmailAddress() +"', '"+ u.getUserAccount().getFirstName() +"', '"
+					 + u.getUserAccount().getLastName() +"', '"+ u.getUserAccount().getPassword() +"', '"+ u.getUserAccount().getCard().getCardNumber() +"', '"+ u.getUserAccount().getCard().getExpiryDate() +"', '"+ u.getUserAccount().getCard().getCsv() +"')");
+			 return id;
+
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not register user " + e.getMessage());
+
+		 }
+		 return -1;
+	 }
+
+	 public boolean checkEmailAvailability(String email) {
+		 try {
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT email FROM user WHERE user.email = '" + email + "'");
+
+			 if (results.next()) {
+				 return false;
+			 }
+
+			 return true;
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 }
+		 return false;
+	 }
+
+	 public boolean validateLogin(String email, String password) {
+		 try {
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT email FROM user WHERE user.email = '" + email + "' AND user.password = '" + password + "'");
+
+			 if (results.next()) {
+				 return true;
+			 }
+
+			 return false;
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 }
+		 return false;
+	 }
+
+	 public RegisteredUser getUser(String email, String password) {
+		 try {
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT * FROM user WHERE user.email = '" + email + "' AND user.password = '" + password + "'");
+
+			 results.next();
+			 RegisteredUser ru = new RegisteredUser(results.getInt(1), results.getInt(6), results.getString(7), results.getInt(8), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
+
+			 return ru;
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 }
+		 return null;
+	 }
 }
