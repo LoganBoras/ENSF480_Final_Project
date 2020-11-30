@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import TRA.Domain.RegisteredUser;
 import TRA.Presentation.HomeScreen;
 import TRA.Presentation.Screen;
 
@@ -15,6 +16,7 @@ public class HomeController extends Subject{
 	private OrderSelectionController orderSelectionController;
 	private RegistrationController registrationController;
 	private LoginController loginController;
+	private RegisteredUser theUser;
 
 	public HomeController(JFrame frame) {
 		this.frame = frame;
@@ -79,6 +81,7 @@ public class HomeController extends Subject{
 		loginController = new LoginController(frame, itself);
 		loginController.setItself(loginController);
 		loginController.runLogin();
+		theUser = loginController.getTheUser();
 	}
 
 	@Override
