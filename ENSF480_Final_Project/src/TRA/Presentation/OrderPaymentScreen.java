@@ -100,10 +100,6 @@ public class OrderPaymentScreen extends Screen{
 		controlButtons();
 	}
 	
-	public static void main(String args []) {
-		OrderPaymentScreen screen = new OrderPaymentScreen();
-		screen.buildScreen();
-	}
 	
 	private void controlButtons() {
 		// TODO Auto-generated method stub
