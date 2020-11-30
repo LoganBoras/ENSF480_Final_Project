@@ -68,7 +68,7 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 		// TODO Auto-generated method stub
 		System.out.println("We're in Movie Selection");
 		frame.setLayout(new BorderLayout());
-		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,Toolkit.getDefaultToolkit().getScreenSize().height/2);
+		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/3,Toolkit.getDefaultToolkit().getScreenSize().height/2);
 		
 		JPanel panel = new JPanel(new BorderLayout());
 		
