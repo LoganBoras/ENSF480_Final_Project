@@ -692,4 +692,24 @@ public static void initialize(String[] args) {
 
 		 }
 	 }
+
+	 public ArrayList<String> getEmails() {
+		 try {
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT user.email FROM user");
+
+			 ArrayList<String> emailList = new ArrayList<>();
+
+			 while (results.next()) {
+			 	emailList.add(results.getString("email"));
+			 }
+
+			 return emailList;
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 }
+		 return null;
+	 }
 }
