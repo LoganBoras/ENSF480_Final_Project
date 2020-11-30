@@ -19,6 +19,7 @@ public class HomeScreen extends Screen{
 
 	JFrame frame; 
 	private JButton registerButton = new JButton("Register");
+	private JButton loginButton = new JButton("Login");
 	private JButton orderBut = new JButton("Create Order");
 	private JButton cancelTicketBut = new JButton("Cancel Ticket");
 	private JButton cancelBut = new JButton("Cancel");
@@ -53,6 +54,7 @@ public class HomeScreen extends Screen{
 		
 		JPanel buttons = new JPanel(new FlowLayout());
 		buttons.add(registerButton);
+		buttons.add(loginButton);
 		buttons.add(orderBut);
 		buttons.add(cancelTicketBut);
 		buttons.add(movieAnnouncementBut);
@@ -109,7 +111,7 @@ public class HomeScreen extends Screen{
 				frame.repaint();
 				subject.setID(HomeController.USER_SELECTION_MOVIE_ANNOUNCEMENT);
 			}});
-		getLoginBut().addActionListener(new ActionListener() {
+		getRegBut().addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -117,16 +119,36 @@ public class HomeScreen extends Screen{
 					
 					updateToReg();
 			}});
+		
+		getLoginBut().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stug
+					
+					updateToLog();
+			}});
 
 
 	}
-		
+
+
 		private void updateToReg() {
 			// TODO Auto-generated method stub
 
 			frame.getContentPane().removeAll();
 			frame.repaint();
 			subject.setID(4);
+			
+		}
+		
+
+		private void updateToLog() {
+			// TODO Auto-generated method stub
+
+			frame.getContentPane().removeAll();
+			frame.repaint();
+			subject.setID(7);
 			
 		}
 	
@@ -147,7 +169,7 @@ public class HomeScreen extends Screen{
 	}
 
 	public JButton getLoginBut() {
-		return registerButton;
+		return loginButton;
 	}
 
 	public void setLoginBut(JButton loginBut) {
@@ -169,6 +191,11 @@ public class HomeScreen extends Screen{
 	public void setCancelBut(JButton cancelBut) {
 		this.cancelBut = cancelBut;
 	}
+	
+	
+	private AbstractButton getRegBut() {
+		return registerButton;
+	}
 
 	public JButton getCancelTicketBut() {
 		return cancelTicketBut;
@@ -177,4 +204,5 @@ public class HomeScreen extends Screen{
 	public JButton getMovieAnnouncementBut() {
 		return movieAnnouncementBut;
 	}
+
 }
