@@ -712,4 +712,43 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
+
+	 public int getTicketID(Showing s, Ticket t) {
+		 try {
+
+		 	 int ticketID = 0;
+			 int showingID = 0;
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT showing.showingID FROM showing WHERE showing.movieTitle = '" + s.getMovie().getMovieTitle() + "' AND showing.theatreName = '" + s.getTheatre().getTheatreName() + "' AND showing.seatMapID = '" + s.getSeatMap().getSeatMapID() + "' AND showing.showtime = '" + s.getShowtime() + "'");
+
+			 results.next();
+			 showingID = results.getInt("showingID");
+
+			 results = statement.executeQuery("SELECT ticket.ticketID FROM ticket WHERE ticket.showingID = '" + showingID + "' AND ticket.seatNumber = '" + t.getSeat().getSeatNumber() + "'");
+
+			 results.next();
+			 ticketID = results.getInt("ticketID");
+
+			 return ticketID;
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 }
+		 return -1;
+	 }
+
+	 public void cancelTicket(int ticketID) {
+		 try {
+
+		 	 String query = "DELETE FROM ticket WHERE ticketID = '" + ticketID + "'";
+			 PreparedStatement statement = connection.prepareStatement(query);
+
+			 statement.execute();
+
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not delete ticket " + e.getMessage());
+		 }
+	 }
 }
