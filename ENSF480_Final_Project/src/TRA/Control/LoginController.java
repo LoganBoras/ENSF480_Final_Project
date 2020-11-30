@@ -16,11 +16,13 @@ public class LoginController extends Subject{
 	private String email;
 	private String password;
 	private TRA tra;
+	DatabaseManager db;
 	private JFrame frame;
 	private LoginController itself;
 	
 	public LoginController(JFrame frame, Subject subject) {
 		tra = new TRA();
+		db = new DatabaseManager();
 		this.frame = frame;
 		setID(7);	//ID for OrderSelection Frame;
 		//data = new ArrayList<String>();
@@ -29,6 +31,8 @@ public class LoginController extends Subject{
 	public void completeLogin(String email, String password) {
 		tra.loginUser(email, password);
 		theUser = tra.getRegisteredUser();
+		accountID++;
+		theUser = db.getUser(email, password);
 	}
 
 	@Override
