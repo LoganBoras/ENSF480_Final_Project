@@ -1,13 +1,9 @@
-
 package TRA.Domain;
 
 import Database.DatabaseManager;
 import TRA.Presentation.HomeScreen;
 import FinancialInstitute.FinancialInstitute;
 import FinancialInstitute.FinancialInstituteManager;
-
-import java.util.ArrayList;
-
 import java.util.ArrayList;
 
 public class TRA {

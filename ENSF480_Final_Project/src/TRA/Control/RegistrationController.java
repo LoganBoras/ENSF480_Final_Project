@@ -7,9 +7,7 @@ import javax.swing.JFrame;
 
 import Database.DatabaseManager;
 import TRA.Domain.RegisteredUser;
-
 import TRA.Domain.TRA;
-
 import TRA.Presentation.RegistrationScreen;
 import TRA.Presentation.Screen;
 
@@ -17,7 +15,6 @@ public class RegistrationController extends Subject{
 	RegisteredUser theUser;
 
 	static int accountID;
-
 	String email;
 	String fName;
 	String lName;
@@ -29,10 +26,10 @@ public class RegistrationController extends Subject{
 	DatabaseManager db;
 	private JFrame frame;
 	private RegistrationController itself;
+
 	
 	public RegistrationController(JFrame frame, Subject subject) {
 		tra = new TRA();
-		db = new DatabaseManager();
 		this.frame = frame;
 		setID(4);	//ID for OrderSelection Frame;
 		//data = new ArrayList<String>();

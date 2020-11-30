@@ -10,6 +10,8 @@ import TRA.Domain.TRA;
 import TRA.Presentation.LoginScreen;
 import TRA.Presentation.Screen;
 
+
+
 public class LoginController extends Subject{
 	private RegisteredUser theUser;
 	static int accountID;
@@ -27,12 +29,12 @@ public class LoginController extends Subject{
 		setID(7);	//ID for OrderSelection Frame;
 		//data = new ArrayList<String>();
 	}
-	
+
 	public void completeLogin(String email, String password) {
 		tra.loginUser(email, password);
-		theUser = tra.getRegisteredUser();
-		accountID++;
 		theUser = db.getUser(email, password);
+		tra.loginUser(email, password);
+		theUser = tra.getRegisteredUser();
 	}
 
 	@Override
