@@ -86,4 +86,36 @@ public class TRA {
             System.out.println("Invalid login. Please try again.");
         }
     }
+
+	public DatabaseManager getDatabaseManager() {
+		return databaseManager;
+	}
+
+	public void setDatabaseManager(DatabaseManager databaseManager) {
+		this.databaseManager = databaseManager;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public RegisteredUser getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(RegisteredUser registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public RegularUser getRegularUser() {
+		return regularUser;
+	}
+
+	public void setRegularUser(RegularUser regularUser) {
+		this.regularUser = regularUser;
+	}
 }
