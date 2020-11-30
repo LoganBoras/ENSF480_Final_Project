@@ -44,7 +44,8 @@ public class SendEmailController extends Controller {
         SendEmailController sendEmailController = new SendEmailController((ticketEmailStrategy));
         sendEmailController.doAction();
 
-        Receipt receipt = new Receipt();
+        TicketOrder ticketOrder  = new TicketOrder(tickets);
+        Receipt receipt = new Receipt(ticketOrder);
         ReceiptEmailStrategy receiptEmailStrategy = new ReceiptEmailStrategy("roland@email.com", receipt);
         sendEmailController = new SendEmailController(receiptEmailStrategy);
         sendEmailController.doAction();

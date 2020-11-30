@@ -2,6 +2,8 @@ package TRA.Domain;
 
 import Database.DatabaseManager;
 import TRA.Presentation.HomeScreen;
+import FinancialInstitute.FinancialInstitute;
+import FinancialInstitute.FinancialInstituteManager;
 
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 public class TRA {
 
     private DatabaseManager databaseManager;
+    private FinancialInstitute financialInstitute;
     private User user;
     private RegisteredUser registeredUser;
     private RegularUser regularUser;
@@ -17,12 +20,18 @@ public class TRA {
     public TRA(DatabaseManager db, User u) {
         databaseManager = db;
         user = u;
+        this.financialInstitute = new FinancialInstituteManager();
     }
 
     public TRA() {
         databaseManager = new DatabaseManager();
         databaseManager.initialize(null);
         registeredUser = new RegisteredUser();
+        this.financialInstitute = new FinancialInstituteManager();
+    }
+
+    public void sendPaymentToFinancialInstituteForProcessing(Payment payment) {
+        this.financialInstitute.processPayment(payment);
     }
 
     public ArrayList<Movie> sendMovieList() {
@@ -79,7 +88,11 @@ public class TRA {
         }
     }
 
-    public void createTicketOrder(ArrayList<Ticket> tickets, String email) {
+    public void storeTicketOrder(ArrayList<Ticket> tickets, String email) {
         databaseManager.createOrder(tickets, email);
+    }
+
+    public FinancialInstitute getFinancialInstitute() {
+        return financialInstitute;
     }
 }
