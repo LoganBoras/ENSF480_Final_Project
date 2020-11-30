@@ -46,12 +46,12 @@ public class TRA {
         return databaseManager.getShowings();
     }
 
-    public ArrayList<Showing> getShowings(Movie m, Theatre t) {
+    public ArrayList<Showing> getShowings(String m, String t) {
         return databaseManager.getShowingList(m, t);
     }
 
-    public SeatMap getSeatMap(Showing s) {
-        return databaseManager.getSeatMap(s.getSeatMap().getSeatMapID());
+    public SeatMap getSeatMap(String movieTitle, String theatreName, String showtime) {
+        return databaseManager.getSeatMap(movieTitle, theatreName, showtime);
     }
 
     public void updateSeatVacancy(SeatMap sm, Seat s, boolean vacant) {
@@ -59,15 +59,7 @@ public class TRA {
         //databaseManager.updateSeatStatus(s.getSeatNumber(), s.getSeatMapID(), vacant);
         databaseManager.updateSeat(sm, s);
     }
-
-    /*public ArrayList<Seat> sendSeatList() {
-        return databaseManager.getSeats();
-    }
-
-    public ArrayList<SeatMap> sendAllSeatMaps() {
-        return databaseManager.getSeatMaps();
-    }*/
-
+    
     public static ArrayList<Movie> upcomingMoviesList() {
         ArrayList<Movie> movieList = new ArrayList<>();
         movieList.add(new Movie("Cats", "yesterday", 17, "horror"));
