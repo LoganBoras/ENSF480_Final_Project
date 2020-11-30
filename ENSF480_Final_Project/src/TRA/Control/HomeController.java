@@ -14,6 +14,7 @@ public class HomeController extends Subject{
 	private JFrame frame;
 	private OrderSelectionController orderSelectionController;
 	private RegistrationController registrationController;
+	private LoginController loginController;
 
 	public HomeController(JFrame frame) {
 		this.frame = frame;
@@ -49,6 +50,10 @@ public class HomeController extends Subject{
 					System.out.println("User Selected Registration");
 					doRegistration();
 					break;
+				case 7:
+					System.out.println("User Selected Registration");
+					doLogin();
+					break;
 			}
 		
 		}
@@ -67,6 +72,13 @@ public class HomeController extends Subject{
 		registrationController = new RegistrationController(frame, itself);
 		registrationController.setItself(registrationController);
 		registrationController.runRegistration();
+	}
+	
+	private void doLogin() {
+		// TODO Auto-generated method stub
+		loginController = new LoginController(frame, itself);
+		loginController.setItself(loginController);
+		loginController.runLogin();
 	}
 
 	@Override
