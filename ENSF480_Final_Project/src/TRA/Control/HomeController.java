@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+
 import TRA.Domain.MovieAnnouncementEmail;
+import TRA.Domain.RegisteredUser;
 import TRA.Presentation.HomeScreen;
 import TRA.Presentation.Screen;
 
@@ -19,6 +21,7 @@ public class HomeController extends Subject{
 	public static final int USER_SELECTION_MOVIE_ANNOUNCEMENT = 5;
 	private RegistrationController registrationController;
 	private LoginController loginController;
+	private RegisteredUser theUser;
 
 	public HomeController(JFrame frame) {
 		this.frame = frame;
@@ -94,6 +97,7 @@ public class HomeController extends Subject{
 		loginController = new LoginController(frame, itself);
 		loginController.setItself(loginController);
 		loginController.runLogin();
+		theUser = loginController.getTheUser();
 	}
 
 	private void doCancelTicketSelection() {
