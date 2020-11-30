@@ -99,4 +99,12 @@ public class TRA {
     public ArrayList<String> getEmails() {
         return databaseManager.getEmails();
     }
+
+    public int getTicketID(Showing s, Ticket t) {
+        return databaseManager.getTicketID(s, t);
+    }
+
+    public void cancelTicket(int ticketID) {
+        databaseManager.cancelTicket(ticketID);
+    }
 }
