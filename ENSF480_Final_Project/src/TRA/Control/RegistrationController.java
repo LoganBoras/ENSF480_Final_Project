@@ -6,12 +6,12 @@ import javax.swing.JFrame;
 
 import Database.DatabaseManager;
 import TRA.Domain.RegisteredUser;
+import TRA.Domain.TRA;
 import TRA.Presentation.RegistrationScreen;
 import TRA.Presentation.Screen;
 
 public class RegistrationController extends Subject{
 	RegisteredUser theUser;
-	static int accountID;
 	String email;
 	String fName;
 	String lName;
@@ -19,12 +19,12 @@ public class RegistrationController extends Subject{
 	int cardNum;
 	String expDate;
 	int csv;
-	DatabaseManager db;
+	TRA tra;
 	private JFrame frame;
 	private RegistrationController itself;
 	
 	public RegistrationController(JFrame frame, Subject subject) {
-		db = new DatabaseManager();
+		tra = new TRA();
 		this.frame = frame;
 		setID(4);	//ID for OrderSelection Frame;
 		//data = new ArrayList<String>();
@@ -32,9 +32,8 @@ public class RegistrationController extends Subject{
 	
 
 	public void completeRegistration(int cardNum, String expDate, int csv, String email, String fName, String lName, String password) {
-		accountID++;
-		theUser = new RegisteredUser(accountID, cardNum, expDate, csv, email, fName, lName, password);
-		db.registerUser(theUser);
+		tra.registerUser(cardNum, expDate, csv, email, fName, lName, password);
+		this.theUser = tra.getRegisteredUser();
 	}
 	
 	public String getEmail() {

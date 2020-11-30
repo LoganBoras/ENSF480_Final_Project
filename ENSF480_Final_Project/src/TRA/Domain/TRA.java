@@ -1,3 +1,4 @@
+
 package TRA.Domain;
 
 import Database.DatabaseManager;
@@ -119,4 +120,3 @@ public class TRA {
     public void checkOrderStatus(int orderID) {
         databaseManager.checkOrderStatus(orderID);
     }
-}

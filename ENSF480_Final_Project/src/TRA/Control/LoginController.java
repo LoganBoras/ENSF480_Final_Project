@@ -6,28 +6,29 @@ import javax.swing.JFrame;
 
 import Database.DatabaseManager;
 import TRA.Domain.RegisteredUser;
+import TRA.Domain.TRA;
 import TRA.Presentation.LoginScreen;
 import TRA.Presentation.Screen;
 
 public class LoginController extends Subject{
-	RegisteredUser theUser;
+	private RegisteredUser theUser;
 	static int accountID;
-	String email;
-	String password;
-	DatabaseManager db;
+	private String email;
+	private String password;
+	private TRA tra;
 	private JFrame frame;
 	private LoginController itself;
 	
 	public LoginController(JFrame frame, Subject subject) {
-		db = new DatabaseManager();
+		tra = new TRA();
 		this.frame = frame;
 		setID(7);	//ID for OrderSelection Frame;
 		//data = new ArrayList<String>();
 	}
 	
 	public void completeLogin(String email, String password) {
-		accountID++;
-		theUser = db.getUser(email, password);
+		tra.loginUser(email, password);
+		theUser = tra.getRegisteredUser();
 	}
 
 	@Override
