@@ -95,4 +95,8 @@ public class TRA {
     public FinancialInstitute getFinancialInstitute() {
         return financialInstitute;
     }
+
+    public ArrayList<String> getEmails() {
+        return databaseManager.getEmails();
+    }
 }
