@@ -215,10 +215,6 @@ public class HomeScreen extends Screen{
 		return registerButton;
 	}
 
-	
-	private AbstractButton getRegBut() {
-		return registerButton;
-	}
 
 	public JButton getCancelTicketBut() {
 		return cancelTicketBut;
