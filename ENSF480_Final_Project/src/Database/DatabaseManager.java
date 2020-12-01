@@ -1,3 +1,5 @@
+
+
 package Database;
 
 import java.sql.*;
@@ -382,7 +384,6 @@ public static void initialize(String[] args) {
 			    }
 		 return null;
 	 }
-	 
 	 public static void insertMovie(Movie theMovie) {
 		 try {
 			 
@@ -874,4 +875,5 @@ public static void initialize(String[] args) {
 			System.out.println(e.getMessage());
 		}
 	}
+
 }

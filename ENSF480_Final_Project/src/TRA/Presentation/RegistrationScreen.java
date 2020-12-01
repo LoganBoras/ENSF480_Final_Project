@@ -119,7 +119,6 @@ public class RegistrationScreen extends Screen{
 					String cardNum = cardNumberBox.getText();
 					String expDate = expiryDateBox.getText();
 					String csv = csvBox.getText();
-					
 
 					if(email.isEmpty()||regController.checkEmail(email)==false) {
 						emailLabel.setOpaque( true );
@@ -203,6 +202,8 @@ public class RegistrationScreen extends Screen{
 					
 					if(correct) {
 						regController.completeRegistration(cardNum, expDate, Integer.parseInt(csv), email, fName, lName, password);
+						csvLabel.setOpaque( false );
+						csvLabel.setBackground(Color.GRAY);
 						System.out.println("new user registered");
 						update();
 					}

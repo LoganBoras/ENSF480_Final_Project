@@ -111,6 +111,23 @@ public class HomeScreen extends Screen{
 				frame.repaint();
 				subject.setID(HomeController.USER_SELECTION_MOVIE_ANNOUNCEMENT);
 			}});
+		getRegBut().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stug
+					
+					updateToReg();
+			}});
+		
+		getLoginBut().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stug
+					
+					updateToLog();
+			}});
 
 		getRegBut().addActionListener(new ActionListener() {
 			
@@ -191,6 +208,11 @@ public class HomeScreen extends Screen{
 
 	public void setCancelBut(JButton cancelBut) {
 		this.cancelBut = cancelBut;
+	}
+	
+	
+	private AbstractButton getRegBut() {
+		return registerButton;
 	}
 
 	

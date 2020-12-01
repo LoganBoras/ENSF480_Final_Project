@@ -36,6 +36,7 @@ public class RegistrationController extends Subject{
 	}
 	
 
+
 	public void completeRegistration(String cardNum, String expDate, int csv, String email, String fName, String lName, String password) {
 		tra.registerUser(cardNum, expDate, csv, email, fName, lName, password);
 		this.theUser = tra.getRegisteredUser();
@@ -69,6 +70,7 @@ public class RegistrationController extends Subject{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getCardNum() {
 		return cardNum;
 	}
