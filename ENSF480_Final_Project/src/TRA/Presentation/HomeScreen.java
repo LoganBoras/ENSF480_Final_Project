@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import TRA.Control.Subject;
+import TRA.Control.HomeController;
 
 public class HomeScreen extends Screen{
 
@@ -21,6 +22,7 @@ public class HomeScreen extends Screen{
 	private JButton orderBut = new JButton("Create Order");
 	private JButton cancelTicketBut = new JButton("Cancel Ticket");
 	private JButton cancelBut = new JButton("Cancel");
+	private JButton movieAnnouncementBut = new JButton("Send Movie Announcement");
 
 	
 	public HomeScreen(JFrame frame, Subject subject){
@@ -53,6 +55,7 @@ public class HomeScreen extends Screen{
 		buttons.add(loginBut);
 		buttons.add(orderBut);
 		buttons.add(cancelTicketBut);
+		buttons.add(movieAnnouncementBut);
 		buttons.add(cancelBut);
 		
 
@@ -96,6 +99,18 @@ public class HomeScreen extends Screen{
 				frame.repaint();
 			}});
 		
+		getMovieAnnouncementBut().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+				frame.getContentPane().removeAll();
+				frame.repaint();
+				subject.setID(HomeController.USER_SELECTION_MOVIE_ANNOUNCEMENT);
+			}});
+
+
 	}
 	
 //	public static void main(String args []) {
@@ -141,5 +156,7 @@ public class HomeScreen extends Screen{
 		return cancelTicketBut;
 	}
 	
-	
+	public JButton getMovieAnnouncementBut() {
+		return movieAnnouncementBut;
+	}
 }

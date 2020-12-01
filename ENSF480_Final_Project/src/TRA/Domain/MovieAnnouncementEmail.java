@@ -6,7 +6,6 @@ package TRA.Domain;
 
 public class MovieAnnouncementEmail extends Email {
 
-
     public MovieAnnouncementEmail(String toAddress) {
         super(toAddress, "Movie Announcement");
     }
@@ -17,7 +16,8 @@ public class MovieAnnouncementEmail extends Email {
         message = message.concat(this.makeHeader());
         message = message.concat("Message:\n\n");
         message = message.concat("Make sure to check out these upcoming movies!\n\n");
-        for (Movie movie : TRA.upcomingMoviesList()) {
+        TRA tra = new TRA();
+        for (Movie movie : tra.sendMovieList()) {
             message = message.concat(movie.toString() + "\n\n");
         }
 

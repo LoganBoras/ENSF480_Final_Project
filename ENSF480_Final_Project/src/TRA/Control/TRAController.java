@@ -27,8 +27,7 @@ public class TRAController {
 		// TODO Auto-generated method stub
 		TRAController mainController = new TRAController();
 		mainController.doHome();
-		
-		
+
 	}
 
 	private  void doHome() {

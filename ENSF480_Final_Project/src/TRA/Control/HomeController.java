@@ -2,8 +2,9 @@ package TRA.Control;
 
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
+import TRA.Domain.MovieAnnouncementEmail;
 import TRA.Presentation.HomeScreen;
 import TRA.Presentation.Screen;
 
@@ -14,6 +15,8 @@ public class HomeController extends Subject{
 	private JFrame frame;
 	private OrderSelectionController orderSelectionController;
 	private CancelTicketController cancelTicketController;
+
+	public static final int USER_SELECTION_MOVIE_ANNOUNCEMENT = 5;
 
 	public HomeController(JFrame frame) {
 		this.frame = frame;
@@ -49,10 +52,21 @@ public class HomeController extends Subject{
 					System.out.println("User Selected Order");
 					doOrderSelection();
 					return;
+				case USER_SELECTION_MOVIE_ANNOUNCEMENT:
+					System.out.println("Beginning Movie Announcement Email");
+					doMovieAnnouncement();
+					break;
 			}
 
 		}
 		
+	}
+
+	private void doMovieAnnouncement() {
+		System.out.println("Doing movie announcement");
+		JOptionPane.showMessageDialog(new JFrame(), "Movie Announcement Email has been sent to all registered users!");
+		MovieAnnouncementController movieAnnouncementController = new MovieAnnouncementController();
+		movieAnnouncementController.doAction();
 	}
 
 	private void doOrderSelection() {
