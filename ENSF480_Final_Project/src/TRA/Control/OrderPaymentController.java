@@ -33,6 +33,7 @@ public class OrderPaymentController extends Subject{
 	public OrderPaymentController(JFrame frame, Subject subject, TicketOrder order) {
 		this.frame = frame;
 		this.order = order;
+		this.data = new ArrayList<String>();
 		setID(6);
 		
 	}
@@ -50,7 +51,7 @@ public class OrderPaymentController extends Subject{
 			i++;
 			}
 		 email = data.get(0);
-		 userCard = new Card(Integer.parseInt(data.get(1)), data.get(2), Integer.parseInt(data.get(3)));
+		 userCard = new Card(data.get(1), data.get(2), Integer.parseInt(data.get(3)));
 		
 		 runPaymentProcess();
 		
@@ -68,21 +69,12 @@ public class OrderPaymentController extends Subject{
 			JOptionPane.showMessageDialog(new JFrame(), "Payment Successful! Please check you email for your ticket(s) and "
 					+ "payment receipt!");
 			sendTicketEmail();
-			sendReceipt();
 		}
 		else {
 			JOptionPane.showMessageDialog(new JFrame(), "Payment failed. Please try again.");
 		}
 		
 		
-	}
-
-	private void sendReceipt() {
-		// TODO Auto-generated method stub
-		Receipt receipt = new Receipt(order);
-        ReceiptEmailStrategy receiptEmailStrategy = new ReceiptEmailStrategy(email, receipt);
-        SendEmailController sendEmailController= new SendEmailController(receiptEmailStrategy);
-        sendEmailController.doAction();
 	}
 
 	private void sendTicketEmail() {
@@ -95,7 +87,7 @@ public class OrderPaymentController extends Subject{
 	@Override
 	public void addData(String data) {
 		// TODO Auto-generated method stub
-		
+		this.data.add(data);
 	}
 
 	public void setItself(OrderPaymentController itself ) {

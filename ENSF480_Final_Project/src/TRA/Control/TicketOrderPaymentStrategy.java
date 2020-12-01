@@ -50,7 +50,7 @@ public class TicketOrderPaymentStrategy extends PaymentStrategy {
         tickets.add(new Ticket(movie, theatre, seat, 9000.72, 85, "2020-11-30 10:00 AM"));
 
         TicketOrder order = new TicketOrder(tickets);
-        TicketOrderPaymentStrategy paymentStrategy = new TicketOrderPaymentStrategy(new Card(22, "may", 37), new TRA(), "roland@tra.com", order);
+        TicketOrderPaymentStrategy paymentStrategy = new TicketOrderPaymentStrategy(new Card("22", "may", 37), new TRA(), "roland@tra.com", order);
         PaymentController paymentController = new PaymentController(paymentStrategy);
         paymentController.doAction();
 

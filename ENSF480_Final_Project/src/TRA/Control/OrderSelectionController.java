@@ -62,6 +62,7 @@ public class OrderSelectionController extends Subject{
 		// TODO Auto-generated method stub
 			
 		OrderPaymentController orderPayment = new OrderPaymentController(this.frame, itself, this.order);
+		orderPayment.setItself(orderPayment);
 		orderPayment.runOrderPayment();
 		
 	}
@@ -77,13 +78,13 @@ public class OrderSelectionController extends Subject{
 			}
 		}
 		
-		Seat seat = showing.getSeatMap().getSeats().get(Integer.parseInt(data.get(3)));
+		Seat seat = showing.getSeatMap().getSeats().get(Integer.parseInt(data.get(4)));
 		
 		ticket = new Ticket(showing.getMovie(), showing.getTheatre(), seat, 12 , 1, showing.getShowtime());
 		ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 		tickets.add(ticket);
 		
-		TicketOrder order = new TicketOrder(tickets);
+		this.order = new TicketOrder(tickets);
 	
 	}
 
@@ -120,7 +121,7 @@ public class OrderSelectionController extends Subject{
 	private void runShowTimeSelection() {
 		int prevID = getID();
 		int i = 0;
-		ArrayList<Showing> showTimes = tra.getShowings(data.get(0), data.get(1));
+		showTimes = tra.getShowings(data.get(0), data.get(1));
 		
 		Screen Screen = new ShowTimeSelectionScreen(frame, itself, showTimes);
 		Screen.buildScreen();
@@ -136,7 +137,10 @@ public class OrderSelectionController extends Subject{
 		// TODO Auto-generated method stub
 		int prevID = getID();
 		int i = 0;
-		seats = tra.getSeatMap(data.get(0), data.get(1), data.get(2));
+		System.out.println("get(0) is: " + data.get(0));
+		System.out.println("get(1) is: " + data.get(1));
+		System.out.println("get(3) is: " + data.get(3));
+		seats = tra.getSeatMap(data.get(0), data.get(1), data.get(3));
 		
 		Screen Screen = new SeatSelectionScreen(frame, itself, seats);
 		Screen.buildScreen();

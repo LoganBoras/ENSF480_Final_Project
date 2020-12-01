@@ -644,7 +644,7 @@ public static void initialize(String[] args) {
 			 ResultSet results = statement.executeQuery("SELECT * FROM user WHERE user.email = '" + email + "' AND user.password = '" + password + "'");
 
 			 results.next();
-			 RegisteredUser ru = new RegisteredUser(results.getInt(1), results.getInt(6), results.getString(7), results.getInt(8), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
+			 RegisteredUser ru = new RegisteredUser(results.getInt(1), results.getString(6), results.getString(7), results.getInt(8), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
 
 			 return ru;
 		 } catch (SQLException e) {

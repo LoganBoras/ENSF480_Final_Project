@@ -66,7 +66,7 @@ public class TRA {
         return movieList;
     }
 
-    public void registerUser(int cardNumber, String expiryDate, int csv, String emailAddress, String firstName, String lastName, String password) {
+    public void registerUser(String cardNumber, String expiryDate, int csv, String emailAddress, String firstName, String lastName, String password) {
         boolean validEmail = databaseManager.checkEmailAvailability(emailAddress);
         if(validEmail) {
             registeredUser.register(-1, cardNumber, expiryDate, csv, emailAddress, firstName, lastName, password);
