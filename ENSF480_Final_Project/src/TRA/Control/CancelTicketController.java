@@ -18,26 +18,47 @@ public class CancelTicketController extends Subject {
     private Ticket t;
     private String email;
     private TRA tra;
+    private RegisteredUser ru;
+    private boolean isntRegistered;
+    private int index;
 
-    public CancelTicketController(JFrame frame, Subject subject) {
+    public CancelTicketController(JFrame frame, Subject subject, RegisteredUser ru) {
         this.frame = frame;
         setID(2);
         data = new ArrayList<String>();
         tra = new TRA();
+        this.ru = ru;
+        index = 0;
     }
 
     public void runCancelTicketSelection(){
 
-        runEmailInput();
-        System.out.println("EmailInput Exited");
+        if(ru == null) {
+            runEmailInput();
+            System.out.println("EmailInput Exited");
+            email = data.get(index);
+            isntRegistered = true;
+            index++;
+            ArrayList<String> emailList = tra.getEmails();
+            for(int i = 0; i < emailList.size(); i++) {
+                if(email == emailList.get(i)) {
+                    isntRegistered = false;
+                    break;
+                }
+            }
+        }
+        else {
+            email = ru.getUserAccount().getEmailAddress();
+            isntRegistered = false;
+        }
 
-        tickets = tra.getOrder(data.get(0));
-        email = data.get(0);
+        tickets = tra.getOrder(email);
+
 
         runTicketSelection();
         System.out.println("TicketSelection Exited");
 
-        ticketSelected = parseInt(data.get(1));
+        ticketSelected = parseInt(data.get(index));
         for(int i = 0; i < tickets.size(); i++) {
             if(tickets.get(i).getTicketID() == ticketSelected) {
                 t = tickets.get(i);
@@ -49,11 +70,11 @@ public class CancelTicketController extends Subject {
             System.out.println(data.get(j));
         }
 
-        int orderID = tra.cancelTicket(parseInt(data.get(1)));
+        int orderID = tra.cancelTicket(parseInt(data.get(index)));
 
         tra.checkOrderStatus(orderID);
 
-        runRefund();
+        runRefund(isntRegistered);
 
         return;
     }
@@ -86,10 +107,10 @@ public class CancelTicketController extends Subject {
         }
     }
 
-    private void runRefund() {
+    private void runRefund(boolean r) {
         TicketRefundController refund = new TicketRefundController(this.frame, itself, t, email);
         refund.setItself(refund);
-        refund.runRefund();
+        refund.runRefund(r, ru);
     }
 
     @Override

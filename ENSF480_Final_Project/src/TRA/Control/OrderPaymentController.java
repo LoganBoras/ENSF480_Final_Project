@@ -72,6 +72,9 @@ public class OrderPaymentController extends Subject{
 		TicketOrderPaymentStrategy ticketPaymentStrategy = new TicketOrderPaymentStrategy(userCard, new TRA(), email, order);
 		PaymentController paymentController = new PaymentController(ticketPaymentStrategy);
 		paymentController.doAction();
+
+		TRA t = new TRA();
+		t.storeTicketOrder(order.getTicketListCopy(), email);
 		
 		if(order.getOrderStatus() == 1) {
 			JOptionPane.showMessageDialog(new JFrame(), "Payment Successful! Please check you email for your ticket(s) and "

@@ -24,28 +24,33 @@ public class TicketRefundController extends Subject {
 
     }
 
-    public void runRefund() {
-        int prevID;
-        Screen Screen = new TicketRefundScreen(frame, itself);
-        Screen.buildScreen();
+    public void runRefund(boolean ru, RegisteredUser user) {
+        if(ru == true) {
+            int prevID;
+            Screen Screen = new TicketRefundScreen(frame, itself);
+            Screen.buildScreen();
 
-        prevID = getID();
-        int i = 0;
-        while(getID() == prevID) {
-            if(i == 0)
-                System.out.println("waiting for TicketRefundScreen to finish...");
-            i++;
+            prevID = getID();
+            int i = 0;
+            while(getID() == prevID) {
+                if(i == 0)
+                    System.out.println("waiting for TicketRefundScreen to finish...");
+                i++;
+            }
+            userCard = new Card(data.get(0), data.get(1), Integer.parseInt(data.get(2)));
         }
-        userCard = new Card(data.get(0), data.get(1), Integer.parseInt(data.get(2)));
+        else {
+            userCard = user.getUserAccount().getCard();
+        }
 
-        sendRefundEmail();
+        sendRefundEmail(ru);
 
     }
 
-    private void sendRefundEmail() {
+    private void sendRefundEmail(boolean ru) {
         ArrayList<Ticket> tickets = new ArrayList<>();
         tickets.add(ticket);
-        TicketCancellationOrder cancellationOrder = new TicketCancellationOrder(tickets, false);
+        TicketCancellationOrder cancellationOrder = new TicketCancellationOrder(tickets, ru);
         CancellationOrderPaymentStrategy cancellationStrategy = new CancellationOrderPaymentStrategy(userCard , new TRA(), email, cancellationOrder);
         PaymentController paymentController = new PaymentController(cancellationStrategy);
         paymentController.doAction();
