@@ -15,6 +15,8 @@ public class CancelTicketController extends Subject {
     private ArrayList<String> data;	//1st index: email, 2nd index: ticketID
     private ArrayList<Ticket> tickets;
     private int ticketSelected;
+    private Ticket t;
+    private String email;
     private TRA tra;
 
     public CancelTicketController(JFrame frame, Subject subject) {
@@ -30,11 +32,17 @@ public class CancelTicketController extends Subject {
         System.out.println("EmailInput Exited");
 
         tickets = tra.getOrder(data.get(0));
+        email = data.get(0);
 
         runTicketSelection();
         System.out.println("TicketSelection Exited");
 
         ticketSelected = parseInt(data.get(1));
+        for(int i = 0; i < tickets.size(); i++) {
+            if(tickets.get(i).getTicketID() == ticketSelected) {
+                t = tickets.get(i);
+            }
+        }
 
         System.out.println("USER SELECTED THE FOLLOWING: ");
         for(int j = 0; j < data.size(); j++) {
@@ -44,6 +52,8 @@ public class CancelTicketController extends Subject {
         int orderID = tra.cancelTicket(parseInt(data.get(1)));
 
         tra.checkOrderStatus(orderID);
+
+        runRefund();
 
         return;
     }
@@ -74,6 +84,12 @@ public class CancelTicketController extends Subject {
                 System.out.println("waiting for TicketSelectionScreen to finish...");
             i++;
         }
+    }
+
+    private void runRefund() {
+        TicketRefundController refund = new TicketRefundController(this.frame, itself, t, email);
+        refund.setItself(refund);
+        refund.runRefund();
     }
 
     @Override
