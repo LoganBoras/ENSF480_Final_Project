@@ -1,0 +1,63 @@
+package TRA.Control;
+
+import TRA.Domain.*;
+import TRA.Presentation.*;
+
+import javax.swing.*;
+import java.util.ArrayList;
+
+public class TicketRefundController extends Subject {
+
+    private TicketRefundController itself;
+    private JFrame frame;
+    private ArrayList<String> data;
+    private String email;
+    private Card userCard;
+    private Ticket ticket;
+
+    public TicketRefundController(JFrame frame, Subject subject, Ticket t, String email) {
+        this.frame = frame;
+        this.ticket = t;
+        this.email = email;
+        this.data = new ArrayList<String>();
+        setID(4);
+
+    }
+
+    public void runRefund() {
+        int prevID;
+        Screen Screen = new TicketRefundScreen(frame, itself);
+        Screen.buildScreen();
+
+        prevID = getID();
+        int i = 0;
+        while(getID() == prevID) {
+            if(i == 0)
+                System.out.println("waiting for TicketRefundScreen to finish...");
+            i++;
+        }
+        userCard = new Card(data.get(0), data.get(1), Integer.parseInt(data.get(2)));
+
+        sendRefundEmail();
+
+    }
+
+    private void sendRefundEmail() {
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        tickets.add(ticket);
+        TicketCancellationOrder cancellationOrder = new TicketCancellationOrder(tickets, false);
+        CancellationOrderPaymentStrategy cancellationStrategy = new CancellationOrderPaymentStrategy(userCard , new TRA(), email, cancellationOrder);
+        PaymentController paymentController = new PaymentController(cancellationStrategy);
+        paymentController.doAction();
+    }
+
+    @Override
+    public void addData(String data) {
+        // TODO Auto-generated method stub
+        this.data.add(data);
+    }
+
+    public void setItself(TicketRefundController itself) {
+        this.itself = itself;
+    }
+}
