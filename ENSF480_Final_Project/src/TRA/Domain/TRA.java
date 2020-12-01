@@ -86,6 +86,13 @@ public class TRA {
             System.out.println("Invalid login. Please try again.");
         }
     }
+    
+    public boolean checkEmail(String email) {
+    	if(databaseManager.getUser(email)==null)
+    		return true;
+    	else
+    		return false;
+    }
 
 	public DatabaseManager getDatabaseManager() {
 		return databaseManager;

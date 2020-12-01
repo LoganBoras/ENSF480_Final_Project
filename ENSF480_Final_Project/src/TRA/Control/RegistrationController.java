@@ -36,6 +36,10 @@ public class RegistrationController extends Subject{
 		this.theUser = tra.getRegisteredUser();
 	}
 	
+	public boolean checkEmail(String email) {
+		return tra.checkEmail(email);
+	}
+	
 	public String getEmail() {
 		return email;
 	}

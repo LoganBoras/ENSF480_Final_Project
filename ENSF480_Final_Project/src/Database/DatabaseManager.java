@@ -642,4 +642,21 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
+	 
+	 public RegisteredUser getUser(String email) {
+		 try {
+
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT * FROM user WHERE user.email = '" + email + "'");
+
+			 results.next();
+			 RegisteredUser ru = new RegisteredUser(results.getInt(1), results.getInt(6), results.getString(7), results.getInt(8), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
+
+			 return ru;
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 }
+		 return null;
+	 }
 }
