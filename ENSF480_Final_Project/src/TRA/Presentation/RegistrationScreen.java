@@ -47,8 +47,6 @@ public class RegistrationScreen extends Screen{
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
 		frame.getContentPane().removeAll();
 		frame.repaint();
 		subject.setID(screenID);
@@ -58,7 +56,6 @@ public class RegistrationScreen extends Screen{
 
 	@Override
 	public void buildScreen() {
-		// TODO Auto-generated method stub
 		//frame = new JFrame("Home Page");
 		frame.setLayout(new BorderLayout());
 		frame.setSize(400,225);
@@ -104,7 +101,6 @@ public class RegistrationScreen extends Screen{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 					frame.dispose();
 					
 			}});
@@ -122,12 +118,13 @@ public class RegistrationScreen extends Screen{
 					String expDate = expiryDateBox.getText();
 					String csv = csvBox.getText();
 					
-					if(email.isEmpty()) {
+					if(email.isEmpty()||regController.checkEmail(email)==false) {
 						emailLabel.setOpaque( true );
 						emailLabel.setBackground(Color.RED);
 						correct = false;
 					}else {
 						emailLabel.setOpaque( false );
+						emailLabel.setBackground(Color.GRAY);
 					}
 					
 					if(fName.isEmpty()) {
@@ -136,6 +133,7 @@ public class RegistrationScreen extends Screen{
 						correct = false;
 					}else {
 						fNameLabel.setOpaque( false );
+						fNameLabel.setBackground(Color.GRAY);
 					}
 					
 					if(lName.isEmpty()) {
@@ -144,6 +142,7 @@ public class RegistrationScreen extends Screen{
 						correct = false;
 					}else {
 						lNameLabel.setOpaque( false );
+						lNameLabel.setBackground(Color.GRAY);
 					}
 					
 					if(password.isEmpty()) {
@@ -152,14 +151,16 @@ public class RegistrationScreen extends Screen{
 						correct = false;
 					}else {
 						passwordLabel.setOpaque( false );
+						passwordLabel.setBackground(Color.GRAY);
 					}
 					
-					if(cardNum.isEmpty()) {
+					if(cardNum.isEmpty()||isNumeric(cardNum)==false) {
 						cardLabel.setOpaque( true );
 						cardLabel.setBackground(Color.RED);
 						correct = false;
 					}else {
 						cardLabel.setOpaque( false );
+						cardLabel.setBackground(Color.GRAY);
 					}
 					
 					if(expDate.isEmpty()) {
@@ -168,14 +169,16 @@ public class RegistrationScreen extends Screen{
 						correct = false;
 					}else {
 						expiryLabel.setOpaque( false );
+						expiryLabel.setBackground(Color.GRAY);
 					}
 					
-					if(csv.isEmpty()) {
+					if(csv.isEmpty()||isNumeric(csv)==false) {
 						csvLabel.setOpaque( true );
 						csvLabel.setBackground(Color.RED);
 						correct = false;
 					}else {
 						csvLabel.setOpaque( false );
+						csvLabel.setBackground(Color.GRAY);
 					}
 					
 					if(correct) {
@@ -185,6 +188,15 @@ public class RegistrationScreen extends Screen{
 					}
 					
 
+			}
+
+			private boolean isNumeric(String numString) {
+				try {
+					Integer.parseInt(numString);
+					return true;
+				}catch(NumberFormatException e) {
+					return false;
+				}
 			}});
 		
 	}
