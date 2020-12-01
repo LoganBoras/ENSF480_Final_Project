@@ -1,3 +1,4 @@
+
 package TRA.Control;
 
 import java.util.ArrayList;
@@ -119,6 +120,14 @@ public class HomeController extends Subject{
 	
 	public void setItself(HomeController itself) {
 		this.itself = itself;
+	}
+	
+	public RegisteredUser getTheUser() {
+		return theUser;
+	}
+
+	public void setTheUser(RegisteredUser theUser) {
+		this.theUser = theUser;
 	}
 	
 }

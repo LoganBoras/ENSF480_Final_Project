@@ -20,6 +20,7 @@ public class HomeScreen extends Screen{
 	JFrame frame; 
 	private JButton registerButton = new JButton("Register");
 	private JButton loginButton = new JButton("Login");
+	private JButton logoutButton = new JButton("Logout");
 	private JButton orderBut = new JButton("Create Order");
 	private JButton cancelTicketBut = new JButton("Cancel Ticket");
 	private JButton cancelBut = new JButton("Cancel");
@@ -29,6 +30,7 @@ public class HomeScreen extends Screen{
 	public HomeScreen(JFrame frame, Subject subject){
 		
 		this.subject = subject;
+		this.homeController = (HomeController) subject;
 		this.frame = frame;
 		this.screenID = 2;
 	}
@@ -54,7 +56,10 @@ public class HomeScreen extends Screen{
 		
 		JPanel buttons = new JPanel(new FlowLayout());
 		buttons.add(registerButton);
-		buttons.add(loginButton);
+		if(homeController.getTheUser()==null)
+			buttons.add(loginButton);
+		else
+			buttons.add(logoutButton);
 		buttons.add(orderBut);
 		buttons.add(cancelTicketBut);
 		buttons.add(movieAnnouncementBut);
@@ -128,6 +133,15 @@ public class HomeScreen extends Screen{
 					
 					updateToLog();
 			}});
+		
+		getLogoutBut().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stug
+				homeController.setTheUser(null);
+					updateToLogout();
+			}});
 
 		getRegBut().addActionListener(new ActionListener() {
 			
@@ -169,6 +183,17 @@ public class HomeScreen extends Screen{
 			subject.setID(7);
 			
 		}
+		
+		private void updateToLogout() {
+			// TODO Auto-generated method stub
+			homeController.setTheUser(null);
+			System.out.println("Logging out");
+			frame.getContentPane().removeAll();
+			buildScreen();
+			frame.repaint();
+			subject.setID(1);
+			
+		}
 	
 	
 //	public static void main(String args []) {
@@ -190,8 +215,16 @@ public class HomeScreen extends Screen{
 		return loginButton;
 	}
 
-	public void setLoginBut(JButton loginBut) {
-		this.registerButton = loginBut;
+	public void setLoginBut(JButton logoutBut) {
+		this.registerButton = logoutBut;
+	}
+	
+	public JButton getLogoutBut() {
+		return logoutButton;
+	}
+
+	public void setLogoutBut(JButton logoutBut) {
+		this.registerButton = logoutBut;
 	}
 
 	public JButton getOrderBut() {
