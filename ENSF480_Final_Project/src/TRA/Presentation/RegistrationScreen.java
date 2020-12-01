@@ -3,7 +3,9 @@ package TRA.Presentation;
 import TRA.Control.RegistrationController;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,11 +37,12 @@ public class RegistrationScreen extends Screen{
 	private JButton cancelBut = new JButton("Cancel");
 
 	
-	public RegistrationScreen(JFrame frame, Subject subject){
+	public RegistrationScreen(JFrame frame, RegistrationController subject){
 		
 		this.subject = subject;
+		this.regController = subject;
 		this.frame = frame;
-		this.screenID = 2;
+		this.screenID = 5;
 	}
 	
 	@Override
@@ -58,29 +61,33 @@ public class RegistrationScreen extends Screen{
 		// TODO Auto-generated method stub
 		//frame = new JFrame("Home Page");
 		frame.setLayout(new BorderLayout());
-		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,Toolkit.getDefaultToolkit().getScreenSize().height/6);
+		frame.setSize(400,225);
 		frame.setLocationRelativeTo(null);
 		
+		JPanel text = new JPanel(new GridLayout(0,2));
+		text.add(emailLabel);
+		text.add(emailBox);
+		text.add(fNameLabel);
+		text.add(firstNameBox);
+		text.add(lNameLabel);
+		text.add(lastNameBox);
+		text.add(passwordLabel);
+		text.add(passwordBox);
+		text.add(cardLabel);
+		text.add(cardNumberBox);
+		text.add(expiryLabel);
+		text.add(expiryDateBox);
+		text.add(csvLabel);
+		text.add(csvBox);
+		
 		JPanel buttons = new JPanel(new FlowLayout());
-		buttons.add(emailLabel);
-		buttons.add(emailBox);
-		buttons.add(fNameLabel);
-		buttons.add(firstNameBox);
-		buttons.add(lNameLabel);
-		buttons.add(lastNameBox);
-		buttons.add(passwordLabel);
-		buttons.add(passwordBox);
-		buttons.add(cardLabel);
-		buttons.add(cardNumberBox);
-		buttons.add(expiryLabel);
-		buttons.add(expiryDateBox);
-		buttons.add(csvLabel);
-		buttons.add(csvBox);
 		buttons.add(confirmBut);
 		buttons.add(cancelBut);
 		
-
-		frame.add("North", new JLabel("HOME PAGE :^)", SwingConstants.CENTER));
+		frame.add("North", text);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
 		frame.add("South", buttons);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -106,16 +113,78 @@ public class RegistrationScreen extends Screen{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stug
+					Boolean correct = true;
 					String email = emailBox.getText();
 					String fName = firstNameBox.getText();
 					String lName = lastNameBox.getText();
 					String password = passwordBox.getText();
-					int cardNum = Integer.parseInt(cardNumberBox.getText());
+					String cardNum = cardNumberBox.getText();
 					String expDate = expiryDateBox.getText();
-					int csv = Integer.parseInt(csvBox.getText());
-					regController.completeRegistration(cardNum, expDate, csv, email, fName, lName, password);
-					update();
+					String csv = csvBox.getText();
+					
+					if(email.isEmpty()) {
+						emailLabel.setOpaque( true );
+						emailLabel.setBackground(Color.RED);
+						correct = false;
+					}else {
+						emailLabel.setOpaque( false );
+					}
+					
+					if(fName.isEmpty()) {
+						fNameLabel.setOpaque( true );
+						fNameLabel.setBackground(Color.RED);
+						correct = false;
+					}else {
+						fNameLabel.setOpaque( false );
+					}
+					
+					if(lName.isEmpty()) {
+						lNameLabel.setOpaque( true );
+						lNameLabel.setBackground(Color.RED);
+						correct = false;
+					}else {
+						lNameLabel.setOpaque( false );
+					}
+					
+					if(password.isEmpty()) {
+						passwordLabel.setOpaque( true );
+						passwordLabel.setBackground(Color.RED);
+						correct = false;
+					}else {
+						passwordLabel.setOpaque( false );
+					}
+					
+					if(cardNum.isEmpty()) {
+						cardLabel.setOpaque( true );
+						cardLabel.setBackground(Color.RED);
+						correct = false;
+					}else {
+						cardLabel.setOpaque( false );
+					}
+					
+					if(expDate.isEmpty()) {
+						expiryLabel.setOpaque( true );
+						expiryLabel.setBackground(Color.RED);
+						correct = false;
+					}else {
+						expiryLabel.setOpaque( false );
+					}
+					
+					if(csv.isEmpty()) {
+						csvLabel.setOpaque( true );
+						csvLabel.setBackground(Color.RED);
+						correct = false;
+					}else {
+						csvLabel.setOpaque( false );
+					}
+					
+					if(correct) {
+						regController.completeRegistration(Integer.parseInt(cardNum), expDate, Integer.parseInt(csv), email, fName, lName, password);
+						System.out.println("new user registered");
+						update();
+					}
+					
+
 			}});
 		
 	}
