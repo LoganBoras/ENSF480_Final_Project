@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import TRA.Domain.MovieAnnouncementEmail;
 import TRA.Domain.RegisteredUser;
+import TRA.Domain.TRA;
 import TRA.Presentation.HomeScreen;
 import TRA.Presentation.Screen;
 
@@ -22,9 +23,11 @@ public class HomeController extends Subject{
 	private RegistrationController registrationController;
 	private LoginController loginController;
 	private RegisteredUser theUser;
+	private TRA theTRA;
 
 	public HomeController(JFrame frame) {
 		this.frame = frame;
+		theTRA = new TRA();
 		setID(1);
 	}
 
@@ -94,7 +97,7 @@ public class HomeController extends Subject{
 	
 	private void doLogin() {
 		// TODO Auto-generated method stub
-		loginController = new LoginController(frame, itself);
+		loginController = new LoginController(frame, itself, theTRA);
 		loginController.setItself(loginController);
 		loginController.runLogin();
 		theUser = loginController.getTheUser();

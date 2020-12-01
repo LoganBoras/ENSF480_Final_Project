@@ -21,8 +21,8 @@ public class LoginController extends Subject{
 	private LoginController itself;
 	
 
-	public LoginController(JFrame frame, Subject subject) {
-		tra = new TRA();
+	public LoginController(JFrame frame, Subject subject, TRA theTRA) {
+		this.tra = theTRA;
 		this.frame = frame;
 		setID(7);	//ID for OrderSelection Frame;
 		//data = new ArrayList<String>();
