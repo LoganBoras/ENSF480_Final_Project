@@ -19,7 +19,7 @@ public class RegistrationController extends Subject{
 	String fName;
 	String lName;
 	String password;
-	int cardNum;
+	String cardNum;
 	String expDate;
 	int csv;
 	TRA tra;
@@ -36,16 +36,12 @@ public class RegistrationController extends Subject{
 	}
 	
 
-	public void completeRegistration(int cardNum, String expDate, int csv, String email, String fName, String lName, String password) {
+	public void completeRegistration(String cardNum, String expDate, int csv, String email, String fName, String lName, String password) {
 		tra.registerUser(cardNum, expDate, csv, email, fName, lName, password);
 		this.theUser = tra.getRegisteredUser();
 	}
 	
 	public boolean checkEmail(String email) {
-		return tra.checkEmail(email);
-		accountID++;
-		theUser = new RegisteredUser(accountID, cardNum, expDate, csv, email, fName, lName, password);
-		db.registerUser(theUser);
 		return tra.checkEmail(email);
 	}
 	
@@ -73,10 +69,10 @@ public class RegistrationController extends Subject{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getCardNum() {
+	public String getCardNum() {
 		return cardNum;
 	}
-	public void setCardNum(int cardNum) {
+	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
 	}
 	public String getExpDate() {

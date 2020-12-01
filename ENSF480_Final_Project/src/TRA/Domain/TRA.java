@@ -55,7 +55,7 @@ public class TRA {
     public void updateSeatVacancy(SeatMap sm, Seat s, boolean vacant) {
         s.setVacant(vacant);
         //databaseManager.updateSeatStatus(s.getSeatNumber(), s.getSeatMapID(), vacant);
-        databaseManager.updateSeat(sm, s, vacant);
+        databaseManager.updateSeat(sm, s);
     }
     
     public static ArrayList<Movie> upcomingMoviesList() {
@@ -124,4 +124,40 @@ public class TRA {
     	else
     		return false;
     }
+
+	public DatabaseManager getDatabaseManager() {
+		return databaseManager;
+	}
+
+	public void setDatabaseManager(DatabaseManager databaseManager) {
+		this.databaseManager = databaseManager;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public RegisteredUser getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(RegisteredUser registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public RegularUser getRegularUser() {
+		return regularUser;
+	}
+
+	public void setRegularUser(RegularUser regularUser) {
+		this.regularUser = regularUser;
+	}
+
+	public void setFinancialInstitute(FinancialInstitute financialInstitute) {
+		this.financialInstitute = financialInstitute;
+	}
 }

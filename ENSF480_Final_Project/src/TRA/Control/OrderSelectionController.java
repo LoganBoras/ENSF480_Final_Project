@@ -25,6 +25,7 @@ public class OrderSelectionController extends Subject{
 	private TRA tra;
 	private Ticket ticket;
 	private TicketOrder order;
+	private ArrayList<Ticket> tickets;
 	
 	
 	public OrderSelectionController(JFrame frame, Subject subject) {
@@ -38,33 +39,31 @@ public class OrderSelectionController extends Subject{
 		
 		runMovieSelection();
 		System.out.println("MovieSelection Exited");
-		movieSelected = movies.get(parseInt(data.get(1)));
-		System.out.println(movieSelected.getMovieTitle());
+//		movieSelected = movies.get(parseInt(data.get(1)));
+//		System.out.println(movieSelected.getMovieTitle());
 		
 		runTheatreSelection();
 		System.out.println("TheatreSelection Exited.");
-		theatreSelected = theatres.get(parseInt(data.get(3)));
-		System.out.println(theatreSelected.getTheatreName());
+//		theatreSelected = theatres.get(parseInt(data.get(3)));
+//		System.out.println(theatreSelected.getTheatreName());
 		
 		runShowTimeSelection();
 		System.out.println("ShowTimeSelection Exited");
-		showTimeSelected = showTimes.get(parseInt(data.get(5)));
+//		showTimeSelected = showTimes.get(parseInt(data.get(5)));
 		
 		runSeatSelection();
 		System.out.println("SeatSelection Exited");
-		seatSelected = seats.getSeats().get(parseInt(data.get(7)));
+//		seatSelected = seats.getSeats().get(parseInt(data.get(7)));
 		
 		System.out.println("USER SELECTED THE FOLLOWING: ");
 		for(int j = 0; j < data.size(); j++) {
 			System.out.println(data.get(j));
 		}
 
-		ArrayList<Ticket> t = new ArrayList<>();
-		t.add(new Ticket(movieSelected, theatreSelected, seatSelected, 12, -1, showTimeSelected.getShowtime()));
-		tra.storeTicketOrder(t, "email");
-		tra.updateSeatVacancy(seats, seatSelected, false);
-
 		buildOrder();
+		
+		tra.storeTicketOrder(tickets, "email");
+		tra.updateSeatVacancy(seats, seatSelected, false);
 		
 		runPayment();
 
@@ -86,18 +85,17 @@ public class OrderSelectionController extends Subject{
 	private void buildOrder() {
 		// TODO Auto-generated method stub
 		Showing showing = null;
-		
 		for(int i = 0; i < showTimes.size(); i++) {
-			if(Integer.parseInt(data.get(2)) == showTimes.get(i).getShowingID()) {
+			if(Integer.parseInt(data.get(4)) == showTimes.get(i).getShowingID()) {
 				showing = showTimes.get(i);
 				break;
 			}
 		}
 		
-		Seat seat = showing.getSeatMap().getSeats().get(Integer.parseInt(data.get(4)));
+		seatSelected = showing.getSeatMap().getSeats().get(Integer.parseInt(data.get(4)));
 		
-		ticket = new Ticket(showing.getMovie(), showing.getTheatre(), seat, 12 , 1, showing.getShowtime());
-		ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+		ticket = new Ticket(showing.getMovie(), showing.getTheatre(), seatSelected, 12 , 1, showing.getShowtime());
+		tickets = new ArrayList<Ticket>();
 		tickets.add(ticket);
 		
 		this.order = new TicketOrder(tickets);
@@ -155,7 +153,8 @@ public class OrderSelectionController extends Subject{
 		int prevID = getID();
 		int i = 0;
 
-		seats = tra.getSeatMap(data.get(0), data.get(2), data.get(4));
+		seats = tra.getSeatMap(data.get(0), data.get(2), data.get(5));
+		//System.out.println(seats.getReservedSeatCount());
 		
 		Screen Screen = new SeatSelectionScreen(frame, itself, seats);
 		Screen.buildScreen();

@@ -202,7 +202,7 @@ public class RegistrationScreen extends Screen{
 					}
 					
 					if(correct) {
-						regController.completeRegistration(Integer.parseInt(cardNum), expDate, Integer.parseInt(csv), email, fName, lName, password);
+						regController.completeRegistration(cardNum, expDate, Integer.parseInt(csv), email, fName, lName, password);
 						System.out.println("new user registered");
 						update();
 					}
