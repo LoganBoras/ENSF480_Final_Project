@@ -23,6 +23,14 @@ public class HomeController extends Subject{
 	private LoginController loginController;
 	private RegisteredUser theUser;
 
+	public RegisteredUser getTheUser() {
+		return theUser;
+	}
+
+	public void setTheUser(RegisteredUser theUser) {
+		this.theUser = theUser;
+	}
+
 	public HomeController(JFrame frame) {
 		this.frame = frame;
 		setID(1);
