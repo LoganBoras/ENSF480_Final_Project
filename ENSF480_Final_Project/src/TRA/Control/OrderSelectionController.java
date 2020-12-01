@@ -27,6 +27,7 @@ public class OrderSelectionController extends Subject{
 	private TicketOrder order;
 	private ArrayList<Ticket> tickets;
 	private RegisteredUser theUser;
+	private String email;
 	
 	public OrderSelectionController(JFrame frame, Subject subject, RegisteredUser theUser) {
 		this.frame = frame;
@@ -63,12 +64,11 @@ public class OrderSelectionController extends Subject{
 
 		buildOrder();
 		
-		tra.storeTicketOrder(tickets, "email");
-		tra.updateSeatVacancy(seats, seatSelected, false);
-		
 		runPayment();
 
 		System.out.println("Payment Process complete.");
+
+		tra.updateSeatVacancy(seats, seatSelected, false);
 
 		return;
 		

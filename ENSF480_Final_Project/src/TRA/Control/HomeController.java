@@ -107,9 +107,18 @@ public class HomeController extends Subject{
 
 	private void doCancelTicketSelection() {
 		// TODO Auto-generated method stub
-		cancelTicketController = new CancelTicketController(frame, itself);
-		cancelTicketController.setItself(cancelTicketController);
-		cancelTicketController.runCancelTicketSelection();
+		boolean orderExists = true;
+		if(theUser != null) {
+			orderExists = theTRA.emailExistsInOrders(theUser.getUserAccount().getEmailAddress());
+		}
+		if(orderExists) {
+			cancelTicketController = new CancelTicketController(frame, itself, theUser);
+			cancelTicketController.setItself(cancelTicketController);
+			cancelTicketController.runCancelTicketSelection();
+		}
+		else {
+			JOptionPane.showMessageDialog(new JFrame(), "There are no orders registered with this account");
+		}
 	}
 
 	@Override
