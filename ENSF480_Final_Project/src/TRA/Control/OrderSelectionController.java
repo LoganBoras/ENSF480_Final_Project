@@ -26,13 +26,14 @@ public class OrderSelectionController extends Subject{
 	private Ticket ticket;
 	private TicketOrder order;
 	private ArrayList<Ticket> tickets;
+	private RegisteredUser theUser;
 	
-	
-	public OrderSelectionController(JFrame frame, Subject subject) {
+	public OrderSelectionController(JFrame frame, Subject subject, RegisteredUser theUser) {
 		this.frame = frame;
 		setID(2);	//ID for OrderSelection Frame;
 		data = new ArrayList<String>();
 		tra = new TRA();
+		this.theUser = theUser;
 	}
 	
 	public void runOrderSelection(){
@@ -76,9 +77,10 @@ public class OrderSelectionController extends Subject{
 	private void runPayment() {
 		// TODO Auto-generated method stub
 			
-		OrderPaymentController orderPayment = new OrderPaymentController(this.frame, itself, this.order);
+		OrderPaymentController orderPayment = new OrderPaymentController(this.frame, itself, this.order, this.theUser);
 		orderPayment.setItself(orderPayment);
 		orderPayment.runOrderPayment();
+
 		
 	}
 

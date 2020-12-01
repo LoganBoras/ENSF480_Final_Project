@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import TRA.Domain.Card;
 import TRA.Domain.Receipt;
+import TRA.Domain.RegisteredUser;
 import TRA.Domain.TRA;
 import TRA.Domain.TicketOrder;
 import TRA.Presentation.MovieSelectionScreen;
@@ -29,37 +30,44 @@ public class OrderPaymentController extends Subject{
 	private String email;
 	private Card userCard;
 	private TicketOrder order;
+	private RegisteredUser theUser;
 	
-	public OrderPaymentController(JFrame frame, Subject subject, TicketOrder order) {
+	public OrderPaymentController(JFrame frame, Subject subject, TicketOrder order, RegisteredUser theUser) {
 		this.frame = frame;
 		this.order = order;
 		this.data = new ArrayList<String>();
 		setID(6);
-		
+		this.theUser = theUser;
 	}
 	
 	public void runOrderPayment() {
-		int prevID;
-		Screen Screen = new OrderPaymentScreen(frame, itself);
-		Screen.buildScreen();
-
-		prevID = getID();
-		int i = 0;
-		while(getID() == prevID) {
-			if(i == 0) 
-				System.out.println("waiting for OrderPaymentScreen to finish...");
-			i++;
-			}
-		 email = data.get(0);
-		 userCard = new Card(data.get(1), data.get(2), Integer.parseInt(data.get(3)));
 		
+		if(theUser == null) {
+			int prevID;
+			Screen Screen = new OrderPaymentScreen(frame, itself);
+			Screen.buildScreen();
+	
+			prevID = getID();
+			int i = 0;
+			while(getID() == prevID) {
+				if(i == 0) 
+					System.out.println("waiting for OrderPaymentScreen to finish...");
+				i++;
+				}
+			 email = data.get(0);
+			 userCard = new Card(data.get(1), data.get(2), Integer.parseInt(data.get(3)));
+		}
+		else {
+			userCard = theUser.getUserAccount().getCard();
+			email = theUser.getUserAccount().getEmailAddress();
+		}
 		 runPaymentProcess();
 		
 	}
 	
 	
 	
-	private void runPaymentProcess() {
+	public void runPaymentProcess() {
 		// TODO Auto-generated method stub
 		TicketOrderPaymentStrategy ticketPaymentStrategy = new TicketOrderPaymentStrategy(userCard, new TRA(), email, order);
 		PaymentController paymentController = new PaymentController(ticketPaymentStrategy);

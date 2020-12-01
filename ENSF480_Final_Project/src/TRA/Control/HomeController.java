@@ -28,6 +28,7 @@ public class HomeController extends Subject{
 	public HomeController(JFrame frame) {
 		this.frame = frame;
 		theTRA = new TRA();
+		theUser = null;
 		setID(1);
 	}
 
@@ -83,7 +84,7 @@ public class HomeController extends Subject{
 
 	private void doOrderSelection() {
 		// TODO Auto-generated method stub
-		orderSelectionController = new OrderSelectionController(frame, itself);
+		orderSelectionController = new OrderSelectionController(frame, itself, theUser);
 		orderSelectionController.setItself(orderSelectionController);
 		orderSelectionController.runOrderSelection();
 	}
