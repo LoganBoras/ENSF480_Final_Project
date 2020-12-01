@@ -18,8 +18,8 @@ public class SeatSelectionButton extends JButton implements ActionListener{
 	
 	public SeatSelectionButton(ArrayList<Integer> selectedSeat, int i, boolean vacancy) {
 		// TODO Auto-generated constructor stub
-		Reserved = new ImageIcon("reserved.png");
-		Vacant = new ImageIcon("vacant.png");
+		Reserved = new ImageIcon("ENSF480_Final_Project/reserved.png");
+		Vacant = new ImageIcon("ENSF480_Final_Project/vacant.png");
 		this.vacancy = vacancy;
 		if(vacancy) {
 			setIcon(Vacant);

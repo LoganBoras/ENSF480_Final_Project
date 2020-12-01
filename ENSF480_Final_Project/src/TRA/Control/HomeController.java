@@ -21,6 +21,7 @@ public class HomeController extends Subject{
 	private CancelTicketController cancelTicketController;
 
 	public static final int USER_SELECTION_MOVIE_ANNOUNCEMENT = 5;
+	public static final int USER_SELECTION_PAY_ANNUAL_ACCOUNT_FEE = 28;
 	private RegistrationController registrationController;
 	private LoginController loginController;
 	private RegisteredUser theUser;
@@ -70,10 +71,29 @@ public class HomeController extends Subject{
 					System.out.println("User Selected Registration");
 					doLogin();
 					break;
+				case USER_SELECTION_PAY_ANNUAL_ACCOUNT_FEE:
+					System.out.println("Beginning pay annual account fee");
+					doPayAnnualAccountFee();
+					break;
 			}
 
 		}
 		
+	}
+
+	private void doPayAnnualAccountFee() {
+		System.out.println("Doing pay annual account fee");
+		//Check if user is logged in and if they aren't tell them they can't pay their fee
+		if (this.theUser == null) {
+			JOptionPane.showMessageDialog(new JFrame(), "Please log in before paying annual account fee.");
+		} else {
+			//Otherwise do annual account fee payment for user
+			PayAnnualAccountFeeController feeController =
+					new PayAnnualAccountFeeController(this.theUser, this.theTRA);
+			feeController.doAction();
+			JOptionPane.showMessageDialog(new JFrame(), "Your annual account fee has been paid! Please check your email for your receipt.");
+		}
+
 	}
 
 	private void doMovieAnnouncement() {
