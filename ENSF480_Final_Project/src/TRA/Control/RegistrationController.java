@@ -46,6 +46,7 @@ public class RegistrationController extends Subject{
 		accountID++;
 		theUser = new RegisteredUser(accountID, cardNum, expDate, csv, email, fName, lName, password);
 		db.registerUser(theUser);
+		return tra.checkEmail(email);
 	}
 	
 	public String getEmail() {

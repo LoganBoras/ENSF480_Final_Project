@@ -47,6 +47,7 @@ public class RegistrationScreen extends Screen{
 	}
 	
 	@Override
+
 	public void update() {
 		frame.getContentPane().removeAll();
 		frame.repaint();
@@ -102,8 +103,6 @@ public class RegistrationScreen extends Screen{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
 					frame.dispose();
 					
 			}});
@@ -121,8 +120,8 @@ public class RegistrationScreen extends Screen{
 					String expDate = expiryDateBox.getText();
 					String csv = csvBox.getText();
 					
+
 					if(email.isEmpty()||regController.checkEmail(email)==false) {
-					if(email.isEmpty()) {
 						emailLabel.setOpaque( true );
 						emailLabel.setBackground(Color.RED);
 						correct = false;
@@ -162,6 +161,11 @@ public class RegistrationScreen extends Screen{
 					}
 					
 					if(cardNum.isEmpty()) {
+						passwordLabel.setOpaque( false );
+						passwordLabel.setBackground(Color.GRAY);
+					}
+					
+					if(cardNum.isEmpty()||isNumeric(cardNum)==false) {
 						cardLabel.setOpaque( true );
 						cardLabel.setBackground(Color.RED);
 						correct = false;
@@ -183,6 +187,11 @@ public class RegistrationScreen extends Screen{
 					}
 					
 					if(csv.isEmpty()) {
+						expiryLabel.setOpaque( false );
+						expiryLabel.setBackground(Color.GRAY);
+					}
+					
+					if(csv.isEmpty()||isNumeric(csv)==false) {
 						csvLabel.setOpaque( true );
 						csvLabel.setBackground(Color.RED);
 						correct = false;
@@ -197,8 +206,8 @@ public class RegistrationScreen extends Screen{
 						System.out.println("new user registered");
 						update();
 					}
+
 			}
-		}
 
 			private boolean isNumeric(String numString) {
 				try {
