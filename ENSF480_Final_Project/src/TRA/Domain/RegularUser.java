@@ -20,7 +20,7 @@ public class RegularUser extends User {
         return card;
     }
 
-    public void setCard(int cardNumber, String expiry, int csv) {
+    public void setCard(String cardNumber, String expiry, int csv) {
         this.card = new Card(cardNumber, expiry, csv);
     }
 }
