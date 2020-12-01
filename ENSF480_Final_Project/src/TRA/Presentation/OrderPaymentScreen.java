@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JTextField;
 
 import TRA.Control.OrderPaymentController;
 import TRA.Control.Subject;
+import TRA.Domain.Card;
 
 public class OrderPaymentScreen extends Screen{
 	
@@ -25,9 +27,11 @@ public class OrderPaymentScreen extends Screen{
 	private JLabel cardLabel= new JLabel("Card Number:");
 	private JLabel expiryLabel = new JLabel("Expiry Date:");
 	private JLabel csvLabel = new JLabel("CSV:");
+	private JLabel emailLabel = new JLabel("Email: ");
 	private JTextField cardNumber = new JTextField(15);
 	private JTextField expiryDate = new JTextField(15);
 	private JTextField csv = new JTextField(15);
+	private JTextField email = new JTextField(15);
 	
 	private JFrame frame;
 	
@@ -45,15 +49,23 @@ public class OrderPaymentScreen extends Screen{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		frame.getContentPane().removeAll();
-		frame.repaint();
+		subject.addData(getEmail().getText());
 		subject.addData(getCardNumber().getText());
 		subject.addData(getExpiryDate().getText());
 		subject.addData(getCsv().getText());
+		
+		frame.getContentPane().removeAll();
+		frame.repaint();
 		subject.setID(screenID);
+	
 		
 	}
 
+	public static void main(String args []) {
+		OrderPaymentScreen screen = new OrderPaymentScreen();
+		screen.buildScreen();
+	}
+	
 	@Override
 	public void buildScreen() {
 		// TODO Auto-generated method stub
@@ -67,10 +79,14 @@ public class OrderPaymentScreen extends Screen{
 		paymentPanel.setLayout(new GridLayout(0,1));
 		JPanel paymentFields = new JPanel(new FlowLayout());
 		
+		JPanel emailPanel = new JPanel(new FlowLayout());
+		emailPanel.add(getEmailLabel());
+		emailPanel.add(getEmail());
+		paymentPanel.add(emailPanel);
+		
 		JPanel cardPanel = new JPanel(new FlowLayout());
 		cardPanel.add(getCardLabel());
 		cardPanel.add(getCardNumber());
-		cardPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
 		paymentPanel.add(cardPanel);
 		
 		JPanel expiryPanel = new JPanel(new FlowLayout());
@@ -82,6 +98,8 @@ public class OrderPaymentScreen extends Screen{
 		csvPanel.add(getCsvLabel());
 		csvPanel.add(getCsv());
 		paymentPanel.add(csvPanel);
+		
+		
 		
 		JPanel buttons = new JPanel(new FlowLayout());
 		buttons.add(cancelBut);
@@ -119,11 +137,15 @@ public class OrderPaymentScreen extends Screen{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stug
 					//add 
-				if(getCardNumber().getText().isEmpty())
+				if(getEmail().getText().isEmpty())
+					JOptionPane.showMessageDialog(new JFrame(), "Please enter a valid Email!");
+				else if(getCardNumber().getText().isEmpty() || Pattern.matches("[a-zA-Z]+", getCardNumber().getText()) 
+						|| getCardNumber().getText().length() != 16)
 					JOptionPane.showMessageDialog(new JFrame(), "Please enter a valid card number!");
 				else if(getExpiryDate().getText().isEmpty())
 					JOptionPane.showMessageDialog(new JFrame(), "Please enter a Expiry Date!");
-				else if(getCsv().getText().isEmpty())
+				else if(getCsv().getText().isEmpty() || Pattern.matches("[a-zA-Z]+", getCsv().getText())
+						|| getCsv().getText().length() != 3) 
 					JOptionPane.showMessageDialog(new JFrame(), "Please enter a CSV number!");
 				else
 					update();
@@ -202,5 +224,22 @@ public class OrderPaymentScreen extends Screen{
 		this.csv = csv;
 	}
 
+	public JLabel getEmailLabel() {
+		return emailLabel;
+	}
 
+	public void setEmailLabel(JLabel emailLabel) {
+		this.emailLabel = emailLabel;
+	}
+
+	public JTextField getEmail() {
+		return email;
+	}
+
+	public void setEmail(JTextField email) {
+		this.email = email;
+	}
+
+	
+	
 }
