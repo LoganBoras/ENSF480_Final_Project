@@ -298,7 +298,7 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
-	 public static Showing getShowing(String showingID) {
+	 public Showing getShowing(int showingID) {
 		 try {
 
 			 // Get a result set containing all data from test_table
@@ -307,20 +307,24 @@ public static void initialize(String[] args) {
 
 			 ResultSet results = statement.executeQuery("SELECT * FROM showing WHERE showingID = "+showingID);
 
+			 results.next();
 			 int id = results.getInt(1);
 			 String movieTitle = results.getString(2);
 			 Theatre t = new Theatre(results.getString(3));
 			 int seatMapID = results.getInt(4);
 			 String st = results.getString(5);
 
-			 results = statement.executeQuery("SELECT * FROM movie WHERE movieTitle = " + movieTitle);
+			 results = statement.executeQuery("SELECT * FROM movie WHERE movieTitle = '" + movieTitle + "'");
+			 results.next();
 			 Movie m = new Movie(results.getString(1), results.getString(2), results.getInt(3), results.getString(4));
-			 results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = " + seatMapID);
+			 results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = '" + seatMapID + "'");
+
 			 ArrayList<Seat> seats = new ArrayList<>();
 			 while (results.next()) {
 				 seats.add(new Seat(results.getInt(1), results.getInt(2), results.getBoolean(3)));
 			 }
-			 results = statement.executeQuery("SELECT * FROM seatmap WHERE seatMapID = " + seatMapID);
+			 results = statement.executeQuery("SELECT * FROM seatmap WHERE seatMapID = '" + seatMapID + "'");
+			 results.next();
 			 SeatMap s = new SeatMap(results.getInt(1), results.getInt(2), results.getInt(3), results.getInt(4), seats);
 
 
@@ -738,7 +742,7 @@ public static void initialize(String[] args) {
 		 return -1;
 	 }
 
-	 public void cancelTicket(int ticketID) {
+	 public int cancelTicket(int ticketID) {
 		 try {
 
 		 	 String query = "DELETE FROM ticket WHERE ticketID = '" + ticketID + "'";
@@ -746,9 +750,111 @@ public static void initialize(String[] args) {
 
 			 statement.execute();
 
+			 ResultSet results = statement.executeQuery("SELECT order_ticket_list.orderID FROM order_ticket_list WHERE order_ticket_list.ticketID = '" + ticketID + "'");
+			 results.next();
+			 int orderID = results.getInt("orderID");
+
+			 query = "DELETE FROM order_ticket_list WHERE ticketID = '" + ticketID + "'";
+			 statement = connection.prepareStatement(query);
+
+			 statement.execute();
+
+			 return orderID;
 		 } catch (SQLException e) {
 
 			 System.out.println("Could not delete ticket " + e.getMessage());
 		 }
+		 return -1;
 	 }
+
+	 public ArrayList<Ticket> getOrder(String email) {
+	     ArrayList<Ticket> t = new ArrayList<>();
+		 try {
+
+		 	 ArrayList<Integer> orderID = new ArrayList<>();
+			 Statement statement = connection.createStatement();
+			 ResultSet results = statement.executeQuery("SELECT list_orders.orderID FROM list_orders WHERE list_orders.email = '" + email + "'");
+
+			 while(results.next()) {
+			 	orderID.add(results.getInt("orderID"));
+			 }
+
+			 ArrayList<Integer> ticketID = new ArrayList<>();
+			 for(int i = 0; i < orderID.size(); i++) {
+				 results = statement.executeQuery("SELECT order_ticket_list.ticketID FROM order_ticket_list WHERE order_ticket_list.orderID = '" + orderID.get(i) + "'");
+
+				 while(results.next()) {
+				 	ticketID.add(results.getInt("ticketID"));
+				 }
+			 }
+
+			 ArrayList<Integer> showingID = new ArrayList<>();
+			 ArrayList<Integer> seatNumber = new ArrayList<>();
+			 ArrayList<Integer> cost = new ArrayList<>();
+
+			 for(int i = 0; i < ticketID.size(); i++) {
+				 results = statement.executeQuery("SELECT * FROM ticket WHERE ticket.ticketID = '" + ticketID.get(i) + "'");
+
+				 while(results.next()) {
+				 	 showingID.add(results.getInt("showingID"));
+				 	 seatNumber.add(results.getInt("seatNumber"));
+				 	 cost.add(results.getInt("cost"));
+				 }
+			 }
+
+			 for(int i = 0; i < ticketID.size(); i++) {
+				 Showing s = getShowing(showingID.get(i));
+				 t.add(new Ticket(s.getMovie(), s.getTheatre(), new Seat(s.getSeatMap().getSeatMapID(), seatNumber.get(i), false), cost.get(i), ticketID.get(i), s.getShowtime()));
+			 }
+
+			 return t;
+		 } catch (SQLException e) {
+
+			 System.out.println("Could not retrieve data from the database " + e.getMessage());
+		 }
+		 return null;
+	 }
+
+	public boolean emailExistsInOrders(String email) {
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet results = statement.executeQuery("SELECT list_orders.email FROM list_orders WHERE list_orders.email = '" + email + "'");
+
+			if(results.next()) {
+				return true;
+			}
+
+			return false;
+		} catch (SQLException e) {
+
+			System.out.println("Could not retrieve data from the database " + e.getMessage());
+		}
+		return false;
+	}
+
+	public void checkOrderStatus(int orderID) {
+		try {
+
+			Statement s = connection.createStatement();
+
+			ResultSet results = s.executeQuery("SELECT order_ticket_list.orderID FROM order_ticket_list WHERE order_ticket_list.orderID = '" + orderID + "'");
+
+			if (results.next()) {
+				return;
+			}
+			else {
+				s.close();
+
+				String query = "DELETE FROM list_orders WHERE orderID = '" + orderID + "'";
+				PreparedStatement statement = connection.prepareStatement(query);
+
+				statement.execute();
+			}
+
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+		}
+	}
 }

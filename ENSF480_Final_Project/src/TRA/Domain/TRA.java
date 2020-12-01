@@ -92,6 +92,10 @@ public class TRA {
         databaseManager.createOrder(tickets, email);
     }
 
+    public ArrayList<Ticket> getOrder(String email) {
+        return databaseManager.getOrder(email);
+    }
+
     public FinancialInstitute getFinancialInstitute() {
         return financialInstitute;
     }
@@ -104,7 +108,15 @@ public class TRA {
         return databaseManager.getTicketID(s, t);
     }
 
-    public void cancelTicket(int ticketID) {
-        databaseManager.cancelTicket(ticketID);
+    public int cancelTicket(int ticketID) {
+        return databaseManager.cancelTicket(ticketID);
+    }
+    
+    public boolean emailExistsInOrders(String email) {
+        return databaseManager.emailExistsInOrders(email);
+    }
+
+    public void checkOrderStatus(int orderID) {
+        databaseManager.checkOrderStatus(orderID);
     }
 }

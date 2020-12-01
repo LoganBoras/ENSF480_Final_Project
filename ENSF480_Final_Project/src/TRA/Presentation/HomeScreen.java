@@ -19,6 +19,7 @@ public class HomeScreen extends Screen{
 	JFrame frame; 
 	private JButton loginBut = new JButton("Login");
 	private JButton orderBut = new JButton("Create Order");
+	private JButton cancelTicketBut = new JButton("Cancel Ticket");
 	private JButton cancelBut = new JButton("Cancel");
 
 	
@@ -51,6 +52,7 @@ public class HomeScreen extends Screen{
 		JPanel buttons = new JPanel(new FlowLayout());
 		buttons.add(loginBut);
 		buttons.add(orderBut);
+		buttons.add(cancelTicketBut);
 		buttons.add(cancelBut);
 		
 
@@ -83,6 +85,15 @@ public class HomeScreen extends Screen{
 				// TODO Auto-generated method stug
 
 					update();
+			}});
+
+		getCancelTicketBut().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				subject.setID(3);
+				frame.repaint();
 			}});
 		
 	}
@@ -126,7 +137,9 @@ public class HomeScreen extends Screen{
 		this.cancelBut = cancelBut;
 	}
 
-	
+	public JButton getCancelTicketBut() {
+		return cancelTicketBut;
+	}
 	
 	
 }
