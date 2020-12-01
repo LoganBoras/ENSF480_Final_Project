@@ -1,3 +1,4 @@
+
 package Database;
 
 import java.sql.*;
@@ -298,7 +299,7 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
-	 public Showing getShowing(int showingID) {
+	 public static Showing getShowing(String showingID) {
 		 try {
 
 			 // Get a result set containing all data from test_table
@@ -307,24 +308,20 @@ public static void initialize(String[] args) {
 
 			 ResultSet results = statement.executeQuery("SELECT * FROM showing WHERE showingID = "+showingID);
 
-			 results.next();
 			 int id = results.getInt(1);
 			 String movieTitle = results.getString(2);
 			 Theatre t = new Theatre(results.getString(3));
 			 int seatMapID = results.getInt(4);
 			 String st = results.getString(5);
 
-			 results = statement.executeQuery("SELECT * FROM movie WHERE movieTitle = '" + movieTitle + "'");
-			 results.next();
+			 results = statement.executeQuery("SELECT * FROM movie WHERE movieTitle = " + movieTitle);
 			 Movie m = new Movie(results.getString(1), results.getString(2), results.getInt(3), results.getString(4));
-			 results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = '" + seatMapID + "'");
-
+			 results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = " + seatMapID);
 			 ArrayList<Seat> seats = new ArrayList<>();
 			 while (results.next()) {
 				 seats.add(new Seat(results.getInt(1), results.getInt(2), results.getBoolean(3)));
 			 }
-			 results = statement.executeQuery("SELECT * FROM seatmap WHERE seatMapID = '" + seatMapID + "'");
-			 results.next();
+			 results = statement.executeQuery("SELECT * FROM seatmap WHERE seatMapID = " + seatMapID);
 			 SeatMap s = new SeatMap(results.getInt(1), results.getInt(2), results.getInt(3), results.getInt(4), seats);
 
 
@@ -353,18 +350,14 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
-	 public static SeatMap getSeatMap(String m, String t, String st) {
+	 public static SeatMap getSeatMap(int seatMapID) {
 		 try {
+			 
 			  // Get a result set containing all data from test_table
 			 
 			  Statement statement = connection.createStatement();
-
-			  ResultSet results = statement.executeQuery("SELECT * FROM showing WHERE showing.movieTitle = '" + m + "' AND showing.theatreName = '" + t + "' AND showing.showtime = '" + st + "'");
-
-			  results.next();
-			  int seatMapID = results.getInt(4);
-
-			  results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = " + seatMapID);
+			 
+			  ResultSet results = statement.executeQuery("SELECT * FROM seat WHERE seatMapID = " + seatMapID);
 			  ArrayList<Seat> seats = new ArrayList<>();
 			  while (results.next()) {
 				 seats.add(new Seat(results.getInt(2), results.getInt(1), results.getBoolean(3)));
@@ -536,21 +529,14 @@ public static void initialize(String[] args) {
 		 }
 	 }
 
-	 public ArrayList<Showing> getShowingList(String m, String t) {
+	 public ArrayList<Showing> getShowingList(Movie m, Theatre t) {
 		 try {
 			 ArrayList<Integer> id = new ArrayList<>();
 			 ArrayList<Integer> seatMapID = new ArrayList<>();
 			 ArrayList<String> showtime = new ArrayList<>();
-			 Movie movie;
-			 Theatre theatre = new Theatre(t);
 
 			 Statement statement = connection.createStatement();
-			 ResultSet results = statement.executeQuery("SELECT * FROM movie WHERE movie.movieTitle = '" + m + "'");
-
-			 results.next();
-			 movie = new Movie(results.getString(1), results.getString(2), results.getInt(3), results.getString(4));
-
-			 results = statement.executeQuery("SELECT * FROM showing WHERE showing.movieTitle = '" + m + "'" + " AND showing.theatreName = '" + t + "'");
+			 ResultSet results = statement.executeQuery("SELECT * FROM showing WHERE showing.movieTitle = '" + m.getMovieTitle() + "'" + " AND showing.theatreName = '" + t.getTheatreName() + "'");
 
 			 ArrayList<Showing> showings = new ArrayList<>();
 			 while(results.next()) {
@@ -570,7 +556,7 @@ public static void initialize(String[] args) {
 				 r.next();
 				 SeatMap s = new SeatMap(r.getInt(1), r.getInt(2), r.getInt(3), r.getInt(4), seats);
 
-				 showings.add(new Showing(id.get(i), movie, theatre, s, showtime.get(i)));
+				 showings.add(new Showing(id.get(i), m, t, s, showtime.get(i)));
 			 }
 
 
@@ -583,25 +569,25 @@ public static void initialize(String[] args) {
 	 }
 
 	 public int registerUser(RegisteredUser u) {
-		 try {
-		 	 int id = 0;
-
-			 Statement statement = connection.createStatement();
-			 ResultSet results = statement.executeQuery("SELECT MAX(accountID) FROM user");
-
-			 if(results.next()) {
-			 	id = results.getInt(1) + 1;
-			 }
-
-			 statement.executeUpdate("INSERT INTO user " + "VALUES ('" + id + "', '" + u.getUserAccount().getEmailAddress() +"', '"+ u.getUserAccount().getFirstName() +"', '"
-					 + u.getUserAccount().getLastName() +"', '"+ u.getUserAccount().getPassword() +"', '"+ u.getUserAccount().getCard().getCardNumber() +"', '"+ u.getUserAccount().getCard().getExpiryDate() +"', '"+ u.getUserAccount().getCard().getCsv() +"')");
-			 return id;
-
-		 } catch (SQLException e) {
-
-			 System.out.println("Could not register user " + e.getMessage());
-
-		 }
+//		 try {
+//		 	 int id = 0;
+//
+//			 Statement statement = connection.createStatement();
+//			 ResultSet results = statement.executeQuery("SELECT MAX(accountID) FROM user");
+//
+//			 if(results.next()) {
+//			 	id = results.getInt(1) + 1;
+//			 }
+//
+//			 statement.executeUpdate("INSERT INTO user " + "VALUES ('" + id + "', '" + u.getUserAccount().getEmailAddress() +"', '"+ u.getUserAccount().getFirstName() +"', '"
+//					 + u.getUserAccount().getLastName() +"', '"+ u.getUserAccount().getPassword() +"', '"+ u.getUserAccount().getCard().getCardNumber() +"', '"+ u.getUserAccount().getCard().getExpiryDate() +"', '"+ u.getUserAccount().getCard().getCsv() +"')");
+//			 return id;
+//
+//		 } catch (SQLException e) {
+//
+//			 System.out.println("Could not register user " + e.getMessage());
+//
+//		 }
 		 return -1;
 	 }
 
@@ -648,7 +634,7 @@ public static void initialize(String[] args) {
 			 ResultSet results = statement.executeQuery("SELECT * FROM user WHERE user.email = '" + email + "' AND user.password = '" + password + "'");
 
 			 results.next();
-			 RegisteredUser ru = new RegisteredUser(results.getInt(1), results.getString(6), results.getString(7), results.getInt(8), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
+			 RegisteredUser ru = new RegisteredUser(results.getInt(1), results.getInt(6), results.getString(7), results.getInt(8), results.getString(2), results.getString(3), results.getString(4), results.getString(5));
 
 			 return ru;
 		 } catch (SQLException e) {

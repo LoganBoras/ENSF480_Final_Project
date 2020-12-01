@@ -18,7 +18,7 @@ public class HomeScreen extends Screen{
 	HomeController homeController;
 
 	JFrame frame; 
-	private JButton loginBut = new JButton("Login");
+	private JButton registerButton = new JButton("Register");
 	private JButton orderBut = new JButton("Create Order");
 	private JButton cancelTicketBut = new JButton("Cancel Ticket");
 	private JButton cancelBut = new JButton("Cancel");
@@ -52,7 +52,7 @@ public class HomeScreen extends Screen{
 		frame.setLocationRelativeTo(null);
 		
 		JPanel buttons = new JPanel(new FlowLayout());
-		buttons.add(loginBut);
+		buttons.add(registerButton);
 		buttons.add(orderBut);
 		buttons.add(cancelTicketBut);
 		buttons.add(movieAnnouncementBut);
@@ -109,9 +109,27 @@ public class HomeScreen extends Screen{
 				frame.repaint();
 				subject.setID(HomeController.USER_SELECTION_MOVIE_ANNOUNCEMENT);
 			}});
+		getLoginBut().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stug
+					
+					updateToReg();
+			}});
 
 
 	}
+		
+		private void updateToReg() {
+			// TODO Auto-generated method stub
+
+			frame.getContentPane().removeAll();
+			frame.repaint();
+			subject.setID(4);
+			
+		}
+	
 	
 //	public static void main(String args []) {
 //		HomeScreen Screen = new HomeScreen();
@@ -129,11 +147,11 @@ public class HomeScreen extends Screen{
 	}
 
 	public JButton getLoginBut() {
-		return loginBut;
+		return registerButton;
 	}
 
 	public void setLoginBut(JButton loginBut) {
-		this.loginBut = loginBut;
+		this.registerButton = loginBut;
 	}
 
 	public JButton getOrderBut() {
