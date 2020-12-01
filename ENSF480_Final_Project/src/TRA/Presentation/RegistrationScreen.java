@@ -206,7 +206,6 @@ public class RegistrationScreen extends Screen{
 						System.out.println("new user registered");
 						update();
 					}
-
 			}
 
 			private boolean isNumeric(String numString) {
@@ -293,5 +292,4 @@ public class RegistrationScreen extends Screen{
 	}
 
 	
-
 }
