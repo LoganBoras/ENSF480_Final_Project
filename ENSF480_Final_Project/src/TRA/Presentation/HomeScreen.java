@@ -48,7 +48,7 @@ public class HomeScreen extends Screen{
 		// TODO Auto-generated method stub
 		//frame = new JFrame("Home Page");
 		frame.setLayout(new BorderLayout());
-		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,Toolkit.getDefaultToolkit().getScreenSize().height/6);
+		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/2,Toolkit.getDefaultToolkit().getScreenSize().height/6);
 		frame.setLocationRelativeTo(null);
 		
 		JPanel buttons = new JPanel(new FlowLayout());
