@@ -14,6 +14,7 @@ public class HomeController extends Subject{
 	HomeController itself;
 	private JFrame frame;
 	private OrderSelectionController orderSelectionController;
+	private CancelTicketController cancelTicketController;
 
 	public static final int USER_SELECTION_MOVIE_ANNOUNCEMENT = 5;
 
@@ -44,9 +45,9 @@ public class HomeController extends Subject{
 					doOrderSelection();
 					break;
 				case 3:
-					System.out.println("User Selected ");
-					doOrderSelection();
-					return;
+					System.out.println("User Selected Cancel Ticket");
+					doCancelTicketSelection();
+					break;
 				case 4:
 					System.out.println("User Selected Order");
 					doOrderSelection();
@@ -56,7 +57,7 @@ public class HomeController extends Subject{
 					doMovieAnnouncement();
 					break;
 			}
-		
+
 		}
 		
 	}
@@ -73,6 +74,13 @@ public class HomeController extends Subject{
 		orderSelectionController = new OrderSelectionController(frame, itself);
 		orderSelectionController.setItself(orderSelectionController);
 		orderSelectionController.runOrderSelection();
+	}
+
+	private void doCancelTicketSelection() {
+		// TODO Auto-generated method stub
+		cancelTicketController = new CancelTicketController(frame, itself);
+		cancelTicketController.setItself(cancelTicketController);
+		cancelTicketController.runCancelTicketSelection();
 	}
 
 	@Override
