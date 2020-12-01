@@ -45,4 +45,6 @@ public abstract class Order {
         this.orderStatus = Order.ORDER_STATUS_REJECTED;
     }
 
+    abstract public Receipt makeReceipt();
+
 }
