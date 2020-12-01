@@ -111,7 +111,7 @@ public class HomeScreen extends Screen{
 				frame.repaint();
 				subject.setID(HomeController.USER_SELECTION_MOVIE_ANNOUNCEMENT);
 			}});
-		
+
 		getRegBut().addActionListener(new ActionListener() {
 			
 			@Override
@@ -126,7 +126,7 @@ public class HomeScreen extends Screen{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stug
+
 					updateToLog();
 			}});
 
@@ -201,10 +201,9 @@ public class HomeScreen extends Screen{
 	public JButton getCancelTicketBut() {
 		return cancelTicketBut;
 	}
-
+	
 	public JButton getMovieAnnouncementBut() {
 		return movieAnnouncementBut;
 	}
-	
 
 }

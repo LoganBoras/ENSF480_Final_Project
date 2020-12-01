@@ -1,3 +1,4 @@
+
 package TRA.Domain;
 
 import Database.DatabaseManager;
