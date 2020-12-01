@@ -24,6 +24,44 @@ public class Receipt {
         this.summaryMessage = buildTicketOrderMessage(ticketOrder);
     }
 
+    public Receipt(TicketCancellationOrder cancellationOrder) {
+        this.receiptType = TYPE_CANCELLATION;
+        this.amount = cancellationOrder.getTotalPrice();
+        this.summaryMessage = buildTicketCancellationOrderMessage(cancellationOrder);
+    }
+
+    public Receipt(FeeOrder feeOrder) {
+        this.receiptType = Receipt.TYPE_FEE;
+        this.amount = feeOrder.getTotalPrice();
+        this.summaryMessage = buildFeeOrderMessage(feeOrder);
+    }
+
+    private String buildFeeOrderMessage(FeeOrder feeOrder) {
+        String message = "";
+        message = message.concat("\t\tFee name:\t\tPrice:\n");
+        message = message.concat("\t\t" + feeOrder.getFeeTitle() + "\t\t\t$" + feeOrder.getTotalPrice() + "\n");
+        return message;
+
+    }
+
+    private String buildTicketCancellationOrderMessage(TicketCancellationOrder cancellationOrder) {
+        String message = "";
+        if (cancellationOrder.isAddAdminFee()) {
+            message = message.concat("\t\tAn admin fee of " + (cancellationOrder.getAdminFeeAmount() * 100) + "% has been added to your order.\n");
+        }
+        message = message.concat("\t\tTicket ID:\t\tRefund:\n");
+        //Add IDs and prices of tickets from order
+        ArrayList<Ticket> tickets = cancellationOrder.getTicketListCopy();
+        for (Ticket ticket : tickets) {
+            if (cancellationOrder.isAddAdminFee()) {
+                message = message.concat("\t\t" + ticket.getTicketID() + "\t\t\t$" + ticket.getCost() * cancellationOrder.getAdminFeeAmount() + "\n");
+            } else {
+                message = message.concat("\t\t" + ticket.getTicketID() + "\t\t\t$" +ticket.getCost() + "\n");
+            }
+        }
+        return message;
+    }
+
     /**
      * Creates an order summary message based on a ticket order
      * @param ticketOrder
