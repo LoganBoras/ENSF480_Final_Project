@@ -106,7 +106,6 @@ public class HomeController extends Subject{
 		cancelTicketController.setItself(cancelTicketController);
 		cancelTicketController.runCancelTicketSelection();
 	}
-
 	@Override
 	public void addData(String data) {
 		// TODO Auto-generated method stub
