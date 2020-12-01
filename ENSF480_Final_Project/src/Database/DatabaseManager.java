@@ -32,7 +32,7 @@ public static void initialize(String[] args) {
 	
 	String username = "root";
 	
-	String password = "L40532734b?";
+	String password = "ENSF480TRA";
 	
 	connection = DriverManager.getConnection(url, username, password);
 	

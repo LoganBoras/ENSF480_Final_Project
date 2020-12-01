@@ -156,15 +156,7 @@ public class RegistrationScreen extends Screen{
 						passwordLabel.setBackground(Color.GRAY);
 					}
 					
-					if(cardNum.isEmpty()||isNumeric(cardNum)==false) {
-					}
-					
-					if(cardNum.isEmpty()) {
-						passwordLabel.setOpaque( false );
-						passwordLabel.setBackground(Color.GRAY);
-					}
-					
-					if(cardNum.isEmpty()||isNumeric(cardNum)==false) {
+					if(cardNum.isEmpty()||cardNum.length()!=16) {
 						cardLabel.setOpaque( true );
 						cardLabel.setBackground(Color.RED);
 						correct = false;
