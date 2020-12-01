@@ -44,4 +44,23 @@ public class TicketOrderPaymentStrategy extends PaymentStrategy {
         }
     }
 
+    public static void main(String args []) {
+        TRA tra = new TRA();
+        Movie movie = new Movie("Cats", "yesterday", 17, "horror");
+        Theatre theatre = new Theatre("Silver City");
+        Seat seat = new Seat(17, 72, true);
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        tickets.add(new Ticket(movie, theatre, seat, 9000.72, 82, "2020-11-30 10:00 AM"));
+        tickets.add(new Ticket(movie, theatre, seat, 9000.72, 85, "2020-11-30 10:00 AM"));
+
+        TicketOrder order = new TicketOrder(tickets);
+        TicketOrderPaymentStrategy paymentStrategy = new TicketOrderPaymentStrategy(new Card("22", "may", 37), new TRA(), "roland@tra.com", order);
+        PaymentController paymentController = new PaymentController(paymentStrategy);
+        paymentController.doAction();
+
+        System.out.println("Order status is: " + order.getOrderStatus());
+        
+
+    }
+
 }

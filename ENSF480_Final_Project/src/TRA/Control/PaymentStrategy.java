@@ -31,28 +31,28 @@ abstract public class PaymentStrategy {
         tickets.add(new Ticket(movie, theatre, seat, 9000.72, 85, "2020-11-30 10:00 AM"));
 
         TicketOrder order = new TicketOrder(tickets);
-        TicketOrderPaymentStrategy paymentStrategy = new TicketOrderPaymentStrategy(new Card(22, "may", 37), new TRA(), "roland@tra.com", order);
+        TicketOrderPaymentStrategy paymentStrategy = new TicketOrderPaymentStrategy(new Card("22", "may", 37), new TRA(), "roland@tra.com", order);
         PaymentController paymentController = new PaymentController(paymentStrategy);
         paymentController.doAction();
 
         TicketCancellationOrder cancellationOrder = new TicketCancellationOrder(tickets, false);
         CancellationOrderPaymentStrategy cancellationStrategy =
                 new CancellationOrderPaymentStrategy(new Card(
-                        22, "may", 37), new TRA(),
+                        "22", "may", 37), new TRA(),
                         "roland@tra.com", cancellationOrder);
         paymentController = new PaymentController(cancellationStrategy);
         paymentController.doAction();
 
         cancellationOrder = new TicketCancellationOrder(tickets, true);
         cancellationStrategy = new CancellationOrderPaymentStrategy(new Card(
-                        22, "may", 37), new TRA(),
+                        "22", "may", 37), new TRA(),
                         "roland@tra.com", cancellationOrder);
         paymentController = new PaymentController(cancellationStrategy);
         paymentController.doAction();
 
         FeeOrder feeOrder = new FeeOrder(20.00, "Annual Fee");
         FeeOrderPaymentStrategy feeStrategy = new FeeOrderPaymentStrategy(new Card(
-                22, "may", 37), new TRA(),
+                "22", "may", 37), new TRA(),
                 "roland@tra.com", feeOrder);
         paymentController = new PaymentController(feeStrategy);
         paymentController.doAction();

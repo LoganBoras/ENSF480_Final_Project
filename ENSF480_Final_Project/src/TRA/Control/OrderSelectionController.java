@@ -13,7 +13,6 @@ public class OrderSelectionController extends Subject{
 	
 	private OrderSelectionController itself;
 	private JFrame frame;
-	
 	private ArrayList<String> data;	//1st index: chosen movie, 2nd index: movie index, 3rd index: chosen theatre, 4th index: movie index, 5th index: chosen showtime, 6th index: chosen seat, 7th index: chosen seat index.
 	private ArrayList<Movie> movies;
 	private ArrayList<Theatre> theatres;
@@ -24,6 +23,9 @@ public class OrderSelectionController extends Subject{
 	Showing showTimeSelected;
 	private SeatMap seats;
 	private TRA tra;
+	private Ticket ticket;
+	private TicketOrder order;
+	
 	
 	public OrderSelectionController(JFrame frame, Subject subject) {
 		this.frame = frame;
@@ -56,15 +58,52 @@ public class OrderSelectionController extends Subject{
 		for(int j = 0; j < data.size(); j++) {
 			System.out.println(data.get(j));
 		}
+
 		ArrayList<Ticket> t = new ArrayList<>();
 		t.add(new Ticket(movieSelected, theatreSelected, seatSelected, 12, -1, showTimeSelected.getShowtime()));
 		tra.storeTicketOrder(t, "email");
 		tra.updateSeatVacancy(seats, seatSelected, false);
 
+		buildOrder();
+		
+		runPayment();
+
+		System.out.println("Payment Process complete.");
+
 		return;
 		
 	}
 	
+	private void runPayment() {
+		// TODO Auto-generated method stub
+			
+		OrderPaymentController orderPayment = new OrderPaymentController(this.frame, itself, this.order);
+		orderPayment.setItself(orderPayment);
+		orderPayment.runOrderPayment();
+		
+	}
+
+	private void buildOrder() {
+		// TODO Auto-generated method stub
+		Showing showing = null;
+		
+		for(int i = 0; i < showTimes.size(); i++) {
+			if(Integer.parseInt(data.get(2)) == showTimes.get(i).getShowingID()) {
+				showing = showTimes.get(i);
+				break;
+			}
+		}
+		
+		Seat seat = showing.getSeatMap().getSeats().get(Integer.parseInt(data.get(4)));
+		
+		ticket = new Ticket(showing.getMovie(), showing.getTheatre(), seat, 12 , 1, showing.getShowtime());
+		ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+		tickets.add(ticket);
+		
+		this.order = new TicketOrder(tickets);
+	
+	}
+
 	private void runMovieSelection() {
 		int prevID;
 		movies = tra.sendMovieList();
@@ -98,6 +137,7 @@ public class OrderSelectionController extends Subject{
 	private void runShowTimeSelection() {
 		int prevID = getID();
 		int i = 0;
+    
 		showTimes = tra.getShowings(data.get(0), data.get(2));
 		
 		Screen Screen = new ShowTimeSelectionScreen(frame, itself, showTimes);
@@ -114,6 +154,7 @@ public class OrderSelectionController extends Subject{
 		// TODO Auto-generated method stub
 		int prevID = getID();
 		int i = 0;
+
 		seats = tra.getSeatMap(data.get(0), data.get(2), data.get(4));
 		
 		Screen Screen = new SeatSelectionScreen(frame, itself, seats);

@@ -30,6 +30,7 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 	private JButton nextBut = new JButton("Next");
 	private String showingSelection = null;
 	private int sIndex;
+	private String showingID;
 	
 	public ShowTimeSelectionScreen(JFrame frame, Subject subject, ArrayList<Showing> showTimes) {
 		this.frame = frame;
@@ -57,9 +58,22 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 		frame.getContentPane().removeAll();
 		
 		subject.setID(5);
+		findID();
+		subject.addData(showingID);
 		subject.addData(showingSelection);
 		subject.addData(String.valueOf(sIndex));
 		frame.repaint();
+	}
+
+	private void findID() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < showTimes.size(); i++) {
+			if(showingSelection == showTimes.get(i).getShowtime()) {
+				showingID = Integer.toString(showTimes.get(i).getShowingID());
+				break;
+			}
+				
+		}
 	}
 
 	@Override
@@ -169,9 +183,4 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 	public void setNextBut(JButton nextBut) {
 		this.nextBut = nextBut;
 	}
-
-
-	
-	
-
 }

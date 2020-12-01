@@ -1,27 +1,27 @@
 package TRA.Domain;
 
 public class Card {
-    private int cardNumber;
+    private String cardNumber;
     private String expiryDate;
     private int csv;
 
-    public Card(int cardNumber, String expiryDate, int csv) {
+    public Card(String cardNumber, String expiryDate, int csv) {
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.csv = csv;
     }
 
-    public void updateCardInformation(int cardNumber, String expiryDate, int csv) {
+    public void updateCardInformation(String cardNumber, String expiryDate, int csv) {
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.csv = csv;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
