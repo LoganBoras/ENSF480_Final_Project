@@ -9,14 +9,15 @@ import TRA.Domain.*;
 
 import java.util.ArrayList;
 
-public class TicketOrderPaymentStrategy extends PaymentStrategy {
+public class FeeOrderPaymentStrategy extends PaymentStrategy {
 
-    private final TicketOrder ticketOrder;
+    private final FeeOrder feeOrder;
 
-    public TicketOrderPaymentStrategy(Card card,
-                                      TRA tra, String receiptEmailAddress, TicketOrder ticketOrder) {
+    public FeeOrderPaymentStrategy(Card card,
+                                      TRA tra, String receiptEmailAddress,
+                                   FeeOrder feeOrder) {
         super(card, tra, receiptEmailAddress);
-        this.ticketOrder = ticketOrder;
+        this.feeOrder = feeOrder;
     }
 
     /**
@@ -27,20 +28,20 @@ public class TicketOrderPaymentStrategy extends PaymentStrategy {
      */
     public void perform() {
         //create and process payment
-        Payment payment = new Payment(this.card, this.ticketOrder);
+        Payment payment = new Payment(this.card, this.feeOrder);
         this.tra.sendPaymentToFinancialInstituteForProcessing(payment);
 
         //If payment is accepted, send email
         if (payment.isAccepted()) {
-            this.ticketOrder.approve();
+            this.feeOrder.approve();
 
-            Receipt receipt = new Receipt(this.ticketOrder);
+            Receipt receipt = new Receipt(this.feeOrder);
             ReceiptEmailStrategy strategy = new ReceiptEmailStrategy(this.receiptEmailAddress, receipt);
             SendEmailController emailController = new SendEmailController(strategy);
             emailController.doAction();
 
         } else if (payment.isRejected()) {
-            this.ticketOrder.reject();
+            this.feeOrder.reject();
         }
     }
 
