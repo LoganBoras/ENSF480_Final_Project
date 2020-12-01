@@ -25,6 +25,7 @@ public class HomeScreen extends Screen{
 	private JButton cancelTicketBut = new JButton("Cancel Ticket");
 	private JButton cancelBut = new JButton("Cancel");
 	private JButton movieAnnouncementBut = new JButton("Send Movie Announcement");
+	private JButton payAnnualAccountFeeBut = new JButton("Pay Annual Account Fee");
 
 	
 	public HomeScreen(JFrame frame, Subject subject){
@@ -51,7 +52,7 @@ public class HomeScreen extends Screen{
 		// TODO Auto-generated method stub
 		//frame = new JFrame("Home Page");
 		frame.setLayout(new BorderLayout());
-		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/2,Toolkit.getDefaultToolkit().getScreenSize().height/6);
+		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height/6);
 		frame.setLocationRelativeTo(null);
 		
 		JPanel buttons = new JPanel(new FlowLayout());
@@ -63,6 +64,7 @@ public class HomeScreen extends Screen{
 		buttons.add(orderBut);
 		buttons.add(cancelTicketBut);
 		buttons.add(movieAnnouncementBut);
+		buttons.add(payAnnualAccountFeeBut);
 		buttons.add(cancelBut);
 		
 
@@ -115,6 +117,17 @@ public class HomeScreen extends Screen{
 				frame.getContentPane().removeAll();
 				frame.repaint();
 				subject.setID(HomeController.USER_SELECTION_MOVIE_ANNOUNCEMENT);
+			}});
+
+		getPayAnnualAccountFeeBut().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+				frame.getContentPane().removeAll();
+				frame.repaint();
+				subject.setID(HomeController.USER_SELECTION_PAY_ANNUAL_ACCOUNT_FEE);
 			}});
 		getRegBut().addActionListener(new ActionListener() {
 			
@@ -257,4 +270,7 @@ public class HomeScreen extends Screen{
 		return movieAnnouncementBut;
 	}
 
+	public JButton getPayAnnualAccountFeeBut() {
+		return payAnnualAccountFeeBut;
+	}
 }
