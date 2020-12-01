@@ -29,6 +29,7 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 	private JButton cancelBut = new JButton("Cancel");
 	private JButton nextBut = new JButton("Next");
 	private String movieSelection = null;
+	private int mIndex;
 	
 	public MovieSelectionScreen(JFrame frame, Subject subject, ArrayList<Movie> movies) {
 		this.frame = frame;
@@ -60,6 +61,7 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 		
 		subject.setID(3);
 		subject.addData(movieSelection);
+		subject.addData(String.valueOf(mIndex));
 		frame.repaint();
 	} 
 
@@ -110,6 +112,7 @@ public class MovieSelectionScreen extends OrderSelectionScreen{
 					if(index >=0) {
 						Object item = target.getModel().getElementAt(index);
 						movieSelection = item.toString();
+						mIndex = index;
 						System.out.println("user selected : " + movieSelection);
 					}
 					

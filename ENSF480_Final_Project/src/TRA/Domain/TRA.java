@@ -57,7 +57,7 @@ public class TRA {
     public void updateSeatVacancy(SeatMap sm, Seat s, boolean vacant) {
         s.setVacant(vacant);
         //databaseManager.updateSeatStatus(s.getSeatNumber(), s.getSeatMapID(), vacant);
-        databaseManager.updateSeat(sm, s);
+        databaseManager.updateSeat(sm, s, vacant);
     }
     
     public static ArrayList<Movie> upcomingMoviesList() {
@@ -88,8 +88,8 @@ public class TRA {
         }
     }
 
-    public void storeTicketOrder(ArrayList<Ticket> tickets, String email) {
-        databaseManager.createOrder(tickets, email);
+    public void storeTicketOrder(ArrayList<Ticket> ticket, String email) {
+        databaseManager.createOrder(ticket, email);
     }
 
     public ArrayList<Ticket> getOrder(String email) {

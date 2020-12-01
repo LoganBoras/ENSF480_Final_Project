@@ -14,6 +14,7 @@ public class Ticket {
         this.seat = seat;
         this.cost = cost;
         this.ticketID = ticketID;
+        this.showtime = showtime;
     }
 
     public void udpateTicket(Movie m, Theatre t, Seat s, double c) {

@@ -29,6 +29,7 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 	private JButton cancelBut = new JButton("Cancel");
 	private JButton nextBut = new JButton("Next");
 	private String showingSelection = null;
+	private int sIndex;
 	
 	public ShowTimeSelectionScreen(JFrame frame, Subject subject, ArrayList<Showing> showTimes) {
 		this.frame = frame;
@@ -57,6 +58,7 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 		
 		subject.setID(5);
 		subject.addData(showingSelection);
+		subject.addData(String.valueOf(sIndex));
 		frame.repaint();
 	}
 
@@ -106,6 +108,7 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 					if(index >=0) {
 						Object item = target.getModel().getElementAt(index);
 						showingSelection = item.toString();
+						sIndex = index;
 						System.out.println("user selected : " + showingSelection);
 					}
 					

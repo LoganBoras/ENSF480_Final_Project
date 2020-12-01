@@ -7,15 +7,21 @@ import javax.swing.JFrame;
 import TRA.Domain.*;
 import TRA.Presentation.*;
 
+import static java.lang.Integer.parseInt;
+
 public class OrderSelectionController extends Subject{
 	
 	private OrderSelectionController itself;
 	private JFrame frame;
 	
-	private ArrayList<String> data;	//1st index: chosen movie, 2nd index: chosen theatre, 3rd index: chosen showtime, 4th index: chosen seat.
+	private ArrayList<String> data;	//1st index: chosen movie, 2nd index: movie index, 3rd index: chosen theatre, 4th index: movie index, 5th index: chosen showtime, 6th index: chosen seat, 7th index: chosen seat index.
 	private ArrayList<Movie> movies;
 	private ArrayList<Theatre> theatres;
 	private ArrayList<Showing> showTimes;
+	Movie movieSelected;
+	Theatre theatreSelected;
+	Seat seatSelected;
+	Showing showTimeSelected;
 	private SeatMap seats;
 	private TRA tra;
 	
@@ -30,21 +36,31 @@ public class OrderSelectionController extends Subject{
 		
 		runMovieSelection();
 		System.out.println("MovieSelection Exited");
+		movieSelected = movies.get(parseInt(data.get(1)));
+		System.out.println(movieSelected.getMovieTitle());
 		
 		runTheatreSelection();
 		System.out.println("TheatreSelection Exited.");
+		theatreSelected = theatres.get(parseInt(data.get(3)));
+		System.out.println(theatreSelected.getTheatreName());
 		
 		runShowTimeSelection();
 		System.out.println("ShowTimeSelection Exited");
+		showTimeSelected = showTimes.get(parseInt(data.get(5)));
 		
 		runSeatSelection();
 		System.out.println("SeatSelection Exited");
+		seatSelected = seats.getSeats().get(parseInt(data.get(7)));
 		
 		System.out.println("USER SELECTED THE FOLLOWING: ");
 		for(int j = 0; j < data.size(); j++) {
 			System.out.println(data.get(j));
 		}
-		
+		ArrayList<Ticket> t = new ArrayList<>();
+		t.add(new Ticket(movieSelected, theatreSelected, seatSelected, 12, -1, showTimeSelected.getShowtime()));
+		tra.storeTicketOrder(t, "email");
+		tra.updateSeatVacancy(seats, seatSelected, false);
+
 		return;
 		
 	}
@@ -82,7 +98,7 @@ public class OrderSelectionController extends Subject{
 	private void runShowTimeSelection() {
 		int prevID = getID();
 		int i = 0;
-		ArrayList<Showing> showTimes = tra.getShowings(data.get(0), data.get(1));
+		showTimes = tra.getShowings(data.get(0), data.get(2));
 		
 		Screen Screen = new ShowTimeSelectionScreen(frame, itself, showTimes);
 		Screen.buildScreen();
@@ -98,7 +114,7 @@ public class OrderSelectionController extends Subject{
 		// TODO Auto-generated method stub
 		int prevID = getID();
 		int i = 0;
-		seats = tra.getSeatMap(data.get(0), data.get(1), data.get(2));
+		seats = tra.getSeatMap(data.get(0), data.get(2), data.get(4));
 		
 		Screen Screen = new SeatSelectionScreen(frame, itself, seats);
 		Screen.buildScreen();
