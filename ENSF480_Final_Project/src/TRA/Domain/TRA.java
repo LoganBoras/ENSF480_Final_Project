@@ -120,3 +120,11 @@ public class TRA {
     public void checkOrderStatus(int orderID) {
         databaseManager.checkOrderStatus(orderID);
     }
+    
+    public boolean checkEmail(String email) {
+    	if(databaseManager.getUser(email)==null)
+    		return true;
+    	else
+    		return false;
+    }
+}
