@@ -192,6 +192,7 @@ public class HomeScreen extends Screen{
 		this.cancelBut = cancelBut;
 	}
 	
+	
 	private AbstractButton getRegBut() {
 		return registerButton;
 	}
