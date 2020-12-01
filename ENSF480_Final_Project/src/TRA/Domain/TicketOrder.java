@@ -20,8 +20,4 @@ public class TicketOrder extends Order {
         return (ArrayList<Ticket>) ticketList.clone();
     }
 
-    @Override
-    public Receipt makeReceipt() {
-        return null;
-    }
 }
