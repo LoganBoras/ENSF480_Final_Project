@@ -336,7 +336,7 @@ public static void initialize(String[] args) {
 		 return null;
 	 }
 	 
-	 public static Seat getSeat(String seatMapID, String seatNumber) {
+	 public static Seat getSeat(int seatMapID, int seatNumber) {
 		 try {
 			 
 			  // Get a result set containing all data from test_table
@@ -492,12 +492,12 @@ public static void initialize(String[] args) {
 		}
 	}
 
-	public static void updateSeat(SeatMap theMap, Seat theSeat) {
+	public static void updateSeat(SeatMap theMap, Seat theSeat, boolean vacant) {
 		try {
 
 			PreparedStatement st = connection.prepareStatement("UPDATE seat SET seat.vacant = ? WHERE seat.seatMapID = ? AND seat.seatNumber = ?");
 			st.setInt(3, theSeat.getSeatNumber());
-			st.setBoolean(1, theSeat.isVacant());
+			st.setBoolean(1, vacant);
 			st.setInt(2, theMap.getSeatMapID());
 			st.executeUpdate();
 			return;
@@ -682,8 +682,9 @@ public static void initialize(String[] args) {
 				 results = statement.executeQuery("SELECT showingID FROM showing WHERE showing.movieTitle = '" + tickets.get(i).getMovie().getMovieTitle() + "'" + " AND showing.theatreName = '" + tickets.get(i).getTheatre().getTheatreName() + "'" + " AND showing.showtime = '" + tickets.get(i).getShowtime() + "'");
 
 				 if(results.next()) {
-					 showingID = results.getInt(1);
+					 showingID = results.getInt("showingID");
 				 }
+				 System.out.println(tickets.get(i).getMovie().getMovieTitle() + " " + tickets.get(i).getTheatre().getTheatreName() + " " + tickets.get(i).getShowtime());
 				 statement.executeUpdate("INSERT INTO ticket " + "VALUES ('" + ticketID + "', '" + showingID +"', '"+ tickets.get(i).getSeat().getSeatNumber() +"', '"
 						 + tickets.get(i).getCost() +"')");
 				 statement.executeUpdate("INSERT INTO order_ticket_list " + "VALUES ('" + orderID + "', '" + ticketID +"')");
@@ -744,13 +745,27 @@ public static void initialize(String[] args) {
 
 	 public int cancelTicket(int ticketID) {
 		 try {
+			 Statement s = connection.createStatement();
+			 ResultSet results = s.executeQuery("SELECT * FROM ticket WHERE ticketID = '" + ticketID + "'");
+
+			 results.next();
+			 int showingID = results.getInt("showingID");
+			 int seatNumber = results.getInt("seatNumber");
+
+			 results = s.executeQuery("SELECT seatMapID FROM showing WHERE showingID = '" + showingID + "'");
+			 results.next();
+			 int seatMapID = results.getInt("seatMapID");
+
+			 s.close();
+
+			 updateSeatStatus(seatNumber, seatMapID, true);
 
 		 	 String query = "DELETE FROM ticket WHERE ticketID = '" + ticketID + "'";
 			 PreparedStatement statement = connection.prepareStatement(query);
 
 			 statement.execute();
 
-			 ResultSet results = statement.executeQuery("SELECT order_ticket_list.orderID FROM order_ticket_list WHERE order_ticket_list.ticketID = '" + ticketID + "'");
+			 results = statement.executeQuery("SELECT order_ticket_list.orderID FROM order_ticket_list WHERE order_ticket_list.ticketID = '" + ticketID + "'");
 			 results.next();
 			 int orderID = results.getInt("orderID");
 

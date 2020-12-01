@@ -33,6 +33,7 @@ public class SeatSelectionScreen extends OrderSelectionScreen{
 	
 	private JButton cancelBut = new JButton("Cancel");
 	private JButton nextBut = new JButton("Next");
+	private int sIndex;
 	
 	public SeatSelectionScreen(JFrame frame, Subject subject, SeatMap seats) {
 		// TODO Auto-generated constructor stub
@@ -55,6 +56,8 @@ public class SeatSelectionScreen extends OrderSelectionScreen{
 		
 		subject.setID(6);
 		subject.addData(selectedSeat.get(0).toString());
+		sIndex = selectedSeat.get(0) - 1;
+		subject.addData(String.valueOf(sIndex));
 		frame.repaint();
 	}
 

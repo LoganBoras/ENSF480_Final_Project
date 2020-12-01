@@ -30,6 +30,7 @@ public class TheatreSelectionScreen extends OrderSelectionScreen{
 	private JButton cancelBut = new JButton("Cancel");
 	private JButton nextBut = new JButton("Next");
 	private String theatreSelection = null;
+	private int tIndex;
 	
 	
 	public TheatreSelectionScreen(JFrame frame, Subject subject, ArrayList<Theatre> theatres) {
@@ -61,6 +62,7 @@ public class TheatreSelectionScreen extends OrderSelectionScreen{
 		
 		subject.setID(4);
 		subject.addData(theatreSelection);
+		subject.addData(String.valueOf(tIndex));
 		frame.repaint();
 	}
 
@@ -110,6 +112,7 @@ public class TheatreSelectionScreen extends OrderSelectionScreen{
 					if(index >=0) {
 						Object item = target.getModel().getElementAt(index);
 						theatreSelection = item.toString();
+						tIndex = index;
 						System.out.println("user selected : " + theatreSelection);
 					}
 					
