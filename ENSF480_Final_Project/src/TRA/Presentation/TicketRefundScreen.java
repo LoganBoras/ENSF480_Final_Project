@@ -28,6 +28,9 @@ public class TicketRefundScreen extends Screen {
         this.screenID = 4;
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     @Override
     public void update() {
         subject.addData(getCardNumber().getText());
@@ -44,6 +47,9 @@ public class TicketRefundScreen extends Screen {
         screen.buildScreen();
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     @Override
     public void buildScreen() {
         frame.setLayout(new BorderLayout());
@@ -85,7 +91,9 @@ public class TicketRefundScreen extends Screen {
         controlButtons();
     }
 
-
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
     private void controlButtons() {
         // TODO Auto-generated method stub
 

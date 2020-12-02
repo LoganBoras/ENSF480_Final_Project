@@ -41,6 +41,9 @@ public class TheatreSelectionScreen extends OrderSelectionScreen{
 		
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createSelection() {
 		// TODO Auto-generated method stub
@@ -55,6 +58,9 @@ public class TheatreSelectionScreen extends OrderSelectionScreen{
 		list.setListData(data);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
@@ -66,6 +72,9 @@ public class TheatreSelectionScreen extends OrderSelectionScreen{
 		frame.repaint();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void buildScreen() {
 		// TODO Auto-generated method stub
@@ -94,6 +103,9 @@ public class TheatreSelectionScreen extends OrderSelectionScreen{
 		
 	}
 	
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
 	private void controlButtons() {
 		getCancelBut().addActionListener(new ActionListener() {
 			

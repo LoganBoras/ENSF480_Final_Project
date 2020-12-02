@@ -28,6 +28,9 @@ public class TicketSelectionScreen extends CancelTicketScreen {
         createSelection();
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     @Override
     public void createSelection() {
         this.list = new JList();
@@ -40,6 +43,9 @@ public class TicketSelectionScreen extends CancelTicketScreen {
         list.setListData(data);
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     @Override
     public void update() {
         frame.getContentPane().removeAll();
@@ -49,6 +55,9 @@ public class TicketSelectionScreen extends CancelTicketScreen {
         frame.repaint();
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     @Override
     public void buildScreen() {
         frame.setLayout(new BorderLayout());
@@ -75,6 +84,9 @@ public class TicketSelectionScreen extends CancelTicketScreen {
 
     }
 
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
     private void controlButtons() {
 
         getCancelBut().addActionListener(new ActionListener() {

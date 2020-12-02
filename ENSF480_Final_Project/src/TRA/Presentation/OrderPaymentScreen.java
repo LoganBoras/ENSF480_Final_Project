@@ -46,6 +46,9 @@ public class OrderPaymentScreen extends Screen{
 		this.screenID = 7;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
@@ -66,6 +69,9 @@ public class OrderPaymentScreen extends Screen{
 		screen.buildScreen();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void buildScreen() {
 		// TODO Auto-generated method stub
@@ -118,7 +124,9 @@ public class OrderPaymentScreen extends Screen{
 		controlButtons();
 	}
 	
-	
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
 	private void controlButtons() {
 		// TODO Auto-generated method stub
 		

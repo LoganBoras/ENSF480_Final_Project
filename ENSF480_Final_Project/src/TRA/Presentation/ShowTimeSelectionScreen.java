@@ -39,6 +39,9 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 		createSelection();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createSelection() {
 		// TODO Auto-generated method stub
@@ -52,6 +55,9 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 		list.setListData(data);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
@@ -65,6 +71,9 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 		frame.repaint();
 	}
 
+	/**
+	 * this method uses the user selected showing time, and finds the showing ID that matches the selected showing time.
+	 */
 	private void findID() {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < showTimes.size(); i++) {
@@ -76,6 +85,9 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void buildScreen() {
 		// TODO Auto-generated method stub
@@ -103,6 +115,9 @@ public class ShowTimeSelectionScreen extends OrderSelectionScreen{
 		
 	}
 
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
 	private void controlButtons() {
 		// TODO Auto-generated method stub
 		getCancelBut().addActionListener(new ActionListener() {

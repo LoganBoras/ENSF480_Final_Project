@@ -43,12 +43,18 @@ public class SeatSelectionScreen extends OrderSelectionScreen{
 		createSelection();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createSelection() {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
@@ -61,6 +67,9 @@ public class SeatSelectionScreen extends OrderSelectionScreen{
 		frame.repaint();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void buildScreen() {
 		// TODO Auto-generated method stub
@@ -94,6 +103,9 @@ public class SeatSelectionScreen extends OrderSelectionScreen{
 		
 	}
 	
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
 	private void controlButtons() {
 		// TODO Auto-generated method stub
 		getCancelBut().addActionListener(new ActionListener() {

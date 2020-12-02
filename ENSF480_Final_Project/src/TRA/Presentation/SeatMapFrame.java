@@ -14,13 +14,16 @@ public class SeatMapFrame extends JPanel{
 	private SeatMap seats;
 	private ArrayList<SeatSelectionButton> seatButtons;
 	
+	/**
+	 * This constructor creates the SeatMapFrame, and constructs the seat selection
+	 * buttons using the seats passed into this method.
+	 * @param seats are the list of seats to be selected from
+	 * @param selectedSeat is the data that will be updated in the controller it was called from.
+	 */
 	public SeatMapFrame(SeatMap seats, ArrayList<Integer> selectedSeat) {
 		System.out.println("We're in the SeatMapFrame");
 		this.seats = seats;
 		this.selectedSeat = selectedSeat;
-		
-
-		
 		setLayout(new GridLayout(seats.getNumberOfRows(), seats.getSeats().size()/seats.getNumberOfRows())); //makes a 5x7 grid
 		seatButtons = new ArrayList<SeatSelectionButton>();
 		for(int i = 0; i < seats.getSeats().size(); i++) {

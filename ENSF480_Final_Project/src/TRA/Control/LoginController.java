@@ -20,13 +20,20 @@ public class LoginController extends Subject{
 	private JFrame frame;
 	private LoginController itself;
 	
-
+	
 	public LoginController(JFrame frame, Subject subject, TRA theTRA) {
 		this.tra = theTRA;
 		this.frame = frame;
 		setID(7);	//ID for OrderSelection Frame;
 		//data = new ArrayList<String>();
 	}
+	
+	/**
+	 * This method takes the given email and password from the LoginScreen, and send it to the Database to 
+	 * retrieve the user with the given information to store in the class.
+	 * @param email user given email for account
+	 * @param password	user given password for account
+	 */
 	public void completeLogin(String email, String password) {
 		tra.loginUser(email, password);
 		theUser = tra.getRegisteredUser();
@@ -38,12 +45,14 @@ public class LoginController extends Subject{
 		
 	}
 
-
+	
 	public void setItself(LoginController registrationController) {
 		this.itself = registrationController;
 	}
 
-
+	/**
+	 * Creates a LoginScreen and waits until the Screen sends an input.
+	 */
 	public void runLogin() {
 		Screen Screen = new LoginScreen(frame, itself);
 		Screen.buildScreen();

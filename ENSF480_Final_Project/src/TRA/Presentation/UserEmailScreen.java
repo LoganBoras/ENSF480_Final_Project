@@ -27,6 +27,9 @@ public class UserEmailScreen extends CancelTicketScreen {
         tra = new TRA();
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     @Override
     public void update() {
         frame.getContentPane().removeAll();
@@ -36,6 +39,9 @@ public class UserEmailScreen extends CancelTicketScreen {
         frame.repaint();
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
     @Override
     public void buildScreen() {
         frame.setLayout(new BorderLayout());
@@ -66,6 +72,9 @@ public class UserEmailScreen extends CancelTicketScreen {
 
     }
 
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
     private void controlButtons() {
 
         getCancelBut().addActionListener(new ActionListener() {

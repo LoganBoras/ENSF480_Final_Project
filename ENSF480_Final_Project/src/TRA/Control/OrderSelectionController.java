@@ -37,6 +37,10 @@ public class OrderSelectionController extends Subject{
 		this.theUser = theUser;
 	}
 	
+	/**
+	 * runs the OrderSelection process, then builds an order with the received information, then makes a payment
+	 * with the constructed order, and updates the seat vacancy of the chosen seat in the database.
+	 */
 	public void runOrderSelection(){
 		
 		runMovieSelection();
@@ -74,6 +78,9 @@ public class OrderSelectionController extends Subject{
 		
 	}
 	
+	/**
+	 * Creates a OrderPaymentController and passes GUI control to the controller to run the payment sequence.
+	 */
 	private void runPayment() {
 		// TODO Auto-generated method stub
 			
@@ -84,6 +91,9 @@ public class OrderSelectionController extends Subject{
 		
 	}
 
+	/**
+	 * Using the data returned from the Screen classes, this method creates an Order and stores it in the class.
+	 */
 	private void buildOrder() {
 		// TODO Auto-generated method stub
 		Showing showing = null;
@@ -104,6 +114,9 @@ public class OrderSelectionController extends Subject{
 	
 	}
 
+	/**
+	 * This method grabs the list of movies from the database and sends it to the MovieSelectionScreen, and waits for the Screen to return an input.
+	 */
 	private void runMovieSelection() {
 		int prevID;
 		movies = tra.sendMovieList();
@@ -119,6 +132,9 @@ public class OrderSelectionController extends Subject{
 			}
 	}
 	
+	/**
+	 * This method grabs the list of theatres from the database and sends it to the TheatreSelectionScreen, and waits for the Screen to return an input.
+	 */
 	private void runTheatreSelection() {
 		int prevID = getID();
 		int i = 0;
@@ -134,6 +150,9 @@ public class OrderSelectionController extends Subject{
 		}
 	}
 	
+	/**
+	 * This method grabs the list of showings that have the user chosen movie and theatre from the database and sends it to the ShowTimeSelectionScreen, and waits for the Screen to return an input.
+	 */
 	private void runShowTimeSelection() {
 		int prevID = getID();
 		int i = 0;
@@ -149,7 +168,10 @@ public class OrderSelectionController extends Subject{
 			i++;
 		}
 	}
-
+	
+	/**
+	 * This method grabs the seatmap that have the user chosen movie, theatre, and showing from the database and sends it to the SeatSelectionScreen, and waits for the Screen to return an input.
+	 */
 	private void runSeatSelection() {
 		// TODO Auto-generated method stub
 		int prevID = getID();
@@ -169,6 +191,9 @@ public class OrderSelectionController extends Subject{
 	}
 	
 	
+	/**
+	 * adds given data to the ArrayList<String> data.
+	 */
 	@Override
 	public void addData(String data) {
 		// TODO Auto-generated method stub

@@ -46,8 +46,10 @@ public class RegistrationScreen extends Screen{
 		this.screenID = 5;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-
 	public void update() {
 		frame.getContentPane().removeAll();
 		frame.repaint();
@@ -56,6 +58,9 @@ public class RegistrationScreen extends Screen{
 		//System.out.println("did we change the same subject or a copy..." + subject.getID());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void buildScreen() {
 		//frame = new JFrame("Home Page");
@@ -97,6 +102,9 @@ public class RegistrationScreen extends Screen{
 		controlButtons();
 	}
 	
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
 	private void controlButtons() {
 		
 		getCancelBut().addActionListener(new ActionListener() {

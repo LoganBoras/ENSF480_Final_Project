@@ -36,6 +36,9 @@ public class HomeScreen extends Screen{
 		this.screenID = 2;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
@@ -46,7 +49,10 @@ public class HomeScreen extends Screen{
 		
 		//System.out.println("did we change the same subject or a copy..." + subject.getID());
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void buildScreen() {
 		// TODO Auto-generated method stub
@@ -79,6 +85,9 @@ public class HomeScreen extends Screen{
 		controlButtons();
 	}
 	
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
 	private void controlButtons() {
 		
 		getCancelBut().addActionListener(new ActionListener() {
@@ -177,7 +186,9 @@ public class HomeScreen extends Screen{
 
 	}
 
-
+		/**
+		 * this method sets the frameID in the Subject to change to the register process.
+		 */
 		private void updateToReg() {
 			// TODO Auto-generated method stub
 
@@ -187,7 +198,9 @@ public class HomeScreen extends Screen{
 			
 		}
 		
-
+		/**
+		 * this method sets the frameID in the Subject to change to the login process.
+		 */
 		private void updateToLog() {
 			// TODO Auto-generated method stub
 
@@ -196,7 +209,9 @@ public class HomeScreen extends Screen{
 			subject.setID(7);
 			
 		}
-		
+		/**
+		 * this method sets the frameID in the Subject to change to the logout process.
+		 */
 		private void updateToLogout() {
 			// TODO Auto-generated method stub
 			homeController.setTheUser(null);

@@ -27,13 +27,19 @@ public class HomeController extends Subject{
 	private RegisteredUser theUser;
 	private TRA theTRA;
 
+	
 	public HomeController(JFrame frame) {
 		this.frame = frame;
 		theTRA = new TRA();
 		theUser = null;
 		setID(1);
 	}
-
+	
+	
+	/**
+	 * Uses the given frame, and constructs the HomeScreen frame. Afterwards, the method waits for an input from the HomeScreen
+	 * where it calls the next function.
+	 */
 	public void doAction() {
 		
 		
@@ -81,6 +87,10 @@ public class HomeController extends Subject{
 		
 	}
 
+	/**
+	 * This method checks whether or not there is a user that is logged, and if there is,
+	 * calls the related Annual Payment controllers to complete the payment.
+	 */
 	private void doPayAnnualAccountFee() {
 		System.out.println("Doing pay annual account fee");
 		//Check if user is logged in and if they aren't tell them they can't pay their fee
@@ -95,14 +105,21 @@ public class HomeController extends Subject{
 		}
 
 	}
-
+	
+	/**
+	 * This method calls the MovieAnnouncementController doAction to perform the MovieAnnouncment for all the registered users
+	 * in the database.
+	 */
 	private void doMovieAnnouncement() {
 		System.out.println("Doing movie announcement");
 		JOptionPane.showMessageDialog(new JFrame(), "Movie Announcement Email has been sent to all registered users!");
 		MovieAnnouncementController movieAnnouncementController = new MovieAnnouncementController();
 		movieAnnouncementController.doAction();
 	}
-
+	
+	/**
+	 * Creates an OrderSelectionController and passes GUI control to the controller to run the Order Selection sequence.
+	 */
 	private void doOrderSelection() {
 		// TODO Auto-generated method stub
 		orderSelectionController = new OrderSelectionController(frame, itself, theUser);
@@ -110,6 +127,9 @@ public class HomeController extends Subject{
 		orderSelectionController.runOrderSelection();
 	}
 	
+	/**
+	 * Creates a RegistrationController and passes GUI control to the controller to run the registration sequence.
+	 */
 	private void doRegistration() {
 		// TODO Auto-generated method stub
 		registrationController = new RegistrationController(frame, itself);
@@ -117,6 +137,9 @@ public class HomeController extends Subject{
 		registrationController.runRegistration();
 	}
 	
+	/**
+	 * Creates a LoginController and passes GUI control to the controller to run the login sequence.
+	 */
 	private void doLogin() {
 		// TODO Auto-generated method stub
 		loginController = new LoginController(frame, itself, theTRA);
@@ -125,6 +148,10 @@ public class HomeController extends Subject{
 		theUser = loginController.getTheUser();
 	}
 
+	/**
+	 * This method finds the order status of theUser, and afterwards 
+	 * Creates a CancelTicketController and passes GUI control to the controller to run the cancel ticket sequence.
+	 */
 	private void doCancelTicketSelection() {
 		// TODO Auto-generated method stub
 		boolean orderExists = true;

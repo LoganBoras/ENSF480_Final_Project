@@ -37,6 +37,9 @@ public class LoginScreen extends Screen{
 		this.screenID = 6;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
@@ -48,6 +51,9 @@ public class LoginScreen extends Screen{
 		//System.out.println("did we change the same subject or a copy..." + subject.getID());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void buildScreen() {
 		// TODO Auto-generated method stub
@@ -89,6 +95,9 @@ public class LoginScreen extends Screen{
 		controlButtons();
 	}
 	
+	/**
+	 * This method controls the buttons on the Frame.
+	 */
 	private void controlButtons() {
 		
 		getCancelBut().addActionListener(new ActionListener() {

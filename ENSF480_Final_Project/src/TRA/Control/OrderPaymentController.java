@@ -40,6 +40,12 @@ public class OrderPaymentController extends Subject{
 		this.theUser = theUser;
 	}
 	
+	/**
+	 * This method runs the OrderPayment process, by first checking whether or not a registered user is logged in. 
+	 * If there is a registered user, this method sets the email and card to the registered users information.
+	 * If there is no registered user building a OrderPaymentScreen, then waiting for the Screens input.
+	 * Afterwards, this method stores the email and constructs the userCard using the information from the Screen. 
+	 */
 	public void runOrderPayment() {
 		
 		if(theUser == null) {
@@ -66,7 +72,10 @@ public class OrderPaymentController extends Subject{
 	}
 	
 	
-	
+	/**
+	 * This method creates a paymentController with a ticketPaymentStrategy strategy, and proceeds with the payment.
+	 * This method will let the user know if the payment failed or succeeded.
+	 */
 	public void runPaymentProcess() {
 		// TODO Auto-generated method stub
 		TicketOrderPaymentStrategy ticketPaymentStrategy = new TicketOrderPaymentStrategy(userCard, new TRA(), email, order);
@@ -87,7 +96,10 @@ public class OrderPaymentController extends Subject{
 		
 		
 	}
-
+	
+	/**
+	 * This method sends the user email and order to the SendEmailController using a TicketEmailStrategy.
+	 */
 	private void sendTicketEmail() {
 		// TODO Auto-generated method stub
 		TicketEmailStrategy ticketEmailStrategy = new 	TicketEmailStrategy(email, order.getTicketListCopy());
@@ -95,6 +107,9 @@ public class OrderPaymentController extends Subject{
 		sendEmailController.doAction();
 	}
 
+	/**
+	 * adds given data to the ArrayList<String> data.
+	 */
 	@Override
 	public void addData(String data) {
 		// TODO Auto-generated method stub
