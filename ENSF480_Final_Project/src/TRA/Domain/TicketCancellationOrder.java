@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class TicketCancellationOrder extends Order {
 
+    //Tickets to be cancelled
     private final ArrayList<Ticket> ticketList;
     //Whether or not to add admin fee
     private final boolean addAdminFee;

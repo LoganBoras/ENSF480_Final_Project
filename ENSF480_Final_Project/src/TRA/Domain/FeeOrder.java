@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class FeeOrder extends Order {
 
+    //String representing type of fee this order represents
     private final String feeTitle;
 
     public FeeOrder(double feeCost, String feeTitle) {

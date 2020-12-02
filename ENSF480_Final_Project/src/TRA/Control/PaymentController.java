@@ -28,6 +28,9 @@ public class PaymentController extends Controller {
         this.strategy = strategy;
     }
 
+    /**
+     * Perform payment strategy
+     */
     public void doAction() {
         this.strategy.perform();
     }

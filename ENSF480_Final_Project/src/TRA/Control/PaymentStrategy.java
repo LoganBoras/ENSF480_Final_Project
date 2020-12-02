@@ -19,6 +19,9 @@ abstract public class PaymentStrategy {
         this.receiptEmailAddress = receiptEmailAddress;
     }
 
+    /**
+     * Perform payment strategy
+     */
     abstract public void perform();
 
     public static void main(String args []) {

@@ -20,6 +20,11 @@ public class TicketEmailStrategy extends EmailStrategy {
 
     }
 
+    /**
+     * Builds email containing ticket information
+     * @param toAddress
+     * @param tickets
+     */
     public TicketEmailStrategy(String toAddress, ArrayList<Ticket> tickets) {
         this.email = new TicketEmail(toAddress, tickets);
     }

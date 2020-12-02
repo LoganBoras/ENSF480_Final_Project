@@ -15,6 +15,9 @@ public class MovieAnnouncementController extends Controller {
     }
 
     @Override
+    /**
+     * Sends a movie announcement email to all users in database
+     */
     public void doAction() {
         TRA tra = new TRA();
 
