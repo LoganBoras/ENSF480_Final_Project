@@ -1,10 +1,13 @@
 package TRA.Domain;
 
 public abstract class Order {
+    //Price of order
     private double totalPrice;
+    //Unique id of each order
     private final int orderID;
     private static int nextOrderID = 0;
 
+    //Whether order is pending, approved or rejected
     private int orderStatus;
     private static final int ORDER_STATUS_PENDING = 0;
     private static final int ORDER_STATUS_APPROVED = 1;

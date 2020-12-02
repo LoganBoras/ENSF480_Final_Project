@@ -8,11 +8,13 @@ import java.util.ArrayList;
 
 public class Receipt {
 
+    //Type of order this receipt is for
     private final int receiptType;
     public static final int TYPE_CANCELLATION = 0;
     public static final int TYPE_TICKET = 1;
     public static final int TYPE_FEE = 2;
 
+    //Total cost of order this receipt is for
     private final double amount;
 
     // Summary of contents of order that this receipt is for
@@ -36,6 +38,11 @@ public class Receipt {
         this.summaryMessage = buildFeeOrderMessage(feeOrder);
     }
 
+    /**
+     * Builds message breaking down cost of fee and type of fee
+     * @param feeOrder
+     * @return
+     */
     private String buildFeeOrderMessage(FeeOrder feeOrder) {
         String message = "";
         message = message.concat("\t\tFee name:\t\tPrice:\n");
@@ -44,6 +51,12 @@ public class Receipt {
 
     }
 
+    /**
+     * Creates message breaking down all tickets in cancellation order and their
+     * refund costs
+     * @param cancellationOrder
+     * @return
+     */
     private String buildTicketCancellationOrderMessage(TicketCancellationOrder cancellationOrder) {
         String message = "";
         if (cancellationOrder.isAddAdminFee()) {

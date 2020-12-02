@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 public class MovieAnnouncementEmailStrategy extends EmailStrategy {
 
-    private Receipt receipt;
-
     /**
      * Ensure default constructor is not called
      */

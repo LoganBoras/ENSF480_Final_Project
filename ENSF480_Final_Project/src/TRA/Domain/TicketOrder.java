@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class TicketOrder extends Order {
 
+    //Tickets in order
     private final ArrayList<Ticket> ticketList;
 
     public TicketOrder(ArrayList<Ticket> ticketList) {

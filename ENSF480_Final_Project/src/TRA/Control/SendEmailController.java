@@ -28,6 +28,9 @@ public class SendEmailController extends Controller {
         this.strategy = strategy;
     }
 
+    /**
+     * Perform email strategy
+     */
     public void doAction() {
         //Send the email
         this.strategy.perform();

@@ -21,6 +21,9 @@ public class PayAnnualAccountFeeController extends Controller {
         this.tra = tra;
     }
 
+    /**
+     * Creates and processes payment for user paying annual account fee
+     */
     public void doAction() {
         //Build annual account fee order and fee strategy from user's credentials
         //Then process fee payment

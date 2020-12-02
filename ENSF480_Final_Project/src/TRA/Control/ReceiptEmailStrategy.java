@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class ReceiptEmailStrategy extends EmailStrategy {
 
-    private Receipt receipt;
-
     /**
      * Ensure default constructor is not called
      */
