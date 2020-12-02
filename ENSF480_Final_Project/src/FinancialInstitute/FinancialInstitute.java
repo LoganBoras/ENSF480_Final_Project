@@ -6,6 +6,11 @@ package FinancialInstitute;
 
 import TRA.Domain.Payment;
 
+/**
+ * 
+ * Interface class for a financial institute
+ *
+ */
 public interface FinancialInstitute {
 
     public void processPayment(Payment payment);

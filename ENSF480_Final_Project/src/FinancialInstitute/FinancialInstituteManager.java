@@ -6,6 +6,10 @@ package FinancialInstitute;
 
 import TRA.Domain.Payment;
 
+/**
+ * Class implementing financialInstitute to control interactions with an institute
+ *
+ */
 public class FinancialInstituteManager implements FinancialInstitute {
 
     /**

@@ -7,9 +7,20 @@ import java.util.ArrayList;
 
 import TRA.Domain.*;
 
+/**
+ * 
+ * @author Logan, Nurullo, Jayden, Roland
+ * 
+ * Database manager class meant to access and interact with the supplied TRA database.
+ */
 public class DatabaseManager {
 	  static Connection connection=null;
-		
+/**
+ * 		
+ * @param args
+ *  Initialization class in order to create the database connection
+ *  IMPORTANT: ensure password on line 46 is correct in relation to the local connection password
+ */
 public static void initialize(String[] args) {
 	
 	
@@ -50,7 +61,10 @@ public static void initialize(String[] args) {
 	  }
 	
 	}
-	 
+	 /**
+	  * 
+	  * @return returns all movies from the database
+	  */
 	 public static ArrayList<Movie> getMovies() {
 		 try {
 			 
@@ -83,6 +97,10 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
+	 /**
+	  * 
+	  * @return returns all theatres from the database
+	  */
 	 public static ArrayList<Theatre> getTheatres() {
 		 try {
 			 
@@ -114,6 +132,10 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
+	 /**
+	  * 
+	  * @return returns all showings from the database
+	  */
 	 public static ArrayList<Showing> getShowings() {
 		 try {
 			 ArrayList<Integer> id = new ArrayList<>();
@@ -161,6 +183,10 @@ public static void initialize(String[] args) {
 		 return null;
 	 }
 	 
+	 /**
+	  * 
+	  * @return returns all seats from the database
+	  */
 	 public static ArrayList<Seat> getSeats() {
 		 try {
 			 
@@ -193,7 +219,13 @@ public static void initialize(String[] args) {
 			    }
 		 return null;
 	 }
-
+	 
+	 /**
+	  * returns all seats belonging to a specific seatMap
+	  * 
+	  * @param seatMapID the ID of the seatMap used to find the seats
+	  * @return list of seats belonging to given seatmap
+	  */
 	public static ArrayList<Seat> getSeats(int seatMapID) {
 		try {
 
@@ -226,6 +258,11 @@ public static void initialize(String[] args) {
 		return null;
 	}
 	 
+	/**
+	 * returns all seatMaps from the database
+	 * 
+	 * @return array list of all seatmaps
+	 */
 	 public static ArrayList<SeatMap> getSeatMaps() {
 		 try {
 			 
@@ -266,6 +303,13 @@ public static void initialize(String[] args) {
 		 return null;
 	 }
 	 
+	 /**
+	  * 
+	  * returns a specific movie from the database given the title
+	  * 
+	  * @param movieTitle title of the movie to be returned
+	  * @return  movie to be returned
+	  */
 	 public static Movie getMovie(String movieTitle) {
 		 try {
 			 
@@ -283,6 +327,14 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
+	 /**
+	  * 
+	  * returns a specific theatre from the database given its name
+	  * 
+	  * @param theatreName name of the theatre to be returned
+	  * @return theatre to be returned
+
+	  */
 	 public static Theatre getTheatre(String theatreName) {
 		 try {
 			 
@@ -300,6 +352,13 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
+	 /**
+	  *  
+	  *  Returns a specific showing from the database given its ID
+	  *  
+	  * @param showingID ID of the showing to be returned
+	  * @return showing to be returned
+	  */
 	 public Showing getShowing(int showingID) {
 		 try {
 
@@ -338,6 +397,13 @@ public static void initialize(String[] args) {
 		 return null;
 	 }
 	 
+	 /**
+	  * returns a specific seat from the database given the ID of its seatMap and the seat's number
+	  * 
+	  * @param seatMapID ID of the seat map the eat belongs to
+	  * @param seatNumber Number of the seat to be returned
+	  * @return seat to be returned
+	  */
 	 public static Seat getSeat(String seatMapID, String seatNumber) {
 		 try {
 			 
@@ -355,6 +421,13 @@ public static void initialize(String[] args) {
 		return null;
 	 }
 	 
+	 /**
+	  * Retrieves a seatMap given a movie title, theatre name and show time
+	  * @param m movie title
+	  * @param t theatre name
+	  * @param st show time
+	  * @return returns found seatmap
+	  */
 	 public static SeatMap getSeatMap(String m, String t, String st) {
 		 try {
 			  // Get a result set containing all data from test_table
@@ -384,6 +457,12 @@ public static void initialize(String[] args) {
 			    }
 		 return null;
 	 }
+	 
+	 /**
+	  * Adds a movie to the database.
+	  * 
+	  * @param theMovie movie to be added
+	  */
 	 public static void insertMovie(Movie theMovie) {
 		 try {
 			 
@@ -399,6 +478,11 @@ public static void initialize(String[] args) {
 			    }
 	 }
 	 
+	 /**
+	  * Adds a theatre to the database.
+	  * 
+	  * @param theTheatre theatre to be added
+	  */
 	 public static void insertTheatre(Theatre theTheatre) {
 		 try {
 			 
@@ -413,6 +497,11 @@ public static void initialize(String[] args) {
 			  }
 	 }
 	 
+	 /**
+	  * Adds a showing to the database.
+	  * 
+	  * @param theShowing showing to be added
+	  */
 	 public static void insertShowing(Showing theShowing) {
 		 try {
 			 
@@ -428,6 +517,11 @@ public static void initialize(String[] args) {
 		 	}
 	 }
 	 
+	 /**
+	  * Adds a seat to the database.
+	  * 
+	  * @param theSeat seat to be added.
+	  */
 	 public static void insertSeat(Seat theSeat) {
 		 try {
 			 
@@ -443,6 +537,11 @@ public static void initialize(String[] args) {
 			    }
 	 }
 	 
+	 /**
+	  * adds a seatMap to the database.
+	  * 
+	  * @param theMap map to be inserted.
+	  */
 	 public static void insertSeatMap(SeatMap theMap) {
 		 try {
 			 
@@ -457,7 +556,12 @@ public static void initialize(String[] args) {
 			    
 			    }
 	 }
-
+	 
+	 /**
+	  * Updates a theatre within the database
+	  * 
+	  * @param theTheatre theatre whose information will be updated
+	  */
 	public static void updateTheatre(Theatre theTheatre) {
 		try {
 
@@ -473,7 +577,12 @@ public static void initialize(String[] args) {
 
 		}
 	}
-
+	
+	/**
+	 * Updates a showing within the database.
+	 * 
+	 * @param theShowing Showing to be updated
+	 */
 	public static void updateShowing(Showing theShowing) {
 		try {
 
@@ -492,7 +601,13 @@ public static void initialize(String[] args) {
 
 		}
 	}
-
+	
+	/**
+	 * Updates a seat within the database.
+	 * 
+	 * @param theMap map of the seat to be updated
+	 * @param theSeat seat to be updated
+	 */
 	public static void updateSeat(SeatMap theMap, Seat theSeat) {
 		try {
 
@@ -509,7 +624,12 @@ public static void initialize(String[] args) {
 
 		}
 	}
-
+	
+	/**
+	 * Updates a seatMap within the database.
+	 * 
+	 * @param theMap seatMap to be updated.
+	 */
 	public static void updateSeatMap(SeatMap theMap) {
 		try {
 			PreparedStatement st = connection.prepareStatement("UPDATE SeatMap SET reservedSeatCount = ?, NumberOfRows = ?, numberOfAvailableSeats = ?, WHERE seatMapID = ?");
@@ -526,7 +646,14 @@ public static void initialize(String[] args) {
 
 		}
 	}
-
+	
+	/**
+	 * Updates the vacancy of a seat in the database.
+	 * 
+	 * @param seatNumber number of the seat to be updated
+	 * @param seatMapID ID of the seatMap containing the seat
+	 * @param vacant vacancy of the seat to be updated.
+	 */
 	 public void updateSeatStatus(int seatNumber, int seatMapID, boolean vacant) {
 	     try {
 	     	System.out.println("number = " + seatNumber + " map id = " + seatMapID);
@@ -536,7 +663,14 @@ public static void initialize(String[] args) {
 	     	System.out.println("Could not update seat status " + e.getMessage());
 		 }
 	 }
-
+	 
+	 /**
+	  * Returns a list of showings from the database given the movie and theatre.
+	  * 
+	  * @param m title of the movie
+	  * @param t name of the theatre
+	  * @return array list of showings matching the parameters
+	  */
 	 public ArrayList<Showing> getShowingList(String m, String t) {
 		 try {
 			 ArrayList<Integer> id = new ArrayList<>();
@@ -582,7 +716,13 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
-
+	 
+	 /**
+	  * Registers a new user within the database if the user does not already exist.
+	  * 
+	  * @param u User to be added
+	  * @return Returns ID of the new user or -1 if failed
+	  */
 	 public int registerUser(RegisteredUser u) {
 		 try {
 		 	 int id = 0;
@@ -605,7 +745,13 @@ public static void initialize(String[] args) {
 		 }
 		 return -1;
 	 }
-
+	 
+	 /**
+	  * checks if an eamil already exists in the databse
+	  * 
+	  * @param email email address to be checked
+	  * @return returns true if the email is available
+	  */
 	 public boolean checkEmailAvailability(String email) {
 		 try {
 
@@ -624,6 +770,12 @@ public static void initialize(String[] args) {
 		 return false;
 	 }
 
+	 /**
+	  *  Checks if a given email and password combination are correct in order to log a user in
+	  * @param email email address of user
+	  * @param password password of user
+	  * @return returns true if login successful
+	  */
 	 public boolean validateLogin(String email, String password) {
 		 try {
 
@@ -641,7 +793,14 @@ public static void initialize(String[] args) {
 		 }
 		 return false;
 	 }
-
+	 
+	 /**
+	  * Finds a user given their email and password
+	  * 
+	  * @param email
+	  * @param password
+	  * @return
+	  */
 	 public RegisteredUser getUser(String email, String password) {
 		 try {
 
@@ -659,6 +818,11 @@ public static void initialize(String[] args) {
 		 return null;
 	 }
 	 
+	 /**
+	  * Finds a user in the database given their email
+	  * @param email email of the user
+	  * @return returns a user from the database
+	  */
 	 public RegisteredUser getUser(String email) {
 		 try {
 
@@ -675,7 +839,13 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
-
+	 
+	 /**
+	  * Creates an order within the databse
+	  * 
+	  * @param tickets tickets in the order
+	  * @param email email of the order
+	  */
 	 public void createOrder(ArrayList<Ticket> tickets, String email) {
 		 try {
 			 int ticketID = 0;
@@ -714,7 +884,12 @@ public static void initialize(String[] args) {
 
 		 }
 	 }
-
+	 
+	 /**
+	  * Returns all emails from the database
+	  * 
+	  * @return list of all emails in the database
+	  */
 	 public ArrayList<String> getEmails() {
 		 try {
 
@@ -734,7 +909,14 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
-
+	 
+	 /**
+	  * Finds the ID of a ticket in the database givin the ticket and its showing
+	  * 
+	  * @param s Showing of the ticket
+	  * @param t Ticket to be examined
+	  * @return returns id of the ticket
+	  */
 	 public int getTicketID(Showing s, Ticket t) {
 		 try {
 
@@ -759,7 +941,13 @@ public static void initialize(String[] args) {
 		 }
 		 return -1;
 	 }
-
+	 
+	 /**
+	  * Removes a ticket from the database
+	  * 
+	  * @param ticketID ID of the ticket to be removed
+	  * @return returns ID of the order
+	  */
 	 public int cancelTicket(int ticketID) {
 		 try {
 
@@ -784,7 +972,13 @@ public static void initialize(String[] args) {
 		 }
 		 return -1;
 	 }
-
+	 
+	 /**
+	  * finds all of the tickets within an order
+	  * 
+	  * @param email email of the order
+	  * @return returns a list of tickets from the order
+	  */
 	 public ArrayList<Ticket> getOrder(String email) {
 	     ArrayList<Ticket> t = new ArrayList<>();
 		 try {
@@ -832,7 +1026,13 @@ public static void initialize(String[] args) {
 		 }
 		 return null;
 	 }
-
+	 
+	 /**
+	  * Checks to see if an email has associated orders
+	  * 
+	  * @param email email to be checked
+	  * @return returns true if the email exists in orders
+	  */
 	public boolean emailExistsInOrders(String email) {
 		try {
 			Statement statement = connection.createStatement();
@@ -849,7 +1049,12 @@ public static void initialize(String[] args) {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * checks the status of an order given its ID
+	 * 
+	 * @param orderID ID of the order
+	 */
 	public void checkOrderStatus(int orderID) {
 		try {
 
